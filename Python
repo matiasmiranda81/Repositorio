@@ -1,0 +1,1957 @@
+#########################
+CURSO PYTHON EDUCACION IT
+#########################
+
+a= 7+5
+print (a)
+
+b= a * 30
+print (b)
+
+Saludo = "Hola mundo"
+#########################
+# OPERADORES ARITMETICOS
+#########################
+
++	Suma los valores de tipo numérico	
+5+2
+–	Resta los valores de tipo numérico	
+5-2
+
+– Asigna un valor negativo a un dato numérico	
+-5
+
+*	Multiplica los valores de tipo numérico	
+5*2
+
+/	Divide los valores de tipo numérico	
+5/2
+
+%	Devuelve el resto de la división entre los valores de tipo numérico	
+5%2
+
+//	Devuelve el cociente de la división entre los valores de tipo numérico	
+5//2
+
+**	Calcula el exponente entre valores de tipo numérico
+5**2
+
+##############################
+# OPERADORES DE COMPARACION
+##############################
+
+'''
+Son los que utilizamos para comparar dos valores. 
+Devuelve un valor booleano (true o false) dependiendo de la condición.
+'''
+
+==	Compara los valores para ver si son iguales	
+5==2                               
+!= Compara los valores para ver si son distintos	
+5!=2
+
+<	Compara que el valor situado a la izquierda sea menor que el situado a la derecha
+5<2
+
+>	Compara que el valor situado a la izquierda sea mayor que el situado a la derecha	
+5>2 
+
+<= Compara que el valor situado a la izquierda sea menor o igual que el situado a la derecha
+5<=2
+
+>= Compara que el valor situado a la izquierda sea mayor o igual que el situado a la derecha
+5>=2
+
+######################
+# OPERADORES LOGICOS
+######################
+
+# and Comprueba que el valor izquierdo y derecho se cumple	
+True and False
+False
+True and True
+True
+2 > 1
+True
+5 == 4
+False
+2 > 1 and 5 == 4
+False
+
+# or Comprueba que el valor izquierdo o el derecho se cumple
+print(True or False)
+print()
+# not Devuelve el valor contrario al valor booleano	
+not True
+
+
+################
+# CONDICIONALES
+################
+
+'''
+Los condicionales nos permiten diferir la ejecución de  una porción de código (es decir, una o más líneas)  
+según se cumpla una condición u otra; o, lo que es lo  mismo, 
+hacer que un bloque de código se ejecute  únicamente cuando se cumpla una condición. 
+Es decir,  los condicionales nos permiten modificar el flujo del  programa.
+'''
+
+a = 12  # Esta línea define una variable a con  el valor 12
+if a > 10: # Esta línea indica que el  código a continuación sólo debe ejecutarse  cuando la condición a > 10 sea verdadera.  
+	print("a es mayor que 10.")
+	
+'''La sangría es  necesaria para poder diferenciar el bloque  
+que se encuentra dentro del condicional  del resto del código.
+
+#IF
+		
+a = 12
+if a > 10:
+	print("a es mayor que 10.")  
+
+#ELSE
+# Else
+		
+a = 12
+if a > 10:
+	print("a es mayor que 10.")  
+else:
+	print("a es menor o igual que 10.")
+	
+'''
+la tercera  línea se ejecutará cuando a > 10 sea  verdadero; y la quinta, cuando sea falso.  
+Nótese que las palabras reservadas  if  y else 
+deben estar alineadas, es decir,  deben tener la misma sangría
+
+#ELIF Más condiciones.
+
+a = 5
+if a == 1:
+	print("a es 1.")  
+elif a == 2:
+	print("a es 2.")
+elif a > 2 and a < 10:
+	print("a es mayor que 2 y menor que 10.")  
+else:
+	print("a es mayor o igual que 10.")
+
+#Ejemplo:
+
+n = 11
+if n % 2 == 0:
+	print (n, "es un numero par")
+else:
+	print (n, "es numero impar")
+
+#Ejemplo:
+comando = "OTRA COSA"
+if comando == "ENTRAR":
+    print("Bienvenido al sistema")
+elif comando == "SALUDAR":
+    print("Hola, espero que te lo estés pasando bien aprendiendo Python")
+elif comando == "SALIR":
+    print("Saliendo del sistema...")
+else:
+    print("Este comando no se reconoce")
+
+#Python es sensitive case
+
+""" 
+EJERCICIO 1: Crear, en un script de Python, tres variables nombradas a , b y c con valores
+numéricos cualesquiera; una cuarta llamada resultado que sea la suma de las
+primeras tres, y por último imprimir en pantalla cada una de ellas. Antes de mostrar el
+valor de cada variable, indicar su nombre en una línea anterior.
+Un ejemplo de lo que se debería mostrar en pantalla es el siguiente:
+a:
+5
+b:
+7
+c:
+10
+resultado:
+22 
+"""
+
+a = 5
+b = 7
+C = 10
+
+print ("a:", a, "b:", b, "c:", c, "resultado:", resultado)
+
+
+###########
+# LISTAS
+###########
+
+'''Las listas nos permiten agrupar varios objetos  (de cualquiera de los cuatro tipos de dato  básicos que vimos) en una misma variable.
+Cada  uno de estos objetos se conoce como elemento.
+Para crear una lista vamos a escoger un nombre  e indicar, entre corchetes y separados por  comas, los elementos.
+Por ejemplo, el siguiente  código crea una lista de cinco números primos:'''
+
+numeros_primos = [2, 3, 5, 7, 11]
+
+# La siguiente es una lista con nombres de  alumnos:
+    
+alumnos = ["Jorge", "Matias", "Juan",  "Martin"]
+print(alumnos)
+# Y esta última una lista con valores de  distintos tipos de dato:
+print('____________________________')
+
+datos = [3.14, True, -1, False, "Hola  mundo"]
+print(datos)
+
+'''
+La disposición de los elementos al momento  de crear una lista es importante.
+Las listas  son colecciones ordenadas de objetos.
+A  cada uno de los elementos se le asigna un  INDICE,
+que no es otra cosa que la posición en  la que se encuentra en la lista,
+empezando  desde el 0.
+'''
+
+
+a = 12
+print(type(a))
+
+print("_"*10)
+
+b = "Hola"
+print(type(b))
+
+print("_"*10)
+
+numeros_primos = [2, 3, 5, 7, 11]
+
+print(type(numeros_primos))
+
+# Acceder a los elementos de una Listas
+
+'''Para acceder a un elemento de una lista a  partir de su índice,
+vamos a indicarlo entre  corchetes luego del nombre de la lista.
+'''
+
+numeros_primos[0]  
+numeros_primos[1]
+numeros_primos[2]  
+numeros_primos[3]
+numeros_primos[4]
+
+###########
+# LISTAS
+###########
+
+'''Las listas nos permiten agrupar varios objetos  (de cualquiera de los cuatro tipos de dato
+básicos que vimos) en una misma variable.
+Cada  uno de estos objetos se conoce como elemento.
+Para crear una lista vamos a escoger un nombre  e indicar, entre corchetes y separados por  comas, los elementos.
+Por ejemplo, el siguiente  código crea una lista de cinco números primos:'''
+
+numeros_primos = [2, 3, 5, 7, 11]
+
+# La siguiente es una lista con nombres de  alumnos:
+    
+alumnos = ["Jorge", "Matias", "Juan",  "Martin"]
+print(alumnos)
+# Y esta última una lista con valores de  distintos tipos de dato:
+print('____________________________')
+
+datos = [3.14, True, -1, False, "Hola  mundo"]
+print(datos)
+
+'''
+La disposición de los elementos al momento  de crear una lista es importante.
+Las listas  son colecciones ordenadas de objetos.
+A  cada uno de los elementos se le asigna un  INDICE,
+que no es otra cosa que la posición en  la que se encuentra en la lista,
+empezando  desde el 0.
+'''
+
+
+# Agregar  elementos a una Lista
+'''
+Para realizarlos usamos las sintaxis:
+nombre_lista.append(elemento) *Agrega al final de la lista"
+nombre_lista.insert(indice, elemento)
+'''
+numeros_primos.append(13)
+print(numeros_primos[5])
+print(numeros_primos)
+
+numeros_primos.insert(2,3.14)
+numeros_primos[2]
+numeros_primos
+
+# Eliminar elementos  y longitud de una Listas
+
+'''Para realizarlos usamos las sintaxis: 
+
+del nombre_lista[indice]
+
+len(nombre_lista)'''
+
+del numeros_primos[2]
+numeros_primos
+
+len(numeros_primos)
+
+'''Por último, para crear una lista vacía  usamos dos corchetes sin elementos:
+Esto puede resultar útil cuando no  conocemos los elementos de la lista al  momento de crearla, 
+pero los iremos  añadiendo vía append o insert en el  transcurso del programa.
+'''
+lista_vacia = []
+print(lista_vacia)
+
+
+####################################
+# ENTRADA DE DATOS - FUNCION input()
+####################################
+
+'''
+La función input() permite a los usuarios introducir datos de distintos tipos
+desde la entrada estándar (normalmente se corresponde con la entrada de un teclado).
+Y estos valores ingresados se pueden guardar en una variaable
+'''
+
+nombre = input('Escribe tu nombre: ')
+print(nombre)
+
+
+'''
+También, como el resultado de input es  siempre una cadena,
+podemos usar el  operador de suma para mostrar un saludo:
+'''
+
+nombre = input("Escribe tu nombre:")
+print("Hola"+ " " + nombre)
+
+
+
+####################################
+# ENTRADA DE DATOS - FUNCION input()
+####################################
+
+'''
+La función input() permite a los usuarios introducir datos de distintos tipos
+desde la entrada estándar (normalmente se corresponde con la entrada de un teclado).
+Y estos valores ingresados se pueden guardar en una variaable
+'''
+
+nombre = input('Escribe tu nombre: ')
+print(nombre)
+
+
+'''
+También, como el resultado de input es  siempre una cadena,
+podemos usar el  operador de suma para mostrar un saludo:
+'''
+
+nombre = input("Escribe tu nombre:")
+print("Hola"+ " " + nombre)
+
+
+####################################
+# CONVERSIONES ENTRE TIPOS DE DATOS
+####################################
+
+'''
+Es una acción muy común y muy sencilla la de  convertir de un tipo de dato a otro.
+Por ejemplo, podemos convertir un número de coma  flotante a un número entero vía la instrucción int.
+Como los números enteros no pueden tener parte  decimal,
+convertir un número de coma flotante a un  número entero implica despreciar los decimales.
+
+'''
+
+pi = 3.14
+pi_entero = int(pi)
+print(pi_entero)
+print(type(pi_entero))
+
+
+
+# Conversión de una cadena  a un número entero, usamos int
+
+numero_en_cadena = "30"
+numero_entero =  int(numero_en_cadena)
+numero_entero
+
+print(numero_en_cadena)
+print(type(numero_en_cadena))
+
+
+print(numero_entero)
+print(type(numero_entero))
+
+
+####################
+# Asignación múltiple
+####################
+
+'''
+Otra de las ventajas que Python nos provee,
+es la de poder asignar en una sola instrucción, múltiples variables:
+'''
+a, b, c = 'string', 15, True
+
+'''
+En una sola instrucción, estamos declarando tres variables:
+a, b y c y asignándoles un valor concreto a cada una:
+'''
+
+print(a)
+print(b)
+print(c)
+
+'''
+La asignación múltiple de variables,
+también puede darse utilizando como valores, el contenido de una lista:
+'''
+
+mi_lista = ['Argentina', 'Buenos Aires']
+pais, provincia = mi_lista
+print(pais)
+print(provincia)
+
+
+##################################
+# Conocer mas la funcion print()
+###################################
+
+a = 'azul'
+b = 'verde'
+c = 'rojo'
+
+# Primer punto a observar: print() separa cada argumento empleando un espacio en blanco.
+
+print(a,b,c)
+
+# Segundo punto: cada impresión con print() concluye con un salto de línea.
+
+print(a)
+print(b)
+print(c)
+
+'''
+La función print() admite un argumento, llamado sep, 
+que contiene la cadena de caracteres que emplearemos para separar cada elemento.
+'''
+print(a,b,c, sep = '-')
+
+# El argumento end =“” , permite continúe justo donde acabó, sin generar salto de línea.
+
+print(a,b,c)
+print(1,2,3)
+print(1,2,3)
+print('____________')
+
+print(a,b,c, end = ' ')
+print(1,2,3, end = ' ')
+print(1,2,3)
+
+
+
+##########################
+# Cadenas f
+########################
+'''
+En Python 3.6 se añadió (PEP 498) una nueva notación para cadenas llamada cadenas "f", 
+que simplifica la inserción de variables y expresiones en las cadenas. 
+Una cadena "f" contiene variables y expresiones entre llaves ({}) que se sustituyen directamente por su valor. 
+Las cadenas "f" se reconocen porque comienzan por una letra f antes de las comillas de apertura.
+'''
+nombre = "Pepe"
+edad = 25
+print(f"Me llamo {nombre} y tengo {edad} años.")
+
+semanas = 4
+print(f"En {semanas} semanas hay {7 * semanas} días.")
+
+# Esta notación no añade espacios que en la notación "clásica" 
+# aparecían al incluir varios argumentos separados por comas:
+
+fecha = 2020
+print("¡Feliz", fecha, "!")
+print(f"¡Feliz {fecha}!")
+
+
+##############################################
+# ESTRUCTURAS DE CONTROL DE FLUJO ITERATIVAS
+##############################################
+
+'''
+Un bucle o ciclo en programación es la ejecución  continua de un determinado bloque de código
+mientras una condición asignada se cumple..
+En python iteran sobre los ítem de cualquier secuencia (lista, cadena, diccionario) en el orden
+en que aparecen en la secuencia.
+'''
+
+#  BUCLE WHILE
+'''
+El bucle “while” en particular repite una  porción de código siempre que una expresión  sea verdadera. 
+'''
+
+
+i = 1
+while i <= 3:
+    print(i)
+    i += 1
+print("Programa terminado")
+
+print('______________________________')
+
+
+##############################################
+# ESTRUCTURAS DE CONTROL DE FLUJO ITERATIVAS
+##############################################
+
+'''
+Un bucle o ciclo en programación es la ejecución  continua de un determinado bloque de código
+mientras una condición asignada se cumple.
+'''
+
+#BUCLE WHILE
+'''
+El bucle “while” en particular repite una  porción de código siempre que una expresión  sea verdadera. 
+'''
+
+
+i = 1
+while i <= 3:
+    print(i)
+    i += 1
+print("Programa terminado")
+
+print("______________________________")
+
+i = 1
+while i <= 50:
+    print(i)
+    i = 3 * i + 1
+print("Programa terminado")
+
+
+
+numero = int(input("Escriba un número positivo: "))
+while numero < 0:
+    print("¡Ha escrito un número negativo! Inténtelo de nuevo")
+    numero = int(input("Escriba un número positivo: "))
+print("Gracias por su colaboración")
+
+
+'''
+Si la condición del bucle se cumple siempre, el bucle no terminará nunca de ejecutarse y tendremos lo que se denomina un bucle infinito. 
+Los bucles infinitos no intencionados deben evitarse pues significan perder el control del programa. 
+Para interrumpir un bucle infinito, hay que pulsar la combinación de teclas Ctrl+C. 
+Al interrumpir un programa se mostrará un mensaje de error
+'''
+
+i = 1
+while i <= 10:
+    print(i, end=" ")
+
+i = 1
+while i > 0:
+    print(i, end=" ")
+    i += 1
+
+i = 1
+while i != 100:
+    print(i, end=" ")
+    i += 2
+
+c = 0
+while c <= 5:
+    c+=1
+    if (c==4):
+        print("Rompemos el bucle cuando c vale",c)
+        break
+    print("c vale",c)
+else:
+    print("Se ha completado toda la iteración y c vale",c)
+
+
+# Creando un menú interactivo
+
+
+print("Bienvenido al menú interactivo")
+while(True):
+    print("""¿Qué quieres hacer? Escribe una opción
+    1) Saludar
+    2) Sumar dos números
+    3) Salir""")
+    opcion = input()
+    if opcion == '1':
+        print("Hola, espero que te lo estés pasando bien")
+    elif opcion == '2':
+        n1 = float(input("Introduce el primer número: "))
+        n2 = float(input("Introduce el segundo número: "))
+        print("El resultado de la suma es: ",n1+n2)
+    elif opcion =='3':
+        print("¡Hasta luego! Ha sido un placer ayudarte")
+        break
+    else:
+        print("Comando desconocido, vuelve a intentarlo")
+
+
+
+##############################################
+# ESTRUCTURAS DE CONTROL DE FLUJO ITERATIVAS
+##############################################
+
+
+'''
+While:
+Un bucle o ciclo en programación es la ejecución  continua de un determinado bloque de código mientras
+una condición asignada se cumple.
+
+For:
+En python iteran sobre los ítem de cualquier secuencia (lista, cadena, diccionario) en el orden en que aparecen en la secuencia.
+Iterar: significa realizar cierta acción repetidas veces y en el caso de for hace referencia a recorrer elementos iterables
+'''
+
+
+# Bucle FOR
+
+'''
+En el caso de un bucle FOR se debe especificar la variable donde se alojarán los ítem del elemento iterable (lista, diccionario, cadena, etc.)
+Se coloca la sentencia FOR seguida de la variable donde se almacenarán los ítem y luego del operador «in» el elemento a iterar:
+El bucle FOR, como tal, también repite la ejecución de un
+bloque de código, tantas veces como elementos contenga unalista.
+'''
+
+alumnos = ["Matias", "Jorge", "Martin", "Pablo"]
+for i in alumnos:
+    print(i)
+
+
+print("Comienzo")
+for i in [0, 1, 2]:
+    print("Hola ", end="")
+print()
+print("Final")
+
+
+print("Comienzo")
+for i in []:
+    print("Hola ", end="")
+print()
+print("Final")
+
+-- No entra al bucle
+
+print("Comienzo")
+for i in [1, 1, 1]:
+    print("Hola ", end="")
+print()
+print("Final")
+
+
+print("Comienzo")
+for _ in [0, 1, 2]:
+    print("Hola ", end="")
+print()
+print("Final")
+
+
+print("Comienzo")
+for i in [3, 4, 5]:
+    print(f"Hola. Ahora i vale {i} y su cuadrado {i ** 2}")
+
+print("Final")
+
+
+i = 10
+print(f"El bucle no ha comenzado. Ahora i vale {i}")
+
+for i in [0, 1, 2, 3, 4]:
+    print(f"{i} * {i} = {i ** 2}")
+
+print(f"El bucle ha terminado. Ahora i vale {i}")
+
+
+for i in "AMIGO":
+    print(f"Dame una {i}")
+print("¡AMIGO!")
+
+-- AMIGO es un elemento iterable
+
+#CONTADOR
+
+print("Comienzo")
+cuenta = 0
+for i in range(1, 6):
+    if i % 2 == 0:
+        cuenta = cuenta + 1
+print(f"Desde 1 hasta 5 hay {cuenta} múltiplos de 2")
+
+
+# ACUMULADOR
+print("Comienzo")
+suma = 0
+for i in [1, 2, 3, 4]:
+    suma = suma + i
+print(f"La suma de los números de 1 a 4 es {suma}")
+
+
+
+#################
+# EJERCICIOS 2
+#################
+
+
+'''
+EJERCICIO 11: Comparar la entrada del usuario
+Crear un programa que permita ingresar dos textos vía la consola y
+luego las compare, imprimiendo un mensaje en caso que sean iguales
+y otro en caso que sean diferentes.
+'''
+
+a = input("Escribe una texto: ")
+b = input("Escribe otra texto: ")
+if a == b:
+    print("Los textos son iguales.")
+else:
+    print("Los textos son diferentes.")
+
+
+'''
+EJERCICIO 12: Pedir nombre
+Crear un programa que solicite el nombre de un alumno a través de la
+consola, y luego chequee que no esté vacío. En caso de estarlo, debe
+imprimir un mensaje de error; en caso contrario, imprimir un mensaje
+indicando que se ingresó correctamente.
+'''
+
+nombre_alumno = input("Escriba el nombre de un alumno: ")
+if nombre_alumno == "":
+    print("Error: no ha ingresado un nombre válido.")
+else:
+    print("Has ingresado el alumno correctamente.")
+
+
+
+EJERCICIO 12: Pedir nombre
+Crear un programa que solicite el nombre de un alumno a través de la
+consola, y luego chequee que no esté vacío. En caso de estarlo, debe
+imprimir un mensaje de error; en caso contrario, imprimir un mensaje
+indicando que se ingresó correctamente.
+'''
+
+nombre_alumno = input("Escriba el nombre de un alumno: ")
+if nombre_alumno == "":
+    print("Error: no ha ingresado un nombre válido.")
+else:
+    print("Has ingresado el alumno correctamente.")
+
+
+EJERCICIO 13: Volver a pedir
+Pedir por teclado el nombre de usuario, si está vacío,
+volver a pedirlo hasta que se ingrese un nombre.
+Luego, saludar al usuario.
+'''
+
+nombre = input("Ingrese nombre: ")
+
+while nombre == "":
+	print("¡Error de ingreso!")
+	nombre = input("Ingrese el nombre nuevamente: ")
+
+print("Hola "+nombre)
+
+EJERCICIO 14
+En un sistema de agencia de viajes se tiene un sistema de
+información para paquetes turísticos. Se quiere hacer un
+programa que al ingresar el paquete (solo la letra) te de una
+descripción de lo que contiene cada “combo”.
+a. Paquete A: “Cancún 7 noches + Aéreos u$s 1200 por persona”
+b. Paquete B: “Miami 8 noches + Aéreos + Alquiler de Auto u$s 1500
+por persona”
+c. Paquete C: “Bariloche 10 noches + Aéreos + excursiones u$s 1300
+por persona”
+d. Paquete D: “Rio de Janeiro 10 noches + Aéreos + excursiones u$s 1400
+por persona
+'''
+paquete = input("Ingrese el paquete: ")
+
+if paquete =="A" or paquete == "a":
+    print("Cancún 7 noches + Aéreos u$s 1200 por persona")
+elif paquete == "B" or paquete == "b":
+    print("Miami 8 noches + Aéreos + Alquiler de Auto u$s 1500 por persona")
+elif paquete == "C" or paquete =="c":
+    print("Bariloche 10 noches + Aéreos + excursiones u$s 1300 por persona")
+elif paquete == "D" or paquete == "d":
+    print("Rio de Janeiro 10 noches + Aéreos + excursiones u$s 1400 por persona")
+else:
+    print("Error de opción")
+
+
+#########################
+# COLECCIONES EN PYTHON
+#########################
+
+'''
+Una colección permite agrupar varios objetos bajo un mismo nombre. Por  ejemplo, 
+si necesitamos almacenar en nuestro programa los nombres de  los alumnos de un curso de programación, 
+será más conveniente ubicarlos  a todos dentro de una misma colección de nombre alumnos, en lugar de  crear
+los objetos alumno1, alumno2, etc. 
+Como estuvimos haciendo con las  listas. Las listas forman parte de lo que llamamos “colecciones” de Python.
+Las colecciones permiten acceder de forma rápida y organizada a los datos.  
+
+Colecciones en Python:
+Listas (ya conocidas por nosotros).
+Tuplas.
+Diccionarios.
+'''
+
+############
+ # Tuplas
+############
+'''
+En Python, una tupla es un conjunto  ordenado e inmutable de elementos de  este o de diferente tipo. 
+Se representan  escribiendo los elementos entre paréntesis  y separados por comas. 
+Se accede por el  índice, al igual que sucedía en las listas.
+Las tuplas no permiten asignación  de ítems, y tampoco tienen métodos
+'''
+datos = (10,"Hola",5.5,True)
+print(type(datos))
+
+# Listas vs Tuplas en Python
+
+mi_lista = [1,2,3]
+print(type(mi_lista))
+
+mi_tupla = (3,4,5)
+print(type(mi_tupla))
+
+
+# LISTAS son mutables
+mi_lista[1] = 'two'
+mi_lista.append('four')
+##
+mi_lista
+
+# TUPLAS son inmutables
+mi_tupla[1] = 'two'
+mi_tupla.append('four')
+
+
+'''
+La diferencia cultural trata de como se utilizan realmente las listas y las tuplas: 
+las listas se utilizan cuando se tiene una secuencia homogénea de longitud desconocida, 
+las tuplas se utilizan cuando se conoce el número de elementos de antemano debido a que 
+la posición del elemento es semánticamente significativa
+
+Por ejemplo, supongamos tenemos una función que dentro de un directorio nos devuelve todos los archivos .py (*.py). 
+Esto se debería devolver en una lista, porque no sabemos cuantos archivos podemos encontrar.
+
+Por otra parte, supongamos que necesitamos almacenar 5 valores para representar la ubicación 
+de las estaciones de observación meteorológicas: id, city, state, latitude y longitude. 
+Una tupla es lo más adecuado para esto en lugar de una lista
+'''
+# Ilustra el uso de listas
+import os
+
+# Directorio donde se encuentran los archivos
+directorio = "C:/Users/luisj/Desktop/ejemplo_lista"
+
+# Obtener los nombres de los archivos en el directorio
+archivos = os.listdir(directorio)
+
+# Crear una lista para almacenar los nombres de los archivos
+lista_de_archivos = []
+
+# Agregar los nombres de los archivos a la lista
+for archivo in archivos:
+    lista_de_archivos.append(archivo)
+
+# Imprimir la lista de archivos
+print(lista_de_archivos)
+
+
+
+###############
+ # Diccionarios
+###############
+'''
+Los diccionarios son colecciones, al igual  que las listas, pero sus elementos (o valores)  
+no están ordenados ni asociados a un  índice, sino a una clave. 
+Entonces, decimos  que los miembros de un diccionario que  son pares de clave-valor.
+Para crear un diccionario vamos a emplear  llaves y separar sus miembros por comas,  
+que a su vez serán pares de una clave y un  valor separados por dos puntos.
+El siguiente código crea un diccionario de nombre  alumno1 cuyas claves son "nombre" y  "cursos", 
+y sus valores, respectivamente,  "Pablo" y 3. 
+Los valores de un diccionario  pueden ser de cualquier tipo de dato,  incluidos otros diccionarios y listas.
+'''
+
+
+alumno1 = {"nombre": "Pablo", "cursos": 3}
+
+print(type(alumno1))
+# Para acceder a los valores
+
+print(alumno1["nombre"])  
+print(alumno1["cursos"])
+
+# Para cambiar los valores
+
+alumno1["cursos"] = 4
+print(alumno1["cursos"])
+
+
+# Para crear nuevos pares CLAVE:VALOR
+
+alumno1["curso_actual"] = "Python"
+print(alumno1["curso_actual"])
+
+
+'''
+Usando un bucle “for” sobre un  diccionario tenemos acceso a cada una de  sus claves.
+el “for” recorre las claves del  diccionario 
+'''
+
+for clave in alumno1:  
+	print(clave)
+
+# Para imprimir el valor que tiene cada clave
+
+for clave in alumno1:  
+	print(clave)  
+	print(alumno1[clave])
+
+
+##############################
+# Operadores de  pertenencia
+##############################
+'''
+En Python los operadores IN y NOT IN se llaman operadores  de pertenencia. 
+se usan para  determinar si las variables se encuentran en una 
+colección  (lista, tupla y diccionario) o no.
+in: devuelve True cuando el valor está presente en la  secuencia.
+not in: devuelve True cuando el valor no está presente  en la secuencia.
+'''
+
+# En las listas se pregunta directamente  por el elemento(item).
+
+nombres = ["Juan","Tomas","Susana"]
+
+"Susana" in nombres  
+
+"Alejandro" in nombres  
+
+
+# En los diccionarios se pregunta por el key.
+
+alumnos = {"Juan":5,"Florencia":10,"Horacio":1}
+
+"Juan" in alumnos  
+
+"Victoria" in alumnos  
+
+"Florencia" not in alumnos  
+
+"Esteban" not in alumnos  
+
+
+##################
+# Funcion RANGE
+##################
+
+'''
+La mayoría de las tareas que requieren repitencia de un  código, 
+los bucles son la herramienta  ideal.
+Supongamos que queremos imprimir números del uno  al diez. 
+'''
+# Usar WHILE
+i = 1
+while i <= 10:  
+	print(i)  
+	i = i + 1
+
+# Usar FOR
+for i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]:
+print(i)
+
+# RANGE genera un conjunto de números enteros  en tiempo de ejecución
+
+for i in range(1, 11):  
+	print(i)
+
+for i in range(1, 101):  
+	print(i)
+
+* Hay que dar un número más de rango.
+
+
+######################
+# El método ISDECIMAL
+######################
+
+'''
+Los métodos son funciones que tienen algunos objetos en  este lenguaje, 
+los cuales nos ayudan a resolver una  problemática sobre el propio objeto.
+Cuando ingresamos un número por la consola, 
+ese  número ingresa a nuestro programa como un string, y  deberíamos convertirlo.
+Pero si hipotéticamente, diseñamos un programa que  pedimos un valor numérico entero 
+y luego el usuario  ingresa un dato que no se puede convertir con la función  int(), 
+nuestro programa termina de forma imprevista  porque se produce un error de conversión.
+El método ISDECIMAL() que tienen los string nos va a  permitir 
+evaluar si “ese dato” ingresado es posible de  convertir, o no. 
+'''
+edad = input("Ingrese edad: ")  
+edad.isdecimal()
+
+
+# Ahora sabiendo que efectivamente se puede convertir  procederíamos a convertir a entero sin problemas.
+
+
+edad = input("Ingrese edad: ")  
+print(edad.isdecimal())
+
+edad = int(edad)
+
+print(edad)
+print(type(edad))
+
+
+
+##################
+# FUNCIONES
+##################
+'''
+Las funciones nos permiten agrupar una o más líneas de código bajo
+un mismo nombre. Su objetivo principal es el de evitar la repetición
+de código, haciendo de un archivo de código de fuente más claro,
+legible y fácil de mantener. 
+'''
+
+
+print("¡Hola mundo!")
+print("Desde Python.")
+a = 5
+b = 7
+c = a * b
+print(c)
+print("¡Hola mundo!")
+print("Desde Python.")
+
+
+La creación de una función requiere de la palabra reservada "def", seguida de un nombre a elección, un par de paréntesis y dos puntos. 
+El bloque de código dentro de la función debe tener sangría, tal como ocurría con los bucles y
+los condicionales.
+
+Definición de función:
+def mi_funcion():
+	print("¡Hola mundo!")
+	print("Desde Python.")
+
+print ('=' *10)
+
+'''
+Ahora que tenemos esta función, en los lugares donde hacíamos uso de esas dos líneas simplemente pondremos mi_funcion() .
+'''
+
+mi_funcion()
+a = 5
+b = 7
+c = a * b
+print(c)
+
+'''Llamada:'''
+mi_funcion()
+
+################
+# Argumentos
+################
+'''
+Una función puede tener múltiples argumentos, la cantidad que nosotros
+precisemos. Para indicar más de uno separamos sus nombres por comas.
+Por ejemplo:
+'''
+def imprimir_suma(a, b):
+	print("Resultado:")
+	print(a + b)
+
+imprimir_suma(7, 5)
+imprimir_suma(-5, 3.5)
+
+'''
+La función imprimir_suma() requiere dos argumentos, al primero de ellos le dimos el nombre a y, al segundo, b. Al llamarla, indicamos en orden los valores que queremos otorgarle, separados por comas.
+'''
+
+
+'''
+Cambiemos el ejemplo y consideremos ahora el siguiente código:
+'''
+alumnos = ["Pablo", "Juan", "Matias", "Martin"]
+notas = [5.5, 9, 6.25, 8]
+
+print("Alumnos:")
+for alumno in alumnos:
+	print(alumno)
+
+print("Notas:")
+for nota in notas:
+	print(nota)
+
+'''
+En este caso también tenemos cierta repitencia: los bucles “for” son muy
+similares, aunque cambia el nombre de la lista sobre la que se aplican. 
+No obstante,el método es siempre el mismo: recorrer cada uno de los elementos de la lista e imprimirlos en pantalla vía print().
+Si tuviésemos que hacer una versión genérica de ese bucle “for”, podríamos expresarla así:
+
+for elemento in lista:
+print(elemento)
+
+Donde lista puede ser alumnos o notas, o bien cualquier otra lista de la cual queramos imprimir sus elementos. Esto bien podemos hacerlo en una función:
+'''
+
+def imprimir_elementos(lista):
+	for elemento in lista:
+		print(elemento)
+
+
+alumnos = ["Pablo", "Juan", "Matias", "Martin"]
+notas = [5.5, 9, 6.25, 8]
+
+print("Alumnos:")
+imprimir_elementos(alumnos)
+
+print("Notas:")
+imprimir_elementos(notas)
+
+###################
+# Sentencia RETURN
+###################
+
+'''
+Una sentencia es una instrucción que el intérprete de Python puede ejecutar. 
+Return se  utiliza para devolver un valor, para cargar el resultado de una función.
+'''
+def cal (x,y):
+	z = x + y
+	return z --Guarda Z como resultado
+	
+a = cal(1,2)
+b = cal(3,4)
+c = cal(5,6)
+
+d = a +b + c
+
+print(d)
+
+
+###################
+# EJERCICIOS
+###################
+
+'''
+EJERCICIO 15. 
+Escriba un programa que permita crear una lista de
+nombres. Para ello, el programa tiene que pedir un número
+y luego solicitar esa cantidad de nombres para crear la lista.
+Por último, el programa tiene que mostrar la lista creada
+recorriendo la lista con un for.
+'''
+#Ingreso por teclado de la cantidad de nombres
+cantidad = input("¿Cuantos nombres desea ingresar?: ")
+
+#Chequeamos que sea un numero
+while cantidad.isdecimal() == False:
+    print("¡Error. Solo numeros!")
+    cantidad = input("Ingrese un numero: ")
+
+#Convertimos
+cantidad = int(cantidad)
+
+#Arranca la lista vacia
+nombres = []
+
+#Variable contador = 0
+contador = 0
+
+#Este bucle generara el ingreso de los nombres segun cantidad
+while contador < cantidad:
+    #Variable name para que sea auxiliar para guardar ingresos
+    name = input("Ingrese un nombre: ")
+    #el append siempre agrega al final de las listas
+    nombres.append(name)
+    #variable contador(de vueltas) se usara para comparar con cantidad
+    contador = contador + 1
+
+print(nombres)
+
+print('='*10)
+
+for nombre in nombres:
+    print(nombre)
+
+
+'''
+EJERCICIO 16. Escriba un programa que permita crear una lista de nombres
+(como en el ejercicio anterior). Luego pida escribir una serie de nombres y que diga cuántas veces aparece ese nombre en la lista.
+'''
+
+#Arranca la lista vacia
+nombres = []
+
+#Ingreso por teclado de la cantidad de nombres
+cantidad = input("¿Cuantos nombres desea ingresar?: ")
+
+#Chequeamos que sea un numero
+while cantidad.isdecimal() == False:
+    print("¡Error. Solo numeros!")
+    cantidad = input("Ingrese un numero: ")
+
+#Convertimos
+cantidad = int(cantidad)
+
+#Variable contador = 0
+contador = 0
+
+#Este bucle generara el ingreso de los nombres segun cantidad
+while contador < cantidad:
+    #Variable name para que sea auxiliar para guardar ingresos
+    name = input("Ingrese un nombre: ")
+    #el append siempre agrega al final de las listas
+    nombres.append(name)
+    #variable contador(de vueltas) se usara para comparar con cantidad
+    contador = contador + 1
+
+print("*** ATENCION ***")
+
+#Ahora tenemos que pedir el nombre que queremos ver cuantas veces aparece
+dato = input("Ingrese nombre para verificar: ")
+
+# Veces sera una variable donde contaremos las veces que aparece ese 'x' nombre
+veces = 0
+
+#con el for recorremos la lista nombres (n es la auxiliar del for)
+for n in nombres:
+    #Este if verifica si hay coincidencia
+    if n == dato:
+        #incrementamos la variable veces si hay coincidencia
+        veces = veces + 1 
+
+#Al terminar el for sabremos si hubo repeticiones
+
+print( dato + " aparece " + str(veces) + " veces")
+
+
+'''
+EJERCICIO 17. Crea una función que reciba un dato ingresado por
+teclado(str), que verifique que sea un número entero posible de convertir (a int), y si no lo es vuelva a pedir ese dato, hasta que sea posible de convertirlo.
+Luego que retorne el entero convertido.
+Por último definir si es mayor o menor de edad.
+'''
+
+def convertir(dato):
+    while dato.isdecimal() == False:
+        print("¡Error!")
+        dato = input("Ingrese nuevamente: ")
+    return int(dato)
+
+###########################################
+
+#ejemplo de como y donde se podría usar:
+
+...
+edad = input("Ingrese su edad: ")
+edad = convertir(edad)
+...
+
+...
+if edad < 18:
+    print("Menor de edad")
+else:
+    print("Menor de edad")
+'''
+
+
+EJERCICIO 18. Escribir un programa que cree un diccionario vacío y lo
+vaya llenando con personas. Donde el nombre(str) será la
+clave(el key) y el valor(value) la edad(int).
+El programa debe estar acompañado de un menú:
+Menú:
+A) Agregar.
+B) Mostrar el más chico.
+C) Mostrar el más grande.
+D) Salir.
+La opción de agregar inserta a una persona. Mostrar el más
+chico, nos debería mostrar el nombre de la persona más chica,
+y viceversa el de mostrar el más grande. Con la opción 4
+deberíamos salir del programa.
+'''
+personas = {}
+
+while True:
+    print("Menú:")
+    print("1 - Agregar")
+    print("2 - Mostrar el más chico")
+    print("3 - Mostrar el más grande")
+    print("4 - Salir")
+    opcion = input(">>> ")
+    if opcion == "1":
+        nombre = input("Ingrese un nombre: ")
+        nombre = verificar(nombre)
+        edad = input("Ingrese una edad: ")
+        edad = convertir(edad)
+        personas[nombre] = edad
+        print("¡Se agrego una persona!")
+    elif opcion == "2":
+        # El 'truco' consiste en poner el 200 para 
+        # que arranque aux_edad con un número grande 
+        # y siempre tome el primero del diccionario.
+        aux_edad = 200 
+        # aux_nombre la dejamos vacio
+        aux_nombre = ""
+        for n in personas:
+            if personas[n] < aux_edad:
+                aux_edad = personas[n]
+                aux_nombre = n
+        print(aux_nombre +" es la persona más chica")
+    elif opcion == "3":
+        # El 'truco' consiste en poner el 0 para 
+        # que arranque aux_edad con cero
+        # y siempre tome el primero del diccionario.
+        aux_edad = 0
+        # aux_nombre la dejamos vacio
+        aux_nombre = ""
+        for n in personas:
+            if personas[n] > aux_edad:
+                aux_edad = personas[n]
+                aux_nombre = n
+        print(aux_nombre +" es la persona más grande")
+    elif opcion == "4":
+        print("¡Gracias por utilizar el programa!")
+        break
+    else:
+        print("¡Error de opción!")
+
+
+
+###############
+# BIBLIOTECAS / LIBRERÍAS
+###############
+
+'''
+En informática, una biblioteca o, llamada por vicio del idioma librería (del inglés library) es un conjunto de  implementaciones funcionales, codificadas en un  lenguaje de programación, que ofrece una interfaz  bien definida para la funcionalidad que se invoca.
+La biblioteca estándar de Python es muy amplia, ofrece una gran variedad de módulos incorporados que brindan acceso a las funcionalidades del sistema y soluciones estandarizadas para los diversos problemas que pueden  ocurrir en el día a día en la programación.
+'''
+#########################
+
+# El módulo “time”
+# https://docs.python.org/es/3/library/time.html )  proporciona varias funciones relacionadas con el tiempo.
+
+import time
+print(time.asctime()) #arroja la fecha y hora actual. 
+
+
+time.sleep(5) #demora la ejecucuion del programa.
+
+print(time.asctime())
+
+
+'''Hacer un script contador de 0 hasta 10, que vaya  mostrando los números segundo a segundo.
+'''
+
+import time 
+
+
+i = 0
+
+
+while i < 10:
+
+    print(i)
+
+    time.sleep(1)
+
+    i = i + 1
+
+
+
+
+EJERCICIO 18. Escribir un programa que cree un diccionario vacío y lo
+vaya llenando con personas. Donde el nombre(str) será la
+clave(el key) y el valor(value) la edad(int).
+El programa debe estar acompañado de un menú:
+Menú:
+A) Agregar.
+B) Mostrar el más chico.
+C) Mostrar el más grande.
+D) Salir.
+La opción de agregar inserta a una persona. Mostrar el más
+chico, nos debería mostrar el nombre de la persona más chica,
+y viceversa el de mostrar el más grande. Con la opción 4
+deberíamos salir del programa.
+'''
+personas = {}
+
+while True:
+    print("Menú:")
+    print("1 - Agregar")
+    print("2 - Mostrar el más chico")
+    print("3 - Mostrar el más grande")
+    print("4 - Salir")
+    opcion = input(">>> ")
+    if opcion == "1":
+        nombre = input("Ingrese un nombre: ")
+        nombre = verificar(nombre)
+        edad = input("Ingrese una edad: ")
+        edad = convertir(edad)
+        personas[nombre] = edad
+        print("¡Se agrego una persona!")
+    elif opcion == "2":
+        # El 'truco' consiste en poner el 200 para 
+        # que arranque aux_edad con un número grande 
+        # y siempre tome el primero del diccionario.
+        aux_edad = 200 
+        # aux_nombre la dejamos vacio
+        aux_nombre = ""
+        for n in personas:
+            if personas[n] < aux_edad:
+                aux_edad = personas[n]
+                aux_nombre = n
+        print(aux_nombre +" es la persona más chica")
+    elif opcion == "3":
+        # El 'truco' consiste en poner el 0 para 
+        # que arranque aux_edad con cero
+        # y siempre tome el primero del diccionario.
+        aux_edad = 0
+        # aux_nombre la dejamos vacio
+        aux_nombre = ""
+        for n in personas:
+            if personas[n] > aux_edad:
+                aux_edad = personas[n]
+                aux_nombre = n
+        print(aux_nombre +" es la persona más grande")
+    elif opcion == "4":
+        print("¡Gracias por utilizar el programa!")
+        break
+    else:
+        print("¡Error de opción!")
+
+
+https://docs.python.org/es/3/library
+
+###############
+# BIBLIOTECA
+###############
+
+'''
+En informática, una biblioteca o, llamada por vicio del  idioma librería (del inglés library) 
+es un conjunto de  implementaciones funcionales, codificadas en un  lenguaje de programación, 
+que ofrece una interfaz  bien definida para la funcionalidad que se invoca.
+La biblioteca estándar de Python es muy amplia, ofrece  una gran variedad de módulos incorporados 
+que brindan  acceso a las funcionalidades del sistema y soluciones  
+estandarizadas para los diversos problemas que pueden  ocurrir en el día a día en la programación.
+'''
+#########################
+
+# El módulo “time”
+# https://docs.python.org/es/3/library/time.html )  proporciona varias funciones relacionadas  con el tiempo.
+
+import time
+print(time.asctime()) #arroja la fecha y hora actual. 
+
+
+time.sleep(10) #demora la ejecucuion del programa.
+
+print(time.asctime())
+
+
+'''Hacer un script contador de 0 hasta 10, que vaya  mostrando los números segundo a segundo.
+'''
+
+import time as ti
+
+
+i = 100
+
+
+while i < 101:
+
+    print(i)
+
+    ti.sleep(1)
+
+    i = i - 1
+
+###########################
+# El módulo “random”
+import random as ra
+
+print(random.randint(1,100))
+
+print(random.randint(1,100))
+
+print(random.randint(1,100))
+
+print(random.randint(1,100))
+print(random.randint(1,100))
+
+print(random.randint(1,100))
+
+
+'''Generar un programa de consola que tenga un
+menú y permita generar números aleatorios
+entre 1 y 6, como si fuera un dado.
+Menú:
+1. Tirar dado.
+2. Salir
+'''
+import random
+
+while True:
+    print("Menú")
+    print("1 - Tirar dado")
+    print("2 - Salir")
+    opcion = input(">>> ")
+    if opcion == "1":
+        valor = random.randint(1,6)
+        print("El valor del dado es:", valor)
+    elif opcion == "2":
+        print(" ¡Gracias por usar nuestro programa! ")
+        break
+    else:
+        print("¡No existe esa opción!")
+
+----------------------------
+
+INTERFAZ GRAFICA:
+
+import tkinter as tk
+
+A continuación lo primero que debemos hacer es crear el control principal (la ventana)
+
+ventana = tk.Tk()
+
+ventana.mainloop()
+
+La primer línea crea una ventana y la guarda en el objeto homónimo;
+La seguna hace que la ventana se vuelva visible y no se detenga hasta que el usuario la cierre.
+
+Todos los controles que arrojemos dentro de la ventana deberán estar definidos entre la creación de la variable venana y la llamada a la función mainloop().
+
+ventana.config(), permite establecer el ancho y alto de la ventana.
+
+ventana.config(width-400, heigh-300)
+
+Título de la ventana:
+
+ventana.title()
+
+ventana.title("Primera aplicación de escritorio")
+
+Controles básicos:
+
+Botones:
+boton = tk.Button(text="Hola Mundo")
+boton.place(x=20, y=50, width=100, height=30)
+
+Caja de texto:
+caja = tk.Entry()
+caja.place(x=20, y=120, width=200, height=25)
+
+Etiquetas:
+
+etiqueta = tk.Label(text="Ingrese su nombre: ")
+etiqueta.place(x=20, y=90)
+
+INTERACCIONES:
+
+def boton_presionado():
+	print("Hola mundo")
+
+Ejemplos:
+
+boton = tk.Button(text="Hola Mundo", command=boton_presionado)
+boton.place(x=20, y=50, width=100, height=30)
+
+Get()
+caja.get()
+
+def boton_presionado():
+	print(caja.get())
+
+Toma el valor de la caja y lo imprime.
+
+
+
+EJERCICIO 19
+Crear una aplicación de escritorio con dos cajas de texto y un botón, de modo que al presionarlo se imprima en pantalla la suma de los dos números ingresados en las primeras.
+La disposición de los controles y el tamaño de la ventana son a elección.
+
+-- importar librería
+import tkinter as tk
+
+-- definir función convertir
+def convertir(dato):
+	if dato.isdecimal():
+		dato = int(dato)
+	else:
+		dato = "error"
+	return dato
+
+-- Obtener el texto ingresado en cada caja
+-- Convertimos a entero
+def sumar():
+	a = caja_a.get()
+	a = convertir(a)
+	b = caja_b.get()
+	b = convertir(b)
+	if a != "error" and b!="error":
+		print (a+b)
+	else:
+		print("No se puede realizar")
+
+
+-- Interfaz gráfica
+ventana = tk.Tk()
+ventana.config(width=250, height=200)
+ventana.tittle("Ejemplo")
+
+caja_a = tk.Entry()
+caja_a.place(x=20, y=20, width=50, heigh=25)
+
+caja_b = tk.Entry()
+caja_b.place(x=20, y=60, width=50, heigh=25)
+
+boton = tk.button (text="Sumar", command=sumar)
+boton.place(x=20, y=100)
+
+-- ventana visible
+ventana.mainloop()
+
+----------------------------------------------------------
+
+EJERCICIO 20
+Escribir una función que sirva para multiplicar cada elemento de una lista numérica por un valor. Y devuelva la nueva lista con cada elemento en su respectiva posición, pero ya multiplicado.
+
+-- función de multiplicar
+def multiplicar(lista,valor):
+	nueva = []
+	for n in lista:
+		resultado = n * valor
+		nueva.append(resultado)
+	return nueva
+
+-- valores de ejemplo
+numeros = [10, 5, 3, 20]
+m = 5
+
+print (multiplicar(numeros,m))
+
+
+---------------------------------------------------------
+
+EJERCICIO 21
+Escribir un programa de consola que tenga un menú y que permita generar números aleatorios entre 0 y 36, tipo una ruleta de casino. Que diga la frase "ruleta girand" cuando elijamos la opción "Probar suerte". Y cuando pasen 5 segunddos diga "¡No va más!" y luego de 2 segundos muestre el número generado al azar, indicando si es par o impar. Que indique también si está en la primera(1-12), segunda(13-24), o tercera docena(25-36).
+Menú:
+a. Probar suerte.
+b. Salir.
+
+-- Importar librería (2 formas)
+import time
+import random
+
+import time, random
+
+
+-- Definir función par/impar
+def par_impar(dato):
+	if dato % 2 == 0:
+		print ("-> Par")
+	else:
+		print ("-> Impar")
+
+-- Definir función docena
+def docena(dato):
+	if 1<=dato<=12:
+		print("--> Primera docena")
+	elif 13<=dato<=24:
+		print("--> Segunda docena")
+	elif 25<=dato<=36:
+		print("--> Tercera docena")
+	else:
+		print("--> ¡Salió el cero!")
+
+-- Menú
+while true:
+	print ("Menú")
+	print ("1. Probar suerte")
+	print ("2. Salir")
+	opcion = input (">> ")
+	if opcion == "1":
+		print("Ruleta girando...")
+		time.sleep(5)
+		print("¡No va más!")
+		time.sleep(2)
+		valor = random.randint(0,36)
+		print("Salio el:", valor)
+		par_impar(valor)
+		docena(valor)
+	elif opcion == "2":
+		print ("¡Gracias por usar nuestro programa! ")
+		break
+	else:
+		print("¡No existe esa opción!")
+		
+EJERCICIO 22:
+Al ejercicio que está en el módulo 4, el de generar un número aleatorio del 1 al 6 (simulábamos el arrojar un dado), ahora debemos pasarlo a una aplicación de escritorio. La vista de la aplicación debería ser similar a la figura 1.
+En la caja deberían de aparecer los resultados aleatorios cada vez que se presiona el botón. Antes de mostrar los resultados se limpia la caja, dejando el mismo resultado hasta que se vuelve a pulsar.
+Ayuda:
+Si tenemos una "caja" generada con tk.Entry()
+- caja.delete (0,tk.END) llamada desde cualquier función limpia la caja.
+- caja.insert(0,variable) llamada desde cualquier función inserta el valor de variable en la caja.
+
+-- importar librerías
+import tkinter as tk
+import random
+
+-- función dado
+def arrojar():
+	caja.delete(0,tk.END)
+	valor = random.randint(1,6)
+	caja.insert(0,valor)
+
+-- ventana
+ventana = tk.Tk()
+ventana.config(width=220, heigh=200)
+ventana.title("Dado 2.0")
+boton = tk.Button (text="Arrojar el dado", command=arrojar)
+boton.place(x=60, y=40, width=100, height=50)
+etq = tk.Label (text="valor: ")
+etq.place(x=60, y=110)
+caja = tk.Entry()
+caja.place(x=60, y=140, width=100)
+ventana.mainloop()
+
+---------------------------------------------------------
+
+EJERCICIO 23:
+Armar una calculadora sencilla.
+
+-- importar librería con alias
+import tkinter as tk
+
+-- función convertir
+def convertir(dato):
+	if dato.isdecimal():
+		dato = int(dato)
+	else:
+		dato = "error"
+	return dato
+
+-- función sumar
+def sumar():
+	cajatres.delete(0,tk.END)
+	a = cajauno.get()
+	a= convertir(a)
+	b = cajados.get()
+	b = convertir(b)
+	if a != "error and b != "error":
+		c = a + b
+	else:
+		c = "error"
+	cajatres.insert(0,c)
+
+-- función restar
+def restar():
+	cajatres.delete(0,tk.END)
+	a = cajauno.get()
+	a= convertir(a)
+	b = cajados.get()
+	b = convertir(b)
+	if a != "error and b != "error":
+		c = a - b
+	else:
+		c = "error"
+	cajatres.insert(0,c)
+
+-- función multiplicar
+def multiplicar():
+	cajatres.delete(0,tk.END)
+	a = cajauno.get()
+	a= convertir(a)
+	b = cajados.get()
+	b = convertir(b)
+	if a != "error and b != "error":
+		c = a * b
+	else:
+		c = "error"
+	cajatres.insert(0,c)
+
+-- función dividir
+def dividir():
+	cajatres.delete(0,tk.END)
+	a = cajauno.get()
+	a= convertir(a)
+	b = cajados.get()
+	b = convertir(b)
+	if a != "error and b != "error":
+		c = a / b
+	else:
+		c = "error"
+	cajatres.insert(0,c)
+
+-- ventana
+ventana = tk.Tk()
+ventana.config(width=300, height=300)
+ventana.title("Calculadora")
+
+-- caja uno
+etuno = tk.Label(text="Dato uno:")
+etuno.place(x=20,y=30)
+
+cajauno = tk.Entry()
+cajauno.place(x=20,y=60,width=100)
+
+--caja dos
+etdos = tk.Label(text="Dato dos:")
+etdos.place(x=180,=30)
+
+cajados = tk.Entry()
+cajados.place(x=180,y=60,width=100)
+
+-- botones
+bsuma = tk.Button(text=" + ", commmand=sumar)
+bsuma.place(x=20, y=120)
+
+brestar = tk.Button(text=" - ", command=restar)
+brestar.place(x=100, y=120)
+
+bmult = tk.Button(text=" x ", command=restar)
+brestar.place(x=180, y=120)
+
+bdiv = tk.Button(text=" / ", command=restar)
+brestar.place(x=260, y=120)
+
+-- caja tres
+ettres = tk.Label(text="Resultado:")
+ettres.place(x=80,y=190)
+
+cajatres=tk.Entry()
+cajatres.place(x=80, y=220)
+
+-- ventana visible
+ventana.mainloop()
+
+
+-----------------------------------------
+EJERCICIO 24:
+Crear un calculador de pago de propina:
+Calcular la propina, el total con propina y el monto por persona.
+Usar condicionales para validar las entradas.
+
+-- importar librerías
+import tkinter as tk
+from tkinter import mesagebox
+
+-- variables globales
+total_cuenta = 0.0
+porcentaje_propina = 0
+num_personas = 1
+
+-- función calcular propina y total
+def calcular_propina_y_total(cuenta, porcentaje, personas):
+	try:
+		cuenta= float(cuenta)
+		porcentaje= float(porcentaje)
+		pesronas = int(personas)
+		
+		if cuenta<0 or porcentaje < 0 or personas <=0:
+			messagebox.showerror("Error", "Los valores no son correctos")
+			return None, None, None
+
+		propina_total = cuenta * (porcentaje / 100)
+		total_a_pagar = cuenta + propina_total
+		monto_por_persona = total_a_pagar / personas
+		
+		return propina_total, total_a_pagar, monto_por_persona
+
+	except ValueError:
+		messagebox.showerror("Error", "Por favor, introduce números válidos")
+		return None, None, None
+
+-- ventana
+ventana = tk.Tk()
+ventna.title("Calculadora de propinas")
+ventana.geometry("350x300")
+
+-- función mostrar resultados
+def mostrar_resultados_gui():
+	cuenta_str = entrada_cuenta.get()
+	propina_str = entrada_propina.get()
+	personas_str = entrada_personas.get()
+
+	propina, total, por_persona = calcular_propina_y_total (cuenta_str, propina_str, personas_str)
+
+	if propina is not None:
+		etiqueta_propina_valor.config(text=f"${propina:.2f}")
+		etiqueta_total_valor.config(text=f"${total:.2f}")
+		etiqueta_por_persona_valor.config(text=f"${por_persona:.2f}")
+
+marco_principal = tk.Frame(ventana, padx=10, pady=10)
+marco_principal.pack(expand=True)
+
+tk.Label(marco_principal, text="Total de la cuenta:").grid(row=1, column=0, sticky="w", pady=5)
+entrada_cuenta = tk.Entry(marco_principal)
+entrada_cuenta.grid(row=0, column=1)
+
+tk.Label(marco_principal, text="Porcentaje de propina:").grid(row=1, column=0, sticky="w", pady=5)
+entrada_propina = tk.Entry(marco_principal)
+entrada_propina.grid(row=1, column=1)
+
+tk.Label(marco_principal, text="Porcentaje de propina:").grid(row=1, column=0, sticky="w", pady=5)
+entrada_propina = tk.Entry(marco_principal)
+entrada_propina.grid(row=1, column=1)
+
+tk.Label(marco_principal, text="Número de personas:").grid(row=1, column=0, sticky="w", pady=5)
+entrada_personas = tk.Entry(marco_principal)
+entrada_personas.grid(row=2, column=1)
+
+oton_calcular = tk.Button(ventana, text="Calcular", command=mostrar_resultados_gui)
+boton_calcular.pack(pady=10)
+
+etiqueta_propina = tk.Label(ventana, text="Propina total:")
+etiqueta_propina.pack()
+etiqueta_propina_valor = tk.Label(ventna, text="")
+etiqueta_propina_valor.pack()
+
+etiqueta_total = tk.Label(ventana, text="Total a pagar:")
+etiqueta_total.pack()
+etiqueta_total_valor = tk.Label(ventana, text="")
+etiqueta_total_valor.pack()
+
+etiqueta_por_persona = tk.Label(ventana, text="Monto por persona:")
+etiqueta_por_persona.pack()
+etiqueta_por_persona_valor = tk.Label(ventana, text="")
+etiqueta_por_persona_valor.pack()
+
+ventana.mainloop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
