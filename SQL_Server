@@ -1,0 +1,1608 @@
+Create database Empresa -- Crea BDD
+drop database Empresa -- Elimina
+use empresa -- Activa
+
+Diferencia INT vs Smallint
+int = 10 Hasta millones
+smallint = 10 (Internamente no es lo mismo) Hasta 32.000
+
+
+Create table empleados(
+ID int identity(2,2),   --Auto_increment
+nombre varchar(20),
+appelido varchar(20),
+sueldo money,
+primary key(ID))
+
+
+*BDD Model
+	Se pueden crear tablas comunes para todas las bases de datos que se creen
+
+Insert into tabla (campo1 campo2, campo3 ...
+values (valor1, valor2, valor3 ...
+
+Insert into clientes (nombre, apellido)
+values ('Nadia', 'Villar')
+
+select campo1, campo2, campo3 ...
+from tabla
+
+selec *
+from clientes
+
+ID int identity(2,2), (Arranca en 2, y salta de 2 en 2)
+
+select nombre, apellido, id
+from clientes
+where ID = 6
+
+"Se pueden usar todos los operadores"
+= < > >= <= <>
+
+AND
+select nombre, apellido, id
+from clientes
+where Nombre = 'Nadia' and apellido = 'Villar' -- (Uno y el otro) Dos condiciones
+
+OR
+select nombre, apellido, id
+from clientes
+where Nombre = 'Nadia' or apellido = 'Villar' -- (Uno o el otro) Una condición
+
+BETWEEN
+select nombre, apellido
+from clientes
+where id between 5 and 10 -- Selección por Rango
+
+IN
+select nombre, apellido
+from clientes
+where id in (4, 8, 12, 22, 16) -- Selección Múltiple
+
+NOT
+select nombre, apellido
+from clientes
+where id not in (4, 8, 12, 22, 16) -- Selección Múltiple Negativa
+
+select nombre, apellido
+from clientes
+where id not between 2 and 6 -- Selección de Rango Negativa
+
+Like: Patrón específico dentro de una cadena
+
+select *
+from clientes
+where nombre = ' '
+
+Like _ 1 valor
+     % 0, 1 ó muchos
+
+select *
+from clientes
+where nombre like 'C%' -- %para el resto de los valores
+
+select *
+from clientes
+where nombre like '%C%'-- Contiene 'C' No importa la posición
+
+select *
+from clientes
+where nombre like '_u%' -- Contiene una posición o valor X y en segunda posición la letra "u"
+
+select *
+from clientes
+where nombre like '__r_%' -- Contiene "r" en la tercer posición
+
+* Se puede usar también el "not like"
+
+Ejemplo Email:
+
+email
+nahuel_....
+
+select *
+from clientes
+where mail like 'nahuel!_%' escape '!' -- se usa un comodín para los casos de necesidad de usar el guión bajo
+
+
+Alias de columnas:
+select id +1 as resultado -- resulta en una columna nueva con la suma de cada id + 1
+from clientes
+
+* Inner Join = Join
+
+-- Alias de columnas:
+select id+1 as resultado, id *0.21 as IVA, id *1.21 as total
+from clientes
+
+-- Literales
+select nombre, apellido ' es un cliente'
+from clientes
+
+
+
+-- Order by
+Select nombre, id
+from clientes
+order by nombre
+
+select nombre
+from clientes
+where id in (2,6)
+order by apellido
+
+* El ordenamiento por defecto es ascendente
+
+select nombre
+from clientes
+order by nombre desc -- descendente
+
+select nombre
+from clientes
+order by nombre asc -- ascendente (No hace falta aclarar)
+
+select nombre, apellido, ID
+from clientes
+order by nombre asc -- Primer orden nombre, segundo por ingreso de registro
+
+select nombre, apellido, ID
+from clientes
+order by nombre asc, apellido asc -- Primero por nombre, segundo por apellido
+
+-- TOP
+select top 3 * -- Elige los primeros tres registros
+from clientes
+where id > 10
+
+-- Distinct
+select distinct nombre -- Muestra solo un registro cuando hay varios con el mismo nombre
+from clientes
+order by nombre
+
+select distinct nombre, apellido -- Muestra solo un registro con esa combinación
+from clientes
+order by nombre
+
+-- NULL
+
+NULL <> 0
+NULL <> ' ' (Vacío)
+NULL <> NULL
+NULL + 100 = NULL
+
+-------------------------
+use AdventureWorks2022
+
+select name
+from [Production].[Product]
+
+select name
+from [Production].[Product]
+where color = null
+
+Columna literal sin alias
+select name, color, isnull(color, 'Negro') -- Si el campo color es NULL poner Negro.
+from [Production].[Product]
+
+Columna literal con alias
+select name, color, isnull(color, 'Negro') as color_por_defecto
+from [Production].[Product]
+
+Columna literal
+selec name, size, size + 10, isnull(size,0)+10
+from [Production].[Product]
+
+---------------------------
+select name, size as precio
+from [Production].[Product]
+
+select top 1 name, size as precio
+from [Production].[Product]
+order by size
+
+select top 1 name, size as precio
+from [Production].[Product]
+where size is not null
+order by size -- Ascendente
+
+select top 1 name, size as precio
+from [Production].[Product]
+where size is not null
+order by size desc -- Descendente
+
+-- MAX y MIN
+select max(size)
+from [Production].[Product]
+
+select min(size)
+from [Production].[Product]
+
+-- AVG
+select avg(listprice)
+from [Production].[Product]
+
+-- SUM (suma la columna)
+select sum(listprice)
+from [Production].[Product]
+
+-- Count (Cantidad de registros)
+select count(listprice)
+from [Production].[Product]
+
+select count(*)
+from [Production].[Product]
+
+select nombre_articulo, sum(stock)
+from articulos
+group by nombre_articulo -- Agrupa por tipo de artículo
+
+select sum(stock)
+from articulos
+group by nombre_articulo
+
+select nombre_articulo, sum(stock)
+from articulos
+group by nombre_articulo
+having sum(stock) < 60
+
+
+
+
+select name, max(listprice) 
+from [Production].[Product]
+(Búsqueda errónea) No mezclar valores de campos  con funciones de agregado.
+Va a unir una lista con un valor único de un registro.
+
+* Recordar de agregar alias a las columnas de cálculo (Campo literal)
+Evitar el "No column name"
+
+-- Conteo de registros de la tabla
+select count(*) -- Evita contar los registros nulos
+from [Production].[Product]
+
+select count(*) -- Conteo de registros por color
+from [Production].[Product]
+where color = 'Black'
+
+-- Group by
+selec color, count(*)
+from [Production].[Product]
+group by color
+-- Realiza un conteo por característica (Cantidad de registros por color)
+
+-- Where (Filtra por registro)
+select color, count(*)
+from [Production].[Product]
+where Productid <>1
+group by color
+order by color
+
+select color, count(*)
+from [Production].[Product]
+group by color
+-- Sirve para ver stock remanente (Cuales tienen mmayor cantidad)
+
+-- Having (filtra por resultados de bpusquedas agrupadas)
+select color, count(*)
+from [Production].[Product]
+group by color
+having count(*)>50
+-- Stock remanente mayor a 50
+
+select color, count(*) as Total
+from [Production].[Product]
+where Productid <>1
+group by color
+having count(*)>50
+order by total -- Acá se puede utilizar el alias
+
+select *
+from clientes
+
+select *
+from empleados
+
+insert into empleados (nombre, apellido, sueldo)
+values ('Mateo', 'Garcia', 1000),
+values ('Matías', 'Gonzalez', 1000),
+values ('Mara', 'Perez', 1000)
+
+-- UNION --
+select nombre
+from clientes
+union
+select nombre
+from empleados
+
+* Se unen las dos consultas en la misma columna de resultado (un solo resultado)
+
+- Union all (deben tener misma cantidad de campos)
+select nombre
+from clientes
+union all
+select nombre
+from empleados
+
+-- Campo literal por categoría
+select nombre, 'cliente'
+from clientes
+union all
+select nombre, 'empleado'
+from empleados
+
+select nombre, apellido
+from empleados
+union all
+select nombre, apellido
+from clientes
+
+-- Agregar un campo literal "0" para poder realizar la unión
+select id, nombre, apellido, sueldo
+from empleados
+union all
+select id, nombre, apellido, 0
+from clientes
+
+------------------------------
+
+-- Case --
+select name,
+categoria = case Productline
+when 'R'then 'Ruta'
+when 'M' then 'Montaña'
+else 'Otra categoria'
+end
+from [Production].[Product]
+
+
+-------------------------------
+
+* Claves foráneas: Campos que hacen referencia a claves principales de otra tabla.
+
+-------------------------------
+
+-- JOIN --
+select e.BusinessEntityID
+from HumanResources.Employee AS e
+inner join Sales.SalesPerson AS s
+ON e.BusinessEntityID = s.BusinessEntityID;
+
+
+select T1.campo, T1.campo2, T2.campo5, T2.campo7
+from tabla1 T1 Join Tabla2 T2 on T1.campoID = T2.CampoID
+
+* Son todos los registros que coinciden a partir de la condición en el ON...
+
+Inner Join = Join
+(devuelve los registros en común)
+
+left outer join = left join
+(devuelve todos los registros en común más todos los que no coincidan de la tabla izquierda)
+
+right outer join = right join
+(devuelve todos los registros en común más todos los que no coincidan de la tabla derecha)
+
+full join 
+(devuelve todos los registros en común + los que no coinciden de la izq + los que no coinciden de la der)
+(una combinación de ambas)
+
+UNION vs JOIN
+
+En el join existe una condición (on).
+
+selec C.nombre, E.nombre
+from Clientes C join Empleados E
+ON C.ID = E.ID
+
+
+Hacer:
+Laboratorios hacer módulo 1 y módulo 2.
+
+
+
+select e.BusinessEntityID
+from HumanResources.Employee AS e
+inner join Sales.SalesPerson AS s
+ON e.BusinessEntityID = s.BusinessEntityID;
+
+* La letra es una abreviatura de la tabla por medio de un alias.
+
+selec C.nombre, E.nombre
+from Clientes C join Empleados E
+ON C.ID = E.ID
+
+* También se puede escribir sin el "AS"
+
+-- Tablas Temporales --
+
+create table #clientes(
+nombre varchar(20)) -- local
+
+* Local es dentro de la sesión, sin compartir
+
+create table ##clientes(
+nombre varchar(20)) -- global
+
+* Global es compartida
+
+select
+from #clientes -- Busca en la tabla local
+
+select
+from ##clientes -- Busca en la tabla goblal
+
+insert into #clientes
+values ('Nadia')
+
+-- select into
+
+* Crea una tabla temporal
+
+select nombre, apellido
+into clientes2
+from clientes
+
+
+-- CTE ---
+* No se crea una tabla temporal sino que se define
+
+* Definición del CTE
+with clientes_cte (nombre, apellido)
+as 
+(
+select nombre, apellido
+from clientes
+)
+
+
+* Consulta del CTE
+
+select *
+from clientes_cte
+
+* Funciona como una "tabla temporal"
+
+-- Variables en SQL
+
+declare @variable tipo_de_dato
+
+declare @edad int
+
+set @edad = 20
+
+select @edad = 30
+
+
+Ejemplo:
+declare @edad int
+select @edad = sum(sueldo)
+from empleados
+
+* Suma todas las edades de una columna y las guarda en una variable
+
+Ejemplo:
+declare @id int
+set @id = 6
+
+select *
+from clientes
+where id = @id
+
+Ejemplo:
+declare @id int
+declare @nombre varchar(20)
+declare @sueldo money
+declare @f_nac date
+
+Ejemplo variable tabla:
+declare @variabletabla table(
+nombre varchar(20),
+apellido varchar(20) not null,
+edad int)
+
+select *
+from @variabletabla
+
+
+-- Variables locales y globales
+
+declare @@nombre int
+
+select @rowcount
+
+-- IF
+
+declare @num int
+select @num = 5
+
+if @num = 10
+	print ('La variable es igual a 10')
+else
+	begin
+	print ('La variable no es igual a 10')
+	end
+
+-- While
+
+declare @variable int = 10
+
+while @variable <100
+begin
+print ('La variables es menor a 100')
+select @variable = @variable +1
+end
+
+while @variable <100
+begin
+
+inset into clientes(nombre, apellido)
+values ('Nadia', 'Villar')
+
+set @variable = @variable +1
+end
+
+
+
+
+Seleccionar el empleado con el sueldo máximo:
+
+select max(sueldo)
+from empleados --1100
+
+select nombre, apellido
+from empleados
+where sueldo = 1100
+
+* resuelto con dos consultas (no es lo correcto)
+Puede ser que al realizar la segunda consulta el valor 1100 ya no sea el valor máximo
+
+Subconsulta:
+
+select nombre, apellido
+from empleados
+where sueldo = (select max(sueldo) from empleados)
+
+* Siempre se ejecuta primero lo que está entre paréntesis)
+Se resuelve con una sola ejecución.
+
+Otro ejemplo:
+
+-- Forma incorrecta:
+select nombre, apellido
+from empleados
+where nombre = (select nombre from clientes)
+
+* La subconsulta devuelve un listado
+
+-- Forma correcta:
+select nombre, apellido
+from empleados
+where nombre in (select nombre from clientes)
+
+* Usar el "in" para listados.
+
+Otro ejemplo:
+
+select nombre, apellido, sueldo, (select max(sueldo) from empleados) - sueldo
+from empleados
+
+Otro ejemplo:
+
+select LoginID
+from (select e.*
+from HumanResources.Employee e
+inner join Sales.SalesPerson as s
+on e.BusinessEntityID = s.BusinessEntityID) T
+
+----------------------------------
+
+-- DDL Data Definition Language (relacionado a tablas)
+
+CREATE, se usa para crear una base de datos, tabla, vistas, etc.
+ALTER, se utiliza para modificar la estructura, por ejemplo añadir o borrar columnas de una tabla.
+DROP, con esta sentencia, podemos eliminar los objetos de la estructura, por ejemplo un índice o una secuencia.
+
+-- DML  Data Manipulation Language  (relacionado a registros)
+
+SELECT, esta sentencia se utiliza para realizar consultas sobre los datos.
+INSERT, con esta instrucción podemos insertar los valores en una base de datos.
+UPDATE, sirve para modificar los valores de uno o varios registros.
+DELETE, se utiliza para eliminar las filas de una tabla.
+
+-- DCL Data Control Language (Administración y permisos)
+
+GRANT, permite otorgar permisos.
+REVOKE, elimina los permisos que previamente se han concedido.
+
+DML:
+
+-- insert
+
+insert into TABLA (campo1, campo2...)
+values (valor1, valor2...)
+
+-- update
+
+select *
+from clientes
+
+update TABLA
+set
+campo1 = valor_nuevo,
+campo2 = valor_nuevo
+where cond...
+
+update clientes
+set
+nombre = 'Elisa'
+where ID = 194
+
+update clientes
+set
+nombre = 'Elisa'
+apellido = 'Garcia'
+where ID in (194, 195, 196)
+
+-- Delete
+
+DELETE FROM table_name
+WHERE condition;
+
+delete from clientes
+where id = 196
+
+
+-- insert (pasaje de tablas)
+
+insert into clientes (nombre, apellido)
+selec nombre, apellido
+from empleados
+
+* carga en la tabla clientes todos los empleados
+Sirve para evitar la carga manual
+
+Inserciones manuales:
+
+set identity_insert clientes off
+set identity_insert clientes on
+
+Insetar valores por defecto:
+
+create table clientes(
+id int identity,
+nombre varchar(20) default 'Sin nombre',
+apellido varchar(20) default 'Sin apellido')
+
+insert into clientes default values
+
+insert into clientes (nombre)
+values ('Juan')
+
+
+
+select *
+from clientes
+
+select *
+from empleados
+
+delete e from empleados E
+inner join clientes C on e.id = c.id
+
+* Borrado con la utilización de una consulta
+* Borra los registros en común pero de la tabla empleados
+* En lugar del delete podría utilizar un select
+
+
+update e
+set
+e.nombre = c.nombre
+from empleados e join clientes c on e.id = c.id
+
+----------------------------------------------
+
+Store procedures
+
+create procedure NOMBRE
+as
+código...
+...
+...
+...
+...
+...
+
+
+create procedure pa_consulta_clientes
+as
+select *
+from clientes
+order by nombre asc, apellido asc
+
+
+execute pa_consulta_clientes
+exec pa_consulta_clientes
+pa_consulta_clientes
+
+drop procedure pa_consulta_clientes
+
+create procedure pa_consulta_clientes
+as
+select *
+from clientes
+where nombre <> 'Elisa'
+order by nombre asc, apellido asc
+
+
+alter procedure pa_consulta_clientes
+as
+select *
+from clientes
+where nombre <> 'Pedro'
+order by nombre asc, apellido asc
+
+* Parámetros
+create procedure pa_consulta_clientes
+@id int
+as
+select *
+from empleados
+where id = @id
+
+execute pa_contulta_empleados 10
+
+backup database empresa2
+to disk = 'F:....'
+with init, name = 'empresabackup'
+
+create procedure pa_insert_empleados_nombreapellido
+@nombre varchar(20),
+@apellido varchar(20)
+as
+insert into empleados(nombre, apellido)
+values (@nombre, @apellido)
+
+execute pa_insert_empleados_nombreapellido 'Pablo', 'Garcia'
+
+exec pa_insert_empleados_nombreapellido 'Pablo', 'Garcia'
+
+* Procesos almacenados del sistema:
+
+sp_helptext pa_insert_empleados_nombreapellido
+
+sp_who
+
+sp_depends pa_insert_empleados_nombreapellido
+
+sp_spaceused
+
+sp_helpindex
+
+---------------------------------------
+Triggers
+
+create trigger tr_insert_empleado
+on empleados
+for insert
+as
+print ('Nuevo/s registro/s en la tabla de empleados')
+
+
+alter trigger tr_insert_empleado
+on empleados
+after insert, update, delete
+as
+print ('Se modificaron los datos de la tabla empleados')
+select *
+from empleados
+
+-- for versiones viejas
+-- after = for
+-- instead of
+
+
+
+Triggers
+
+insert update delete
+
+create trigger Nombre_trigger
+on TABLA
+for insert, update, delete
+as
+begin
+...
+ACCIONES
+...
+end
+
+Existen tablas temporales que utilizan los triggers y que después de utilizarse se eliminan. "Del sistema".
+
+delete from clientes where id = 3
+vs
+deleted
+
+Se crea una tabla temporal llamada deleted, se utiliza por un instante
+
+Ejemplo:
+
+create table ex_clientes(
+id int, 
+nombre varchar (20),
+appelido varchar (20))
+
+select *
+from ex_clientes
+
+Podemos utilizar los registros que se van borrando de una tabla de origen con un trigger para guardarlos en otra tabla.
+
+Ej:
+Create trigger tr_clientes_ex
+ON clientes
+for delete
+as
+insert into ex_clientes (id, nombre, apellido)
+select id, nombre, apellido
+from deleted
+
+Ej:
+insert intro clientes (nombre, apellido)
+values ('Mariano', 'Perez')
+
+create trigger tr_clientes_nuevos
+on clientes
+for insert
+as
+insert intro clientes_nuevos (id)
+select id
+from inserted
+
+select *
+from clientes_nuevos
+
+insert: inserted
+delete: deleted
+update: inserted / deleted
+
+drop:
+drop trigger tr_clientes_nuevos
+
+create table ex_clientes(
+id int, 
+nombre varchar (20),
+apellido varchar (20)
+fecha_baja datetime)
+
+Create trigger tr_clientes_ex
+ON clientes
+for delete
+as
+insert into ex_clientes (id, nombre, apellido, fecha_baja)
+select id, nombre, apellido, getdate()
+from deleted
+
+delete from clientes where id = 18
+delete from clientes where id = 19
+delete from clientes where id = 20
+
+Se registra al cliente borrado y el momento de la baja
+
+Create trigger tr_clientes_ex
+ON clientes
+for delete
+as
+set nocount on
+insert into ex_clientes (id, nombre, apellido, fecha_baja)
+select id, nombre, apellido, getdate()
+from deleted
+
+-- evitar mostrar alteraciones en tablas para no confundir a otros sobre las acciones del trigger
+
+* suser_name()
+
+Create trigger tr_clientes_ex
+ON clientes
+for delete
+as
+set nocount on
+insert into ex_clientes (id, nombre, apellido, fecha_baja)
+select id, nombre, apellido, getdate(), suser_name()
+from deleted
+
+Crea una tabla de auditoría donde guarda el registro de quién borra cada registro.
+
+select suse_name
+
+Encriptar procedimiento:
+
+create procedure pa_consulta_empleados
+@id int
+with encryption
+as
+select *
+from empleados
+where id = @id
+
+
+-- Wait for
+Formas de interrumpir una consulta
+
+Hay dos formas:
+Programar o demorar una consulta
+
+Programar
+waitfor time '21:00:00'
+select *
+from clientes
+
+Demora
+waitfor delay '00:0010'
+select *
+from clientes
+
+-----
+Function
+
+create function Nombre_función(parametros)
+returns tipo_dato
+as
+begin
+cuerpo de la función
+return valor
+end
+
+create function fn_IVA(@precio money)
+returns money
+as
+begin
+declare @IVA money
+select @IVA = @precio * 0.21
+return @IVA
+end
+
+Normal:
+select ProductID, Name , listPrice, listprice *0.21 as iva, listprice * 1.21 as total
+from [Production].[Product]
+
+Llamada a la función:
+select ProductID, Name , listPrice, dbo.fn_iva(listPrice)
+from [Production].[Product]
+
+DBO: Data Base Owner
+Esquema por defecto.
+
+
+Ej:
+create function fn_total(@precio money)
+returns money
+as
+begin
+declare @total money
+select @total = @precio * 0.21
+return @total
+end
+
+select ProductID, Name , listPrice, dbo.fn_total(listPrice)
+from [Production].[Product]
+
+drop function fn_total
+
+
+
+Módulo 6:
+
+Funciones de SQL y Tipo tabla
+
+Función de tipo tabla:
+Create function Nomnbre (parametros)
+returns table
+as
+return(
+...
+...
+...
+...
+)
+
+
+create function fn_clientesinicial (@inicial char(1))
+returns tables
+as
+return(
+select id, nombre, apellido
+from clientes)
+
+
+LEFT:
+select nombre, left(nombre, 1), right(nombre, 1)
+from clientes
+
+Devuelve de la cadena la primer letra
+
+select nombre, left(nombre, 3), right(nombre, 3)
+from clientes
+
+Devuelve las primeras tres
+
+select *
+from fn_clientesinicial('S')
+
+exec pa_clientesinicial 'S'
+
+Funciones integradas:
+
+funciones fechas:
+getdate()
+
+select getdate()
+
+day()
+
+Muestra el día de una fecha
+
+select id, nombre, apellido, fecha_baja, day(fecha_baja)
+from ex_clientes
+
+Devuelve solo el día
+
+Month (muestra el mes)
+
+select id, nombre, apellido, fecha_baja, month(fecha_baja)
+from ex_clientes
+
+select *
+from ventas
+where month(fecha) = 8 and year(fecha) = 2024
+
+La consulta en SQL seleccionará todas las columnas de la tabla ventas donde el mes de la columna fecha sea agosto (8) y el año sea 2024. Las funciones MONTH() y YEAR() se usan para extraer el mes y el año de la columna de fecha, respectivamente. 
+
+Ejemplo de uso:
+Código
+SELECT *
+FROM ventas
+WHERE MONTH(fecha) = 8
+  AND YEAR(fecha) = 2024;
+Esta consulta devolverá todas las filas de la tabla ventas que correspondan a ventas realizadas durante el mes de agosto de 2024.
+
+
+hour(fecha_baja)
+Obtiene la hora de la baja del registro
+
+select id, nombre, apellido, fecha_baja, hour(fecha_baja)
+from ex_clientes
+
+
+-- curdate() curtime() (Workbench)
+Current date o current time
+
+select fecha_baja, dateadd(moth, 5, fecha_baja)
+from ex_clientes
+
+Muestra un agregado a una parte específica de la fecha (tres parámetros)
+
+datepart(,)
+dateadd(,,)
+datediff(,,) muestra la diferencia entre dos fechas
+
+datename()
+
+round()
+
+truncate()
+
+abs()
+
+sign()
+
+
+floor() ceiling()
+
+Funciones para cadenas:
+
+upper()
+lower()
+
+select nombre, upper(nombre), lower(nombre)
+from clientes
+
+
+
+select nombre, upper(nombre), lower(nombre)
+from clientes
+
+select nombre
+from clientes
+where len(nombre) > 8
+
+select nombre, substring (nombre, 2, 3)
+from clientes
+
+select nombre, charindex('a', nombre)
+from clientes
+
+left(nombre, 1) -- Muestra desde la izquierda cierta cantidad de caracteres
+right(nombre, 3)-- Muestra desde la derecha cierta cantidad de caracteres
+upper() -- Devuelve la cadena en mayuscula
+lower() -- Devuelve la cadena en minuscula
+len() -- Muestra el largo de una cadena -->  char_length() Mysql
+charindex(buscado,cadena) -- Muestra la pos. de una cadena dentro de otra
+substring(cadena,pos, cant) -- > cortar una cadena
+Replace(cadena,a_remplazar,valor_nuevo)
+round(,)-- redondea
+round(,,) -- Corta   -- > truncate()
+abs() -- valos absoluto
+sign() -- sirve para saber si un valor es negativo, positivo o cero
+floor() y ceiling()
+getdate() -- muestra fecha y hora
+day() --> muestra el día de una fecha
+month() -- > muestra el mes de una fecha
+year() --> muestra el año de una fecha
+datename(,)
+datepart(,) --> muestra una parte definida de una fecha
+dateadd(,,) --> Muestra un agregado a una parte especifica de una fecha
+datediff(,,) --> Muestra la diferencia entre 2 fechas
+
+
+select nombre, replace(nombre, 'a', 'X')
+from clientes
+
+
+Ejercicio:
+
+-- Crear base de datos
+CREATE DATABASE clase_a;
+GO
+
+-- Usar la base de datos
+USE clase_a;
+GO
+
+-- Crear tabla
+CREATE TABLE Alumnos (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    dni VARCHAR(20),
+    nombre VARCHAR(50),
+    apellido VARCHAR(50),
+    edad INT,
+    nota DECIMAL(5,2),
+    fecha_nacimiento DATE
+);
+GO
+
+-- Insertar registros
+INSERT INTO Alumnos (dni, nombre, apellido, edad, nota, fecha_nacimiento) VALUES
+('12421563', 'jUAN', 'Perugia', 20, 7.5, '2000-02-11'),
+('87654321', 'María', 'López', 22, 8.9, '2002-07-22'),
+('11223344', 'Carlos', 'Gómez', 19, 5.4, '2005-01-10'),
+('44332211', 'Lucía', 'Fernández', 21, 9.2, '2003-11-05');
+GO
+
+
+-- 1. Mostrar los primeros 3 caracteres del nombre de cada alumno
+-- 2. Mostrar los últimos 2 caracteres del apellido de cada alumno
+-- 3. Convertir el nombre de todos los alumnos a mayúsculas
+-- 4. Convertir el apellido de todos los alumnos a minúsculas
+-- 5. Redondear la nota al entero más cercano
+-- 6. Redondear la nota a un decimal
+-- 7. Mostrar el valor absoluto de la diferencia entre 10 y la nota
+-- 8. Mostrar el día y el mes de nacimiento de cada alumno
+-- 9. Mostrar solo el año de nacimiento de cada alumno
+-- 10. Sumar 1 año a la fecha de nacimiento
+-- 11. Calcular la cantidad de días entre hoy y la fecha de nacimiento
+
+
+
+1. 
+SELECT nombre,
+LEFT(nombre, 3) AS primeros_3_caracteres
+FROM Alumnos;
+
+2.
+SELECT apellido,
+RIGHT(apellido, 2) AS ultimos_2_caracteres
+FROM Alumnos;
+
+3.
+SELECT nombre,
+UPPER(nombre) AS nombre_mayuscula
+FROM Alumnos;
+
+4.
+SELECT apellido,
+lower(apellido) AS nombre_minuscula
+from Alumnos;
+
+5.
+SELECT nota,
+ROUND(nota, 0) AS nota_redondeada
+FROM Alumnos;
+
+6. 
+SELECT nota as Nota_Alumno, -- Literal
+ROUND(nota, 1) AS redondeo -- Alias
+FROM Alumnos;
+
+7. 
+SELECT nota,
+ABS(10 - nota) AS diferencia_10
+FROM Alumnos;
+
+8.
+SELECT nombre, apellido, fecha_nacimiento,
+DAY(fecha_nacimiento) AS dia,
+MONTH(fecha_nacimiento) AS mes
+FROM Alumnos;
+
+9.
+SELECT nombre, apellido, fecha_nacimiento,
+year(fecha_nacimiento) AS año
+FROM Alumnos;
+
+10.
+SELECT nombre, apellido, fecha_nacimiento,
+year(fecha_nacimiento)+1 AS año_adicional
+FROM Alumnos;
+
+select dateadd(year,1,fecha_nacimiento)
+from alumnos;
+
+11.
+SELECT nombre, apellido, fecha_nacimiento,
+DATEDIFF(DAY, fecha_nacimiento, GETDATE()) AS dias
+FROM Alumnos;
+
+
+-- Concat
+select concat(nombre, ' ', apellido, ' es un cliente')
+from clientes
+
+select nombre+' '+apellido' es un cliente'
+from clientes
+
+Ejercicios "Concat":
+15. Mostrar las 2 primeras letras del nombre en mayúscula y las 2 últimas del apellido en minúscula
+18. Mostrar el día de nacimiento y el nombre del mes en mayúscula
+21. Mostrar la primera letra del nombre y del apellido concatenadas
+22  Mostrar El nombre con su primera letra en mayúscula y el resto en minúscula
+
+SELECT 
+UPPER(LEFT(nombre, 2)),
+LOWER(RIGHT(apellido, 2))
+FROM Alumnos;
+
+select
+DAY(fecha_nacimiento),
+UPPER(datename(month(fecha_nacimiento)))
+from Alumnos
+
+select concat(
+left (nombre,1),
+left (apellido,1))
+from alumnos
+
+SELECT 
+CONCAT(
+UPPER(LEFT(nombre, 1)), 
+LOWER(SUBSTRING(nombre, 2, LEN(nombre) - 1))
+    )
+FROM Alumnos;
+
+
+Cast y Convert
+
+Conversión explícita e implícita
+
+select 5 + 10.5
+
+'2025-09-04' (varchar)
+
+CAST(expresión AS tipo_de_dato)
+
+select cast('2025-09-04' as Date)
+
+
+CONVERT(tipo_de_dato, expresión [, estilo])
+
+tipo_de_dato: el tipo al que querés convertir (por ejemplo VARCHAR(10)).
+expresión: el valor o campo que querés convertir (en tu caso nota).
+estilo: es opcional y se usa principalmente para fechas y horas, no aplica en tu ejemplo.
+
+select convert(int, 10.5) --lleva a entero (10)
+
+select convert(varchar(10), getdate(), 103), getdate()
+
+select convert(varchar(10), getdate(), 104)
+
+select convert(varchar(10), getdate(), 105)
+
+select convert(varchar(10), getdate(), 23)
+
+select convert(varchar(20), getdate(), 120) -- Muestra la hora
+
+select convert(varchar(20), getdate(), 100) -- Muestra en formato PM/AM
+
+Ejercicios:
+-- 25. Convertir la nota a VARCHAR para mostrarla como texto
+-- Ejercicio: usar CAST()
+
+-- 26. Convertir la fecha de nacimiento a formato dd/mm/yyyy
+-- Ejercicio: usar CONVERT() con estilo 103
+
+-- 28. Convertir la fecha de nacimiento a formato 'Mes Año' (ej: febrero 2000)
+-- Ejercicio: usar CONVERT() y DATENAME()
+
+-- 29. Convertir la nota a INT para redondear hacia abajo
+-- Ejercicio: usar CAST()
+
+-- 30. Convertir la fecha a DATETIME y sumar 1 hora
+-- Ejercicio: usar CAST() y DATEADD()
+
+-- Crear base de datos
+CREATE DATABASE clase_a;
+GO
+
+-- Usar la base de datos
+USE clase_a;
+GO
+
+-- Crear tabla
+CREATE TABLE Alumnos (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    dni VARCHAR(20),
+    nombre VARCHAR(50),
+    apellido VARCHAR(50),
+    edad INT,
+    nota DECIMAL(5,2),
+    fecha_nacimiento DATE
+);
+GO
+
+-- Insertar registros
+INSERT INTO Alumnos (dni, nombre, apellido, edad, nota, fecha_nacimiento) VALUES
+('12421563', 'Juan', 'Perugia', 20, 7.5, '2000-02-11'),
+('87654321', 'María', 'López', 22, 8.9, '2002-07-22'),
+('11223344', 'Carlos', 'Gómez', 19, 5.4, '2005-01-10'),
+('44332211', 'Lucía', 'Fernández', 21, 9.2, '2003-11-05');
+GO
+
+
+25.
+Select cast(nota as varchar(10)) as nota
+from Alumnos
+
+26.
+Select nombre, apellido,
+CONVERT(VARCHAR(10), fecha_nacimiento, 103)
+FROM Alumnos;
+
+28.
+SELECT nombre, apellido,
+CONCAT(
+DATENAME(MONTH, fecha_nacimiento) ' ',
+CAST(DATENAME(YEAR, fecha_nacimiento) AS VARCHAR(4))
+FROM Alumnos;
+
+select concat(convert(varchar(10),datename(month,fecha_nacimiento)),' ',year(fecha_nacimiento))--convert(varchar(10),fecha_nacimiento, 103), fecha_nacimiento
+from Alumnos
+
+SELECT CONCAT(DATENAME(MONTH,fecha_nacimiento),' ' , DATENAME(YEAR,fecha_nacimiento)) AS 'MES AÑO'
+FROM Alumnos
+
+29.
+SELECT CAST(nota AS INT)
+FROM Alumnos;
+
+SELECT CAST(nota AS INT), floor (nota)
+FROM Alumnos;
+
+30.
+SELECT nombre, apellido,
+CAST(fecha_nacimiento AS DATETIME),
+DATEADD(HOUR, 1, CAST(fecha_nacimiento AS DATETIME))
+FROM Alumnos;
+
+select dateadd(hour, 1, cast(fecha_nacimiento as datetime))
+from alumnos
+
+
+-------------------------------
+begin
+commit
+rollback
+
+begin tran (forma abreviada)
+begin transaction
+
+rollback tran
+
+update alumnos
+set
+edad = 22
+where id = 2
+
+commit
+
+*Bloquea la o las tablas que estoy utilizando
+
+-------------------------------
+
+Manejo de errores / captura de errores
+
+Try - Catch (Bloque)
+
+Begin try
+....
+....
+....
+....
+....
+End try
+
+Begin catch
+....
+....
+....
+....
+....
+End catch
+
+Diferencia entre TRY y CATCH en SQL Server
+
+TRY: Es el bloque donde escribís el código que querés ejecutar.
+
+Si todo funciona sin errores, el flujo termina ahí.
+
+Si ocurre un error que puede ser capturado, la ejecución salta automáticamente al bloque CATCH.
+
+CATCH: Es el bloque donde se maneja el error.
+
+Solo se ejecuta si ocurre un error dentro del TRY.
+
+Te permite registrar el error, mostrar un mensaje, deshacer transacciones (ROLLBACK) o tomar decisiones alternativas.
+
+Podés acceder a funciones de error como:
+
+ERROR_MESSAGE() → Devuelve el texto del error.
+
+ERROR_NUMBER() → Número del error.
+
+ERROR_LINE() → Línea donde ocurrió.
+
+ERROR_SEVERITY(), ERROR_STATE(), etc.
+
+🔹 Ejemplo básico de TRY...CATCH
+BEGIN TRY
+    -- Intentamos dividir por cero (esto genera error)
+    SELECT 10 / 0 AS Resultado;
+END TRY
+BEGIN CATCH
+    PRINT 'Ocurrió un error.';
+    PRINT ERROR_MESSAGE();  -- Muestra el detalle del error
+END CATCH;
+
+
+📌 Resultado:
+
+Ocurrió un error.
+Divide by zero error encountered.
+
+Ejemplo con transacciones
+
+Un caso muy común es cuando hacés inserciones/actualizaciones y querés asegurarte de que si algo falla, se revierta todo.
+
+BEGIN TRY
+    BEGIN TRANSACTION;
+
+    INSERT INTO Clientes (IdCliente, Nombre)
+    VALUES (1, 'Juan');
+
+    -- Esto falla si ya existe el Id 1
+    INSERT INTO Clientes (IdCliente, Nombre)
+    VALUES (1, 'Pedro');
+
+    COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+    PRINT 'Error detectado: ' + ERROR_MESSAGE();
+    ROLLBACK TRANSACTION;
+END CATCH;
+
+
+✅ En resumen:
+
+El bloque TRY es donde ponés el código que querés ejecutar.
+
+El bloque CATCH es donde reaccionás si algo falla (registrar, mostrar, deshacer, etc.).
+
+begin try
+begin tran
+	update ...
+	...
+	commit tran
+end try
+
+begin catch
+	rollback tran
+end catch
+
+--------------------------
+
+Cursor:
+* Sirve para revisar registro por registro
+* Cálculos, operaciones complejas, etc
+
+-- Declaramos
+Cursor for
+declare nombre_alumnos cursor for
+select * from alumnos
+
+-- abrir cursor
+open nombre_alumnos
+
+-- recorremos
+fetch next from nombre_alumnos
+
+-- cierro cursor
+close nombre_alumnos
+
+--
+deallocate nombre_alumnos
+
+
+* Recorre uno por uno
+
+Desventaja: Tiempo y uso de memoria
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
