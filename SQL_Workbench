@@ -1,0 +1,5853 @@
+show databases;
+
+create database mibasemartes;
+#drop database mibasemartes;
+
+use mibasemartes;
+use test;
+
+create table clientes(
+	id int unsigned not null auto_increment,
+	nombre varchar(50) not null,
+    apellido varchar(50) not null,
+    edad int(3) unsigned not null,
+    primary key(id)
+);
+
+desc clientes;
+-- drop table clientes;
+
+show tables;
+
+select * from clientes;
+
+#esto es un comentario de línea (1)
+-- esto es un comentario de línea (2)
+
+/*
+ESTO
+ES
+UN
+COMENTARIO
+DE BLOQUE
+*/
+
+/* esto es un comentario de bloque usado en una línea */
+
+select * from clientes;
+SELECT * From CLIENTEs;
+
+/* 1. FORMA NORMAL DE INSERTAR UN REGISTRO EN UNA TABLA */
+-- insert into clientes (nombre, apellido, edad) values ('Juan','Perez',23);
+insert into clientes (nombre, apellido, edad) 
+values ('Juan','Perez',23);
+
+/* 2. FORMA MYSQL DE INSERTAR UN REGISTRO EN UNA TABLA */
+insert into clientes
+set nombre = 'Ana',
+	apellido = 'Lopez',
+    edad = 21;
+
+/* 3. FORMA SIMPLIFICADA DE INSERTAR UNO Ó VARIOS REGISTROS EN UNA TABLA */
+insert into clientes values (null,'Pedro','Gomez',26);
+
+insert into clientes values (null,'Lucia','Mei',23),
+							(null,'Gaby','Lopez',25),
+							(null,'Diego','Gutierrez',21),
+							(null,'Cecilia','Blanco',40);
+
+insert into clientes values (null,'Pablo','Juarez',29);
+insert into clientes values (4,'Maria','Perez',24);		-- da error porque el id 4 está ocupado
+insert into clientes values (11,'Maria','Perez',24);
+insert into clientes values (null,'Mariela','Lopez',22);
+
+select * from clientes;
+
+/* ----------------------------------------- */
+/*     Clave primaria sin auto_increment     */
+/* ----------------------------------------- */
+create table prueba(
+	id int unsigned not null,
+    primary key(id)
+);
+
+desc prueba;
+
+show tables;
+
+select * from prueba;
+
+insert into prueba (id) values(1);
+insert into prueba (id) values(2);
+insert into prueba (id) values(null);
+insert into prueba (id) values(5);
+insert into prueba (id) values(4);
+
+
+/* ------------------------------------------ */
+/*  Enum, default y clave primaria combinada  */
+/* ------------------------------------------ */
+create table facturas(
+	tipo enum('A','B','C') not null default 'A',
+    numero int unsigned not null,
+    primary key(tipo, numero)
+);
+
+desc facturas;
+
+select * from facturas;
+
+insert into facturas (tipo,numero) values ('A',1);
+insert into facturas (tipo,numero) values ('B',1);
+insert into facturas (tipo,numero) values ('A',2);
+insert into facturas (tipo,numero) values ('C',1);
+
+insert into facturas (numero) values (3);
+insert into facturas (numero) values (1);	-- da error porque la clave primaria combinada A-1 ya está utilizada
+
+insert into facturas (tipo,numero) values ('D',1);	# da warning porque la factura D no corresponde a un tipo válido
+insert into facturas (tipo,numero) values ('A','Hola');	# da warning porque el número de factura debe ser entero
+insert into facturas (numero,tipo) values (2,'C');
+
+
+/* ----------------------------------------------------------- */
+/*  Primary key (clave primaria) vs. Unique key (clave única)  */
+/* ----------------------------------------------------------- */
+create table personas(
+	id int unsigned not null auto_increment,
+    nombre varchar(50) not null,
+    dni varchar(12) not null,
+    unique key(dni),
+    primary key(id)
+);
+
+drop table personas;
+desc personas;
+
+select * from personas;
+
+insert into personas (nombre, dni) values ('Carlos','20.365.478');
+insert into personas (nombre, dni) values ('Ana','20.365.479');
+insert into personas (nombre, dni) values ('Pablo','35.123.654');
+insert into personas (id,nombre, dni) values (2,'Pedro','21.432.111');
+
+/* ------------------------------------------------------ */
+/*                    Consulta Select                     */
+/* ------------------------------------------------------ */
+show tables;
+
+desc clientes;
+
+select * from clientes;
+
+select nombre, edad from clientes;
+select edad, nombre from clientes;
+select nombre from clientes;
+select id, nombre from clientes;
+select nombre, apellido, edad from clientes;
+select nombre, apellido, edad, id from clientes;
+select nombre, apellido, edad, nombre from clientes;
+
+show databases;
+
+create database mibasemartes;
+#drop database mibasemartes;
+
+use mibasemartes;
+use test;
+
+create table clientes(
+	id int unsigned not null auto_increment,
+	nombre varchar(50) not null,
+    apellido varchar(50) not null,
+    edad int(3) unsigned not null,
+    primary key(id)
+);
+
+desc clientes;
+-- drop table clientes;
+
+show tables;
+
+select * from clientes;
+
+#esto es un comentario de línea (1)
+-- esto es un comentario de línea (2)
+
+/*
+ESTO
+ES
+UN
+COMENTARIO
+DE BLOQUE
+*/
+
+/* esto es un comentario de bloque usado en una línea */
+
+select * from clientes;
+SELECT * From CLIENTEs;
+
+/* 1. FORMA NORMAL DE INSERTAR UN REGISTRO EN UNA TABLA */
+-- insert into clientes (nombre, apellido, edad) values ('Juan','Perez',23);
+insert into clientes (nombre, apellido, edad) 
+values ('Juan','Perez',23);
+
+/* 2. FORMA MYSQL DE INSERTAR UN REGISTRO EN UNA TABLA */
+insert into clientes
+set nombre = 'Ana',
+	apellido = 'Lopez',
+    edad = 21;
+
+/* 3. FORMA SIMPLIFICADA DE INSERTAR UNO Ó VARIOS REGISTROS EN UNA TABLA */
+insert into clientes values (null,'Pedro','Gomez',26);
+
+insert into clientes values (null,'Lucia','Mei',23),
+							(null,'Gaby','Lopez',25),
+							(null,'Diego','Gutierrez',21),
+							(null,'Cecilia','Blanco',40);
+
+insert into clientes values (null,'Pablo','Juarez',29);
+insert into clientes values (4,'Maria','Perez',24);		-- da error porque el id 4 está ocupado
+insert into clientes values (11,'Maria','Perez',24);
+insert into clientes values (null,'Mariela','Lopez',22);
+
+select * from clientes;
+
+/* ----------------------------------------- */
+/*     Clave primaria sin auto_increment     */
+/* ----------------------------------------- */
+create table prueba(
+	id int unsigned not null,
+    primary key(id)
+);
+
+desc prueba;
+
+show tables;
+
+select * from prueba;
+
+insert into prueba (id) values(1);
+insert into prueba (id) values(2);
+insert into prueba (id) values(null);
+insert into prueba (id) values(5);
+insert into prueba (id) values(4);
+
+
+/* ------------------------------------------ */
+/*  Enum, default y clave primaria combinada  */
+/* ------------------------------------------ */
+create table facturas(
+	tipo enum('A','B','C') not null default 'A',
+    numero int unsigned not null,
+    primary key(tipo, numero)
+);
+
+desc facturas;
+
+select * from facturas;
+
+insert into facturas (tipo,numero) values ('A',1);
+insert into facturas (tipo,numero) values ('B',1);
+insert into facturas (tipo,numero) values ('A',2);
+insert into facturas (tipo,numero) values ('C',1);
+
+insert into facturas (numero) values (3);
+insert into facturas (numero) values (1);	-- da error porque la clave primaria combinada A-1 ya está utilizada
+
+insert into facturas (tipo,numero) values ('D',1);	# da warning porque la factura D no corresponde a un tipo válido
+insert into facturas (tipo,numero) values ('A','Hola');	# da warning porque el número de factura debe ser entero
+insert into facturas (numero,tipo) values (2,'C');
+
+
+/* ----------------------------------------------------------- */
+/*  Primary key (clave primaria) vs. Unique key (clave única)  */
+/* ----------------------------------------------------------- */
+create table personas(
+	id int unsigned not null auto_increment,
+    nombre varchar(50) not null,
+    dni varchar(12) not null,
+    unique key(dni),
+    primary key(id)
+);
+
+drop table personas;
+desc personas;
+
+select * from personas;
+
+insert into personas (nombre, dni) values ('Carlos','20.365.478');
+insert into personas (nombre, dni) values ('Ana','20.365.479');
+insert into personas (nombre, dni) values ('Pablo','35.123.654');
+insert into personas (id,nombre, dni) values (2,'Pedro','21.432.111');
+
+/* ------------------------------------------------------ */
+/*                    Consulta Select                     */
+/* ------------------------------------------------------ */
+show tables;
+
+desc clientes;
+
+select * from clientes;
+
+select nombre, edad from clientes;
+select edad, nombre from clientes;
+select nombre from clientes;
+select id, nombre from clientes;
+select nombre, apellido, edad from clientes;
+select nombre, apellido, edad, id from clientes;
+select nombre, apellido, edad, nombre from clientes;
+
+-- ----------------------------------------------------------------------
+use mibasemartes;
+
+/* ------------------------------------------------ */
+/*          Consulta select (sin from)              */
+/* ------------------------------------------------ */
+select 5+1;			-- campo ó columna literal
+select (5+1)*3;		-- campo ó columna literal
+select (5+1)*3 as Resultado;		-- campo ó columna literal con alias
+select (5+1)*3 as Resultado, 3.1415926 * 2 as Pix2;		-- campo ó columna literal con alias
+
+/* -------------------------------------------- */
+/*            Modificador LIMIT                 */ 
+/* -------------------------------------------- */
+select id, nombre, apellido, edad 
+from clientes
+limit 3;
+
+/* -------------------------------------------- */
+/*        Modificador LIMIT + OFFSET            */ 
+/* -------------------------------------------- */
+select id, nombre, apellido, edad 
+from clientes
+# limit y offset se utilizan en conjunto para paginar (paginación)
+# limit: cantidad de registros que queremos visualizar por página
+# offset: Nro. de página (desde 0) * limit (múltiplo de limit)
+limit 3
+offset 9;
+
+/* -------------------------------------------- */
+/*         alias y literales con from           */
+/* -------------------------------------------- */
+create table productos(
+	id int unsigned not null primary key auto_increment,
+    nombre varchar(50) not null,
+    marca varchar(50) not null,
+    categoria varchar(50) not null,
+    codigo varchar(50) not null,
+    precio double not null -- ,
+    -- primary key(id)
+);
+
+desc productos;
+select * from productos;
+
+insert into productos values
+# id		nombre			marca			categoria			codigo				precio
+( null,		'TV-29P',		'LG',			'Hogar',			'H-TV29-1',			19000 ),
+( null,		'TV-33P',		'Noblex',		'Hogar',			'H-TV33-1',			28000 ),
+( null,		'TV-40P',		'Panasonic',	'Hogar',			'H-TV40-1',			31700 ),
+( null,		'TV-42P',		'LG',			'Hogar',			'H-TV42-1',			34100 ),
+( null,		'TV-50P',		'Philips',		'Hogar',			'H-TV50-1',			42000 ),
+( null,		'TV-80P',		'Noblex',		'Hogar',			'H-TV80-1',			56000 ),
+( null,		'TV-80P',		'Hitachi',		'Hogar',			'H-TV80-2',			60000 );
+
+select 
+	id, 
+    codigo, 
+    categoria, 
+    p.nombre, 
+    precio as COSTO, 
+    precio * 0.21 as IVA,
+    precio + precio * 0.21 as TOTAL
+from mibasemartes.productos as p;
+
+/* -------------------------------------- */
+/*               order by                 */
+/* -------------------------------------- */
+select id, nombre, apellido, edad
+from clientes
+-- order by nombre;
+-- order by nombre desc;
+-- order by nombre asc;
+-- order by edad;
+-- order by edad desc;
+-- order by edad desc, apellido;
+-- order by id desc;
+order by nombre desc, apellido, edad desc;
+
+insert into clientes values (null, 'Ana', 'Gutierrez', 25);
+insert into clientes values (null, 'Ana', 'Lopez', 23);
+
+
+/* ------------------------------------------------------ */
+/*        SELECT:WHERE -> predicado de la consulta        */
+/* ------------------------------------------------------ */
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana';		# filtro por igual (case insensitive)
+where nombre <> 'ana'			# filtro por distinto (case insensitive)
+order by edad desc
+limit 5;
+
+# --------------------------------------------------------------------------------------------------------
+# WHERE con operadores aritméticos y relacionales ( = , < , > , <= , >=, <> ) sirven para campos numéricos
+
+select id, nombre, apellido, edad
+from clientes
+-- where edad = 29				# filtro por igual (sirve también para campos de texto)
+-- where edad > 29				# filtro por mayor
+-- where edad >= 29				# filtro por mayor ó igual
+-- where edad < 29				# filtro por menor
+-- where edad <= 29				# filtro por menor ó igual 
+where edad <> 29				# filtro por distinto (sirve también para campos de texto)
+order by edad;
+
+# --------------------------------------------------------------------------------------------------------
+# WHERE con operadores lógicos ó booleanos (and / or / not)
+
+-- AND
+select id, nombre, apellido, edad
+from clientes
+where nombre = 'ana' and edad > 22;		-- and (Y) -> intersección de condiciones
+
+-- OR
+select id, nombre, apellido, edad
+from clientes
+where nombre = 'ana' or nombre = 'diego';		-- or (Ó) -> unión de condiciones
+
+-- NOT
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana';
+-- where nombre <> 'ana';
+where not nombre = 'ana';				-- not (NO) -> negación de la condición
+
+-- NOT con OR
+select id, nombre, apellido, edad
+from clientes
+where not (nombre = 'ana' or nombre = 'diego');
+
+-- OR con AND
+select id, nombre, apellido, edad
+from clientes
+where (nombre = 'ana' and edad > 22 and apellido = 'lopez') or nombre = 'diego';
+
+-- NOT con OR con AND
+select id, nombre, apellido, edad
+from clientes
+where not (nombre = 'ana' and edad > 22 and apellido = 'lopez') or nombre = 'diego';
+
+
+
+show databases;
+
+create database mibasemartes;
+#drop database mibasemartes;
+
+use mibasemartes;
+use test;
+
+create table clientes(
+	id int unsigned not null auto_increment,
+	nombre varchar(50) not null,
+    apellido varchar(50) not null,
+    edad int(3) unsigned not null,
+    primary key(id)
+);
+
+desc clientes;
+-- drop table clientes;
+
+show tables;
+
+select * from clientes;
+
+#esto es un comentario de línea (1)
+-- esto es un comentario de línea (2)
+
+/*
+ESTO
+ES
+UN
+COMENTARIO
+DE BLOQUE
+*/
+
+/* esto es un comentario de bloque usado en una línea */
+
+select * from clientes;
+SELECT * From CLIENTEs;
+
+/* 1. FORMA NORMAL DE INSERTAR UN REGISTRO EN UNA TABLA */
+-- insert into clientes (nombre, apellido, edad) values ('Juan','Perez',23);
+insert into clientes (nombre, apellido, edad) 
+values ('Juan','Perez',23);
+
+/* 2. FORMA MYSQL DE INSERTAR UN REGISTRO EN UNA TABLA */
+insert into clientes
+set nombre = 'Ana',
+	apellido = 'Lopez',
+    edad = 21;
+
+/* 3. FORMA SIMPLIFICADA DE INSERTAR UNO Ó VARIOS REGISTROS EN UNA TABLA */
+insert into clientes values (null,'Pedro','Gomez',26);
+
+insert into clientes values (null,'Lucia','Mei',23),
+							(null,'Gaby','Lopez',25),
+							(null,'Diego','Gutierrez',21),
+							(null,'Cecilia','Blanco',40);
+
+insert into clientes values (null,'Pablo','Juarez',29);
+insert into clientes values (4,'Maria','Perez',24);		-- da error porque el id 4 está ocupado
+insert into clientes values (11,'Maria','Perez',24);
+insert into clientes values (null,'Mariela','Lopez',22);
+
+select * from clientes;
+
+/* ----------------------------------------- */
+/*     Clave primaria sin auto_increment     */
+/* ----------------------------------------- */
+create table prueba(
+	id int unsigned not null,
+    primary key(id)
+);
+
+desc prueba;
+
+show tables;
+
+select * from prueba;
+
+insert into prueba (id) values(1);
+insert into prueba (id) values(2);
+insert into prueba (id) values(null);
+insert into prueba (id) values(5);
+insert into prueba (id) values(4);
+
+
+/* ------------------------------------------ */
+/*  Enum, default y clave primaria combinada  */
+/* ------------------------------------------ */
+create table facturas(
+	tipo enum('A','B','C') not null default 'A',
+    numero int unsigned not null,
+    primary key(tipo, numero)
+);
+
+desc facturas;
+
+select * from facturas;
+
+insert into facturas (tipo,numero) values ('A',1);
+insert into facturas (tipo,numero) values ('B',1);
+insert into facturas (tipo,numero) values ('A',2);
+insert into facturas (tipo,numero) values ('C',1);
+
+insert into facturas (numero) values (3);
+insert into facturas (numero) values (1);	-- da error porque la clave primaria combinada A-1 ya está utilizada
+
+insert into facturas (tipo,numero) values ('D',1);	# da warning porque la factura D no corresponde a un tipo válido
+insert into facturas (tipo,numero) values ('A','Hola');	# da warning porque el número de factura debe ser entero
+insert into facturas (numero,tipo) values (2,'C');
+
+
+/* ----------------------------------------------------------- */
+/*  Primary key (clave primaria) vs. Unique key (clave única)  */
+/* ----------------------------------------------------------- */
+create table personas(
+	id int unsigned not null auto_increment,
+    nombre varchar(50) not null,
+    dni varchar(12) not null,
+    unique key(dni),
+    primary key(id)
+);
+
+drop table personas;
+desc personas;
+
+select * from personas;
+
+insert into personas (nombre, dni) values ('Carlos','20.365.478');
+insert into personas (nombre, dni) values ('Ana','20.365.479');
+insert into personas (nombre, dni) values ('Pablo','35.123.654');
+insert into personas (id,nombre, dni) values (2,'Pedro','21.432.111');
+
+/* ------------------------------------------------------ */
+/*                    Consulta Select                     */
+/* ------------------------------------------------------ */
+show tables;
+
+desc clientes;
+
+select * from clientes;
+
+select nombre, edad from clientes;
+select edad, nombre from clientes;
+select nombre from clientes;
+select id, nombre from clientes;
+select nombre, apellido, edad from clientes;
+select nombre, apellido, edad, id from clientes;
+select nombre, apellido, edad, nombre from clientes;
+
+-- ----------------------------------------------------------------------
+use mibasemartes;
+
+/* ------------------------------------------------ */
+/*          Consulta select (sin from)              */
+/* ------------------------------------------------ */
+select 5+1;			-- campo ó columna literal
+select (5+1)*3;		-- campo ó columna literal
+select (5+1)*3 as Resultado;		-- campo ó columna literal con alias
+select (5+1)*3 as Resultado, 3.1415926 * 2 as Pix2;		-- campo ó columna literal con alias
+
+/* -------------------------------------------- */
+/*            Modificador LIMIT                 */ 
+/* -------------------------------------------- */
+select id, nombre, apellido, edad 
+from clientes
+limit 3;
+
+/* -------------------------------------------- */
+/*        Modificador LIMIT + OFFSET            */ 
+/* -------------------------------------------- */
+select id, nombre, apellido, edad 
+from clientes
+# limit y offset se utilizan en conjunto para paginar (paginación)
+# limit: cantidad de registros que queremos visualizar por página
+# offset: Nro. de página (desde 0) * limit (múltiplo de limit)
+limit 3
+offset 9;
+
+/* -------------------------------------------- */
+/*         alias y literales con from           */
+/* -------------------------------------------- */
+create table productos(
+	id int unsigned not null primary key auto_increment,
+    nombre varchar(50) not null,
+    marca varchar(50) not null,
+    categoria varchar(50) not null,
+    codigo varchar(50) not null,
+    precio double not null -- ,
+    -- primary key(id)
+);
+
+desc productos;
+select * from productos;
+
+insert into productos values
+# id		nombre			marca			categoria			codigo				precio
+( null,		'TV-29P',		'LG',			'Hogar',			'H-TV29-1',			19000 ),
+( null,		'TV-33P',		'Noblex',		'Hogar',			'H-TV33-1',			28000 ),
+( null,		'TV-40P',		'Panasonic',	'Hogar',			'H-TV40-1',			31700 ),
+( null,		'TV-42P',		'LG',			'Hogar',			'H-TV42-1',			34100 ),
+( null,		'TV-50P',		'Philips',		'Hogar',			'H-TV50-1',			42000 ),
+( null,		'TV-80P',		'Noblex',		'Hogar',			'H-TV80-1',			56000 ),
+( null,		'TV-80P',		'Hitachi',		'Hogar',			'H-TV80-2',			60000 );
+
+select 
+	id, 
+    codigo, 
+    categoria, 
+    p.nombre, 
+    precio as COSTO, 
+    precio * 0.21 as IVA,
+    precio + precio * 0.21 as TOTAL
+from mibasemartes.productos as p;
+
+/* -------------------------------------- */
+/*               order by                 */
+/* -------------------------------------- */
+select id, nombre, apellido, edad
+from clientes
+-- order by nombre;
+-- order by nombre desc;
+-- order by nombre asc;
+-- order by edad;
+-- order by edad desc;
+-- order by edad desc, apellido;
+-- order by id desc;
+order by nombre desc, apellido, edad desc;
+
+insert into clientes values (null, 'Ana', 'Gutierrez', 25);
+insert into clientes values (null, 'Ana', 'Lopez', 23);
+
+
+/* ------------------------------------------------------ */
+/*        SELECT:WHERE -> predicado de la consulta        */
+/* ------------------------------------------------------ */
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana';		# filtro por igual (case insensitive)
+where nombre <> 'ana'			# filtro por distinto (case insensitive)
+order by edad desc
+limit 5;
+
+# --------------------------------------------------------------------------------------------------------
+# WHERE con operadores aritméticos y relacionales ( = , < , > , <= , >=, <> ) sirven para campos numéricos
+
+select id, nombre, apellido, edad
+from clientes
+-- where edad = 29				# filtro por igual (sirve también para campos de texto)
+-- where edad > 29				# filtro por mayor
+-- where edad >= 29				# filtro por mayor ó igual
+-- where edad < 29				# filtro por menor
+-- where edad <= 29				# filtro por menor ó igual 
+where edad <> 29				# filtro por distinto (sirve también para campos de texto)
+order by edad;
+
+# --------------------------------------------------------------------------------------------------------
+# WHERE con operadores lógicos ó booleanos (and / or / not)
+
+-- AND
+select id, nombre, apellido, edad
+from clientes
+where nombre = 'ana' and edad > 22;		-- and (Y) -> intersección de condiciones
+
+-- OR
+select id, nombre, apellido, edad
+from clientes
+where nombre = 'ana' or nombre = 'diego';		-- or (Ó) -> unión de condiciones
+
+-- NOT
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana';
+-- where nombre <> 'ana';
+where not nombre = 'ana';				-- not (NO) -> negación de la condición
+
+-- NOT con OR
+select id, nombre, apellido, edad
+from clientes
+where not (nombre = 'ana' or nombre = 'diego');
+
+-- OR con AND
+select id, nombre, apellido, edad
+from clientes
+where (nombre = 'ana' and edad > 22 and apellido = 'lopez') or nombre = 'diego';
+
+-- NOT con OR con AND
+select id, nombre, apellido, edad
+from clientes
+where not (nombre = 'ana' and edad > 22 and apellido = 'lopez') or nombre = 'diego';
+
+/* ------------------------------------------------------------------------------------- */
+/*  SELECT:WHERE:IN -> permite simplificar la operación con or múltiple en una consulta  */
+/* ------------------------------------------------------------------------------------- */
+use mibasemartes;
+
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana' or nombre = 'diego' or nombre = 'pedro';
+where nombre in ('ana','diego','pedro');
+
+select id, nombre, apellido, edad
+from clientes
+where nombre in ('ana');		-- es igual a -> where nombre = 'ana'
+
+select *
+from productos;
+
+select codigo, nombre, categoria, marca, precio
+from productos
+-- where marca in('noblex','lg','hitachi');
+where not marca in('noblex','lg','hitachi');
+
+/* --------------------------------------------- */
+/*              WHERE con BETWEEN                */
+/* --------------------------------------------- */
+select nombre, marca, precio
+from productos
+order by precio desc;
+
+select nombre, marca, precio
+from productos
+-- where precio >= 30000 and precio <= 50000
+where precio <= 50000 and precio >= 30000		-- los límites del intervalo no tienen que estar en orden
+order by precio desc;
+
+select nombre, marca, precio
+from productos
+where precio between 30000 and 50000	-- similar a -> where precio >= 30000 and precio <= 50000
+-- where precio between 50000 and 30000			-- no funciona, porque loslimites del intervalo tienen que estar en orden (primero el menor)
+order by precio desc;
+
+/* --------------------------------------------- */
+/*                WHERE con LIKE                 */
+/* --------------------------------------------- */
+select * from clientes;
+
+insert into clientes values (null, 'Adriana', 'Lopez', 28);
+insert into clientes values (null, 'Ana Cecilia', 'Paz', 26);
+insert into clientes values (null, 'Gabriel', 'Pieres', 31);
+insert into clientes values (null, 'Federico', 'Josep', 36);
+insert into clientes values (null, 'Marcelo', 'Pas', 28);
+
+select id, nombre, apellido, edad
+from clientes
+-- where nombre like 'a%';			# nombres que comiencen con el caracter 'a'
+-- where nombre like 'ana%';		# nombres que comiencen con los caracteres 'ana'
+-- where apellido like 'p%';		# apellidos que comiencen con el caracter 'p'
+-- where apellido like '%p%';		# apellidos que contengan el caracter 'p'
+-- where apellido like '%z';		# apellidos que terminen con el caracter 'z'
+-- where apellido like '%rez';		# apellidos que terminen con los caracteres 'rez'
+-- where apellido like '%re_';		# apellidos que terminen con los caracteres 're' más un caracter cualquiera
+-- where apellido like '%o_ez';		# apellidos que terminen con el caracter 'o' más un caracter cualquiera más los caracteres 'ez'
+-- where apellido like '%p_z';		# apellidos que terminen con el caracter 'p' más un caracter cualquiera más el caracter 'z'
+where apellido like '%p__';		# apellidos que terminen con el caracter 'p' más dos caracteres cualquiera
+
+/* -------------------------------------------------------------------------------------------------------*/
+/*  Consulta de una tabla perteneciente a otra base de datos, desde la base actual (sin utilizar el use)  */
+/* -------------------------------------------------------------------------------------------------------*/
+create database mibasemartes2;
+
+use mibasemartes2;
+
+create table clientes(
+	id int unsigned not null auto_increment,
+	nombre varchar(50) not null,
+    apellido varchar(50) not null,
+    edad int unsigned not null,
+    primary key(id)
+);
+
+desc clientes;
+
+select * from clientes;
+
+insert into clientes values ( null, 'Mariela', 'Blanco', 34 ),
+							( null, 'Analia', 'Sierra', 29 ),
+							( null, 'German', 'Alberca', 27 ),
+							( null, 'Carlos', 'Fernandez', 36 );
+
+
+-- estas dos consultas son DEPENDIENTES de la base actualmente seleccionada con 'use'
+use mibasemartes;
+select * from clientes;
+
+use mibasemartes2;
+select * from clientes;
+
+-- estas dos consultas son INDEPENDIENTES de la base actualmente seleccionada con 'use'
+select * from mibasemartes.clientes;
+select * from mibasemartes2.clientes;
+
+/* ---------------------------------------------------- */
+/*   Valor NULL (null) : búsqueda y campos literales    */
+/* ---------------------------------------------------- */
+desc clientes;
+
+select * from clientes;
+
+alter table clientes modify edad int unsigned null;
+
+insert into clientes values (null, 'Marcela', 'Gomez', null);
+insert into clientes values (9, 'Pepe', 'Landi', null);
+
+-- null en búsquedas
+select id, nombre, apellido, edad from clientes where edad = null;	# no es la forma de buscar un campo con contenido null
+select id, nombre, apellido, edad from clientes where edad is null;	# es la forma correcta de buscar un campo con contenido null
+
+-- null en campos literales
+select id, nombre, apellido, edad, edad + 2 as 'EDAD EN DOS AÑOS' from clientes;
+select id, nombre, apellido, edad, ifnull(edad + 2,'No se especificó la edad') as 'EDAD EN DOS AÑOS' from clientes;
+
+
+/* ------------------------------------------------------- */
+/*                    UPDATE y DELETE                      */
+/* ------------------------------------------------------- */
+-- https://codigosql.com/blog/sentencias-ddl-y-dml/
+
+
+show databases;
+
+create database mibasemartes;
+#drop database mibasemartes;
+
+use mibasemartes;
+use test;
+
+create table clientes(
+	id int unsigned not null auto_increment,
+	nombre varchar(50) not null,
+    apellido varchar(50) not null,
+    edad int(3) unsigned not null,
+    primary key(id)
+);
+
+desc clientes;
+-- drop table clientes;
+
+show tables;
+
+select * from clientes;
+
+#esto es un comentario de línea (1)
+-- esto es un comentario de línea (2)
+
+/*
+ESTO
+ES
+UN
+COMENTARIO
+DE BLOQUE
+*/
+
+/* esto es un comentario de bloque usado en una línea */
+
+select * from clientes;
+SELECT * From CLIENTEs;
+
+/* 1. FORMA NORMAL DE INSERTAR UN REGISTRO EN UNA TABLA */
+-- insert into clientes (nombre, apellido, edad) values ('Juan','Perez',23);
+insert into clientes (nombre, apellido, edad) 
+values ('Juan','Perez',23);
+
+/* 2. FORMA MYSQL DE INSERTAR UN REGISTRO EN UNA TABLA */
+insert into clientes
+set nombre = 'Ana',
+	apellido = 'Lopez',
+    edad = 21;
+
+/* 3. FORMA SIMPLIFICADA DE INSERTAR UNO Ó VARIOS REGISTROS EN UNA TABLA */
+insert into clientes values (null,'Pedro','Gomez',26);
+
+insert into clientes values (null,'Lucia','Mei',23),
+							(null,'Gaby','Lopez',25),
+							(null,'Diego','Gutierrez',21),
+							(null,'Cecilia','Blanco',40);
+
+insert into clientes values (null,'Pablo','Juarez',29);
+insert into clientes values (4,'Maria','Perez',24);		-- da error porque el id 4 está ocupado
+insert into clientes values (11,'Maria','Perez',24);
+insert into clientes values (null,'Mariela','Lopez',22);
+
+select * from clientes;
+
+/* ----------------------------------------- */
+/*     Clave primaria sin auto_increment     */
+/* ----------------------------------------- */
+create table prueba(
+	id int unsigned not null,
+    primary key(id)
+);
+
+desc prueba;
+
+show tables;
+
+select * from prueba;
+
+insert into prueba (id) values(1);
+insert into prueba (id) values(2);
+insert into prueba (id) values(null);
+insert into prueba (id) values(5);
+insert into prueba (id) values(4);
+
+
+/* ------------------------------------------ */
+/*  Enum, default y clave primaria combinada  */
+/* ------------------------------------------ */
+create table facturas(
+	tipo enum('A','B','C') not null default 'A',
+    numero int unsigned not null,
+    primary key(tipo, numero)
+);
+
+desc facturas;
+
+select * from facturas;
+
+insert into facturas (tipo,numero) values ('A',1);
+insert into facturas (tipo,numero) values ('B',1);
+insert into facturas (tipo,numero) values ('A',2);
+insert into facturas (tipo,numero) values ('C',1);
+
+insert into facturas (numero) values (3);
+insert into facturas (numero) values (1);	-- da error porque la clave primaria combinada A-1 ya está utilizada
+
+insert into facturas (tipo,numero) values ('D',1);	# da warning porque la factura D no corresponde a un tipo válido
+insert into facturas (tipo,numero) values ('A','Hola');	# da warning porque el número de factura debe ser entero
+insert into facturas (numero,tipo) values (2,'C');
+
+
+/* ----------------------------------------------------------- */
+/*  Primary key (clave primaria) vs. Unique key (clave única)  */
+/* ----------------------------------------------------------- */
+create table personas(
+	id int unsigned not null auto_increment,
+    nombre varchar(50) not null,
+    dni varchar(12) not null,
+    unique key(dni),
+    primary key(id)
+);
+
+drop table personas;
+desc personas;
+
+select * from personas;
+
+insert into personas (nombre, dni) values ('Carlos','20.365.478');
+insert into personas (nombre, dni) values ('Ana','20.365.479');
+insert into personas (nombre, dni) values ('Pablo','35.123.654');
+insert into personas (id,nombre, dni) values (2,'Pedro','21.432.111');
+
+/* ------------------------------------------------------ */
+/*                    Consulta Select                     */
+/* ------------------------------------------------------ */
+show tables;
+
+desc clientes;
+
+select * from clientes;
+
+select nombre, edad from clientes;
+select edad, nombre from clientes;
+select nombre from clientes;
+select id, nombre from clientes;
+select nombre, apellido, edad from clientes;
+select nombre, apellido, edad, id from clientes;
+select nombre, apellido, edad, nombre from clientes;
+
+-- ----------------------------------------------------------------------
+use mibasemartes;
+
+/* ------------------------------------------------ */
+/*          Consulta select (sin from)              */
+/* ------------------------------------------------ */
+select 5+1;			-- campo ó columna literal
+select (5+1)*3;		-- campo ó columna literal
+select (5+1)*3 as Resultado;		-- campo ó columna literal con alias
+select (5+1)*3 as Resultado, 3.1415926 * 2 as Pix2;		-- campo ó columna literal con alias
+
+/* -------------------------------------------- */
+/*            Modificador LIMIT                 */ 
+/* -------------------------------------------- */
+select id, nombre, apellido, edad 
+from clientes
+limit 3;
+
+/* -------------------------------------------- */
+/*        Modificador LIMIT + OFFSET            */ 
+/* -------------------------------------------- */
+select id, nombre, apellido, edad 
+from clientes
+# limit y offset se utilizan en conjunto para paginar (paginación)
+# limit: cantidad de registros que queremos visualizar por página
+# offset: Nro. de página (desde 0) * limit (múltiplo de limit)
+limit 3
+offset 9;
+
+/* -------------------------------------------- */
+/*         alias y literales con from           */
+/* -------------------------------------------- */
+create table productos(
+	id int unsigned not null primary key auto_increment,
+    nombre varchar(50) not null,
+    marca varchar(50) not null,
+    categoria varchar(50) not null,
+    codigo varchar(50) not null,
+    precio double not null -- ,
+    -- primary key(id)
+);
+
+desc productos;
+select * from productos;
+
+insert into productos values
+# id		nombre			marca			categoria			codigo				precio
+( null,		'TV-29P',		'LG',			'Hogar',			'H-TV29-1',			19000 ),
+( null,		'TV-33P',		'Noblex',		'Hogar',			'H-TV33-1',			28000 ),
+( null,		'TV-40P',		'Panasonic',	'Hogar',			'H-TV40-1',			31700 ),
+( null,		'TV-42P',		'LG',			'Hogar',			'H-TV42-1',			34100 ),
+( null,		'TV-50P',		'Philips',		'Hogar',			'H-TV50-1',			42000 ),
+( null,		'TV-80P',		'Noblex',		'Hogar',			'H-TV80-1',			56000 ),
+( null,		'TV-80P',		'Hitachi',		'Hogar',			'H-TV80-2',			60000 );
+
+select 
+	id, 
+    codigo, 
+    categoria, 
+    p.nombre, 
+    precio as COSTO, 
+    precio * 0.21 as IVA,
+    precio + precio * 0.21 as TOTAL
+from mibasemartes.productos as p;
+
+/* -------------------------------------- */
+/*               order by                 */
+/* -------------------------------------- */
+select id, nombre, apellido, edad
+from clientes
+-- order by nombre;
+-- order by nombre desc;
+-- order by nombre asc;
+-- order by edad;
+-- order by edad desc;
+-- order by edad desc, apellido;
+-- order by id desc;
+order by nombre desc, apellido, edad desc;
+
+insert into clientes values (null, 'Ana', 'Gutierrez', 25);
+insert into clientes values (null, 'Ana', 'Lopez', 23);
+
+
+/* ------------------------------------------------------ */
+/*        SELECT:WHERE -> predicado de la consulta        */
+/* ------------------------------------------------------ */
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana';		# filtro por igual (case insensitive)
+where nombre <> 'ana'			# filtro por distinto (case insensitive)
+order by edad desc
+limit 5;
+
+# --------------------------------------------------------------------------------------------------------
+# WHERE con operadores aritméticos y relacionales ( = , < , > , <= , >=, <> ) sirven para campos numéricos
+
+select id, nombre, apellido, edad
+from clientes
+-- where edad = 29				# filtro por igual (sirve también para campos de texto)
+-- where edad > 29				# filtro por mayor
+-- where edad >= 29				# filtro por mayor ó igual
+-- where edad < 29				# filtro por menor
+-- where edad <= 29				# filtro por menor ó igual 
+where edad <> 29				# filtro por distinto (sirve también para campos de texto)
+order by edad;
+
+# --------------------------------------------------------------------------------------------------------
+# WHERE con operadores lógicos ó booleanos (and / or / not)
+
+-- AND
+select id, nombre, apellido, edad
+from clientes
+where nombre = 'ana' and edad > 22;		-- and (Y) -> intersección de condiciones
+
+-- OR
+select id, nombre, apellido, edad
+from clientes
+where nombre = 'ana' or nombre = 'diego';		-- or (Ó) -> unión de condiciones
+
+-- NOT
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana';
+-- where nombre <> 'ana';
+where not nombre = 'ana';				-- not (NO) -> negación de la condición
+
+-- NOT con OR
+select id, nombre, apellido, edad
+from clientes
+where not (nombre = 'ana' or nombre = 'diego');
+
+-- OR con AND
+select id, nombre, apellido, edad
+from clientes
+where (nombre = 'ana' and edad > 22 and apellido = 'lopez') or nombre = 'diego';
+
+-- NOT con OR con AND
+select id, nombre, apellido, edad
+from clientes
+where not (nombre = 'ana' and edad > 22 and apellido = 'lopez') or nombre = 'diego';
+
+/* ------------------------------------------------------------------------------------- */
+/*  SELECT:WHERE:IN -> permite simplificar la operación con or múltiple en una consulta  */
+/* ------------------------------------------------------------------------------------- */
+use mibasemartes;
+
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana' or nombre = 'diego' or nombre = 'pedro';
+where nombre in ('ana','diego','pedro');
+
+select id, nombre, apellido, edad
+from clientes
+where nombre in ('ana');		-- es igual a -> where nombre = 'ana'
+
+select *
+from productos;
+
+select codigo, nombre, categoria, marca, precio
+from productos
+-- where marca in('noblex','lg','hitachi');
+where not marca in('noblex','lg','hitachi');
+
+/* --------------------------------------------- */
+/*              WHERE con BETWEEN                */
+/* --------------------------------------------- */
+select nombre, marca, precio
+from productos
+order by precio desc;
+
+select nombre, marca, precio
+from productos
+-- where precio >= 30000 and precio <= 50000
+where precio <= 50000 and precio >= 30000		-- los límites del intervalo no tienen que estar en orden
+order by precio desc;
+
+select nombre, marca, precio
+from productos
+where precio between 30000 and 50000	-- similar a -> where precio >= 30000 and precio <= 50000
+-- where precio between 50000 and 30000			-- no funciona, porque loslimites del intervalo tienen que estar en orden (primero el menor)
+order by precio desc;
+
+/* --------------------------------------------- */
+/*                WHERE con LIKE                 */
+/* --------------------------------------------- */
+select * from clientes;
+
+insert into clientes values (null, 'Adriana', 'Lopez', 28);
+insert into clientes values (null, 'Ana Cecilia', 'Paz', 26);
+insert into clientes values (null, 'Gabriel', 'Pieres', 31);
+insert into clientes values (null, 'Federico', 'Josep', 36);
+insert into clientes values (null, 'Marcelo', 'Pas', 28);
+
+select id, nombre, apellido, edad
+from clientes
+-- where nombre like 'a%';			# nombres que comiencen con el caracter 'a'
+-- where nombre like 'ana%';		# nombres que comiencen con los caracteres 'ana'
+-- where apellido like 'p%';		# apellidos que comiencen con el caracter 'p'
+-- where apellido like '%p%';		# apellidos que contengan el caracter 'p'
+-- where apellido like '%z';		# apellidos que terminen con el caracter 'z'
+-- where apellido like '%rez';		# apellidos que terminen con los caracteres 'rez'
+-- where apellido like '%re_';		# apellidos que terminen con los caracteres 're' más un caracter cualquiera
+-- where apellido like '%o_ez';		# apellidos que terminen con el caracter 'o' más un caracter cualquiera más los caracteres 'ez'
+-- where apellido like '%p_z';		# apellidos que terminen con el caracter 'p' más un caracter cualquiera más el caracter 'z'
+where apellido like '%p__';		# apellidos que terminen con el caracter 'p' más dos caracteres cualquiera
+
+/* -------------------------------------------------------------------------------------------------------*/
+/*  Consulta de una tabla perteneciente a otra base de datos, desde la base actual (sin utilizar el use)  */
+/* -------------------------------------------------------------------------------------------------------*/
+create database mibasemartes2;
+
+use mibasemartes2;
+
+create table clientes(
+	id int unsigned not null auto_increment,
+	nombre varchar(50) not null,
+    apellido varchar(50) not null,
+    edad int unsigned not null,
+    primary key(id)
+);
+
+desc clientes;
+
+select * from clientes;
+
+insert into clientes values ( null, 'Mariela', 'Blanco', 34 ),
+							( null, 'Analia', 'Sierra', 29 ),
+							( null, 'German', 'Alberca', 27 ),
+							( null, 'Carlos', 'Fernandez', 36 );
+
+
+-- estas dos consultas son DEPENDIENTES de la base actualmente seleccionada con 'use'
+use mibasemartes;
+select * from clientes;
+
+use mibasemartes2;
+select * from clientes;
+
+-- estas dos consultas son INDEPENDIENTES de la base actualmente seleccionada con 'use'
+select * from mibasemartes.clientes;
+select * from mibasemartes2.clientes;
+
+/* ---------------------------------------------------- */
+/*   Valor NULL (null) : búsqueda y campos literales    */
+/* ---------------------------------------------------- */
+desc clientes;
+
+select * from clientes;
+
+alter table clientes modify edad int unsigned null;
+
+insert into clientes values (null, 'Marcela', 'Gomez', null);
+insert into clientes values (9, 'Pepe', 'Landi', null);
+
+-- null en búsquedas
+select id, nombre, apellido, edad from clientes where edad = null;	# no es la forma de buscar un campo con contenido null
+select id, nombre, apellido, edad from clientes where edad is null;	# es la forma correcta de buscar un campo con contenido null
+
+-- null en campos literales
+select id, nombre, apellido, edad, edad + 2 as 'EDAD EN DOS AÑOS' from clientes;
+select id, nombre, apellido, edad, ifnull(edad + 2,'No se especificó la edad') as 'EDAD EN DOS AÑOS' from clientes;
+
+
+/* ------------------------------------------------------- */
+/*                    UPDATE y DELETE                      */
+/* ------------------------------------------------------- */
+-- https://codigosql.com/blog/sentencias-ddl-y-dml/
+
+use mibasemartes;
+
+select * from clientes;
+
+select id, nombre, apellido, edad from clientes where edad is null;
+
+update clientes set edad = 33 where id = 20;
+-- update clientes set edad = 29 where id = 9;
+
+set SQL_SAFE_UPDATES = 0;	# deshabilito el modo seguro (para permitir actualización masivas)
+update clientes set edad = 29 where nombre = 'pepe';
+set SQL_SAFE_UPDATES = 1;	# lo habilito nuevamente
+
+-- UPDATE seguro con rollback
+begin;
+set SQL_SAFE_UPDATES = 0;	# deshabilito el modo seguro (para permitir actualización masivas)
+update clientes set edad = 31 where nombre = 'pepe';
+set SQL_SAFE_UPDATES = 1;	# lo habilito nuevamente
+
+select * from clientes;
+rollback;
+
+-- UPDATE definitivo
+set SQL_SAFE_UPDATES = 0;	# deshabilito el modo seguro (para permitir actualización masivas)
+update clientes set edad = 31 where nombre = 'pepe';
+set SQL_SAFE_UPDATES = 1;	# lo habilito nuevamente
+
+select * from clientes;
+
+/* ----------------------------------------------------------- */
+/*             DELETE vs. TRUNCATE  vs.  DROP                  */
+/* ----------------------------------------------------------- */
+desc productos;
+select * from productos;
+
+rename table productos to articulos;
+desc articulos;
+select * from articulos;
+
+create table productos(
+	id int unsigned not null auto_increment,
+    nombre varchar(50) not null,
+    marca varchar(50) not null,
+    categoria varchar(50) not null,
+    descripcion varchar(50) not null,
+    codigo varchar(50) not null,
+    precio float unsigned not null,
+    primary key(id)
+);
+
+desc productos;
+
+alter table productos modify codigo int unsigned not null;
+alter table productos modify descripcion varchar(250) not null;
+alter table productos change codigo codigos int(9) unsigned not null;
+alter table productos change codigos codigo int(9) unsigned not null;
+alter table productos add stock int unsigned not null;
+
+select * from productos;
+
+insert into productos values
+# id	nombre						marca			categoria			descripcion						codigo		precio		stock
+( null,	'SmartPhone Samsung A5',	'Samsung',		'telefonia',		'Telefono inteligente 3G',		1,			12000,		44 ),
+( null, 'TV Samsung 29P',			'Samsung',		'televisores',		'Televisor LCD 29 Pulgadas',	2,			27000,		32 ),
+( null,	'SmartPhone Motorola E6',	'Motorola',		'telefonia',		'Telefono inteligente 3G',		7,			17000,		25 ),
+( null, 'TV Philips 33P',			'Philips',		'televisores',		'Televisor LCD 33 Pulgadas',	9,			42000,		43 ),
+( null,	'SmartPhone Huawei P30',	'Huawei',		'telefonia',		'Telefono inteligente 4G',		12,			31000,		100 );
+
+select * from productos;
+
+select * from productos where categoria = 'telefonia';
+
+update productos set categoria = 'celulares' where id = 1;
+update productos set categoria = 'celulares' where id = 3;
+update productos set categoria = 'celulares' where id = 5;
+
+set SQL_SAFE_UPDATES = 0;
+update productos set categoria = 'celulares' where categoria = 'telefonia';
+set SQL_SAFE_UPDATES = 1;
+
+
+desc productos;
+select * from productos;
+
+/* ------ DROP ------- */
+drop table productos;
+
+/* ------ TRUNCATE ------- */
+truncate productos;
+
+/* ------ DELETE ------- */
+set SQL_SAFE_UPDATES = 0;
+delete from productos;
+set SQL_SAFE_UPDATES = 1;
+
+
+/* -------------------------------------------------------- */
+/*            funciones count() y group_concat()            */
+/* -------------------------------------------------------- */
+select * from productos;
+
+select count(id) as 'Cantidad total de productos' from productos;
+select count(*) as 'Cantidad total de productos' from productos;
+
+select count(id) as 'Cantidad de productos de la marca Samsung', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'samsung';
+
+select count(id) as 'Cantidad de productos de la marca Motorola', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'Motorola';
+
+select count(id) as 'Cantidad de productos de la marca Philips', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'philips';
+
+select count(id) as 'Cantidad de productos de la marca Huawei', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'huawei';
+
+select count(id) as 'Cantidad de productos de la marca Samsung y Philips', group_concat(nombre) as NOMBRES
+from productos
+-- where marca = 'samsung' or marca = 'Philips';
+where marca in ('samsung','Philips');
+
+select 
+	count(id) as 'Cantidad total de productos', 
+    group_concat(nombre) as NOMBRES 
+from productos;
+
+
+/* -------------------------------------------- */
+/*                  GROUP BY                    */ 
+/* -------------------------------------------- */
+select marca as MARCAS, count(*) as 'Cantidad de productos por marca', group_concat(nombre) as NOMBRES
+from productos
+group by marca;
+
+select categoria as 'CATEGORÍAS', count(*) as 'Cantidad de productos por categoría', group_concat(nombre) as NOMBRES
+from productos
+group by categoria;
+
+select descripcion as 'DESCRIPCIÓN', count(*) as 'Cantidad de productos por descripción', group_concat(nombre) as NOMBRES
+from productos
+group by descripcion;
+
+
+insert into productos values
+# id	nombre						marca			categoria			descripcion						codigo		precio		stock
+( null,	'SmartPhone Samsung A6',	'Samsung',		'celulares',		'Telefono inteligente 4G',		11,			16000,		21 ),
+( null, 'TV Samsung 33P',			'Samsung',		'televisores',		'Televisor LCD 33 Pulgadas',	22,			28000,		103 ),
+( null,	'SmartPhone Motorola E7',	'Motorola',		'celulares',		'Telefono inteligente 4G',		37,			19000,		52 ),
+( null, 'TV Philips 42P',			'Philips',		'televisores',		'Televisor LCD 42 Pulgadas',	49,			49000,		20 ),
+( null,	'SmartPhone Huawei SmartP',	'Huawei',		'celulares',		'Telefono inteligente 3G',		52,			36500,		63 );
+
+insert into productos values
+# id	nombre						marca			categoria			descripcion						codigo		precio		stock
+( null,	'SmartPhone Samsung A55',	'Samsung',		'celulares',		'Telefono inteligente 3G',		111,		21000,		17 );
+
+select
+	marca as MARCAS,
+    categoria as 'CATEGORÍAS',
+    count(*) as 'Cantidad de productos por M/C',
+    group_concat(nombre) as NOMBRES
+from productos
+group by marca, categoria;
+
+select
+	nombre as NOMBRES,
+	marca as MARCAS,
+    categoria as 'CATEGORÍAS',
+    count(*) as 'Cantidad de productos por N/M/C'
+from productos
+group by nombre, marca, categoria;
+
+select  * from productos;
+
+delete from productos where id = 11;
+
+
+show databases;
+
+create database mibasemartes;
+#drop database mibasemartes;
+
+use mibasemartes;
+use test;
+
+create table clientes(
+	id int unsigned not null auto_increment,
+	nombre varchar(50) not null,
+    apellido varchar(50) not null,
+    edad int(3) unsigned not null,
+    primary key(id)
+);
+
+desc clientes;
+-- drop table clientes;
+
+show tables;
+
+select * from clientes;
+
+#esto es un comentario de línea (1)
+-- esto es un comentario de línea (2)
+
+/*
+ESTO
+ES
+UN
+COMENTARIO
+DE BLOQUE
+*/
+
+/* esto es un comentario de bloque usado en una línea */
+
+select * from clientes;
+SELECT * From CLIENTEs;
+
+/* 1. FORMA NORMAL DE INSERTAR UN REGISTRO EN UNA TABLA */
+-- insert into clientes (nombre, apellido, edad) values ('Juan','Perez',23);
+insert into clientes (nombre, apellido, edad) 
+values ('Juan','Perez',23);
+
+/* 2. FORMA MYSQL DE INSERTAR UN REGISTRO EN UNA TABLA */
+insert into clientes
+set nombre = 'Ana',
+	apellido = 'Lopez',
+    edad = 21;
+
+/* 3. FORMA SIMPLIFICADA DE INSERTAR UNO Ó VARIOS REGISTROS EN UNA TABLA */
+insert into clientes values (null,'Pedro','Gomez',26);
+
+insert into clientes values (null,'Lucia','Mei',23),
+							(null,'Gaby','Lopez',25),
+							(null,'Diego','Gutierrez',21),
+							(null,'Cecilia','Blanco',40);
+
+insert into clientes values (null,'Pablo','Juarez',29);
+insert into clientes values (4,'Maria','Perez',24);		-- da error porque el id 4 está ocupado
+insert into clientes values (11,'Maria','Perez',24);
+insert into clientes values (null,'Mariela','Lopez',22);
+
+select * from clientes;
+
+/* ----------------------------------------- */
+/*     Clave primaria sin auto_increment     */
+/* ----------------------------------------- */
+create table prueba(
+	id int unsigned not null,
+    primary key(id)
+);
+
+desc prueba;
+
+show tables;
+
+select * from prueba;
+
+insert into prueba (id) values(1);
+insert into prueba (id) values(2);
+insert into prueba (id) values(null);
+insert into prueba (id) values(5);
+insert into prueba (id) values(4);
+
+
+/* ------------------------------------------ */
+/*  Enum, default y clave primaria combinada  */
+/* ------------------------------------------ */
+create table facturas(
+	tipo enum('A','B','C') not null default 'A',
+    numero int unsigned not null,
+    primary key(tipo, numero)
+);
+
+desc facturas;
+
+select * from facturas;
+
+insert into facturas (tipo,numero) values ('A',1);
+insert into facturas (tipo,numero) values ('B',1);
+insert into facturas (tipo,numero) values ('A',2);
+insert into facturas (tipo,numero) values ('C',1);
+
+insert into facturas (numero) values (3);
+insert into facturas (numero) values (1);	-- da error porque la clave primaria combinada A-1 ya está utilizada
+
+insert into facturas (tipo,numero) values ('D',1);	# da warning porque la factura D no corresponde a un tipo válido
+insert into facturas (tipo,numero) values ('A','Hola');	# da warning porque el número de factura debe ser entero
+insert into facturas (numero,tipo) values (2,'C');
+
+
+/* ----------------------------------------------------------- */
+/*  Primary key (clave primaria) vs. Unique key (clave única)  */
+/* ----------------------------------------------------------- */
+create table personas(
+	id int unsigned not null auto_increment,
+    nombre varchar(50) not null,
+    dni varchar(12) not null,
+    unique key(dni),
+    primary key(id)
+);
+
+drop table personas;
+desc personas;
+
+select * from personas;
+
+insert into personas (nombre, dni) values ('Carlos','20.365.478');
+insert into personas (nombre, dni) values ('Ana','20.365.479');
+insert into personas (nombre, dni) values ('Pablo','35.123.654');
+insert into personas (id,nombre, dni) values (2,'Pedro','21.432.111');
+
+/* ------------------------------------------------------ */
+/*                    Consulta Select                     */
+/* ------------------------------------------------------ */
+show tables;
+
+desc clientes;
+
+select * from clientes;
+
+select nombre, edad from clientes;
+select edad, nombre from clientes;
+select nombre from clientes;
+select id, nombre from clientes;
+select nombre, apellido, edad from clientes;
+select nombre, apellido, edad, id from clientes;
+select nombre, apellido, edad, nombre from clientes;
+
+-- ----------------------------------------------------------------------
+use mibasemartes;
+
+/* ------------------------------------------------ */
+/*          Consulta select (sin from)              */
+/* ------------------------------------------------ */
+select 5+1;			-- campo ó columna literal
+select (5+1)*3;		-- campo ó columna literal
+select (5+1)*3 as Resultado;		-- campo ó columna literal con alias
+select (5+1)*3 as Resultado, 3.1415926 * 2 as Pix2;		-- campo ó columna literal con alias
+
+/* -------------------------------------------- */
+/*            Modificador LIMIT                 */ 
+/* -------------------------------------------- */
+select id, nombre, apellido, edad 
+from clientes
+limit 3;
+
+/* -------------------------------------------- */
+/*        Modificador LIMIT + OFFSET            */ 
+/* -------------------------------------------- */
+select id, nombre, apellido, edad 
+from clientes
+# limit y offset se utilizan en conjunto para paginar (paginación)
+# limit: cantidad de registros que queremos visualizar por página
+# offset: Nro. de página (desde 0) * limit (múltiplo de limit)
+limit 3
+offset 9;
+
+/* -------------------------------------------- */
+/*         alias y literales con from           */
+/* -------------------------------------------- */
+create table productos(
+	id int unsigned not null primary key auto_increment,
+    nombre varchar(50) not null,
+    marca varchar(50) not null,
+    categoria varchar(50) not null,
+    codigo varchar(50) not null,
+    precio double not null -- ,
+    -- primary key(id)
+);
+
+desc productos;
+select * from productos;
+
+insert into productos values
+# id		nombre			marca			categoria			codigo				precio
+( null,		'TV-29P',		'LG',			'Hogar',			'H-TV29-1',			19000 ),
+( null,		'TV-33P',		'Noblex',		'Hogar',			'H-TV33-1',			28000 ),
+( null,		'TV-40P',		'Panasonic',	'Hogar',			'H-TV40-1',			31700 ),
+( null,		'TV-42P',		'LG',			'Hogar',			'H-TV42-1',			34100 ),
+( null,		'TV-50P',		'Philips',		'Hogar',			'H-TV50-1',			42000 ),
+( null,		'TV-80P',		'Noblex',		'Hogar',			'H-TV80-1',			56000 ),
+( null,		'TV-80P',		'Hitachi',		'Hogar',			'H-TV80-2',			60000 );
+
+select 
+	id, 
+    codigo, 
+    categoria, 
+    p.nombre, 
+    precio as COSTO, 
+    precio * 0.21 as IVA,
+    precio + precio * 0.21 as TOTAL
+from mibasemartes.productos as p;
+
+/* -------------------------------------- */
+/*               order by                 */
+/* -------------------------------------- */
+select id, nombre, apellido, edad
+from clientes
+-- order by nombre;
+-- order by nombre desc;
+-- order by nombre asc;
+-- order by edad;
+-- order by edad desc;
+-- order by edad desc, apellido;
+-- order by id desc;
+order by nombre desc, apellido, edad desc;
+
+insert into clientes values (null, 'Ana', 'Gutierrez', 25);
+insert into clientes values (null, 'Ana', 'Lopez', 23);
+
+
+/* ------------------------------------------------------ */
+/*        SELECT:WHERE -> predicado de la consulta        */
+/* ------------------------------------------------------ */
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana';		# filtro por igual (case insensitive)
+where nombre <> 'ana'			# filtro por distinto (case insensitive)
+order by edad desc
+limit 5;
+
+# --------------------------------------------------------------------------------------------------------
+# WHERE con operadores aritméticos y relacionales ( = , < , > , <= , >=, <> ) sirven para campos numéricos
+
+select id, nombre, apellido, edad
+from clientes
+-- where edad = 29				# filtro por igual (sirve también para campos de texto)
+-- where edad > 29				# filtro por mayor
+-- where edad >= 29				# filtro por mayor ó igual
+-- where edad < 29				# filtro por menor
+-- where edad <= 29				# filtro por menor ó igual 
+where edad <> 29				# filtro por distinto (sirve también para campos de texto)
+order by edad;
+
+# --------------------------------------------------------------------------------------------------------
+# WHERE con operadores lógicos ó booleanos (and / or / not)
+
+-- AND
+select id, nombre, apellido, edad
+from clientes
+where nombre = 'ana' and edad > 22;		-- and (Y) -> intersección de condiciones
+
+-- OR
+select id, nombre, apellido, edad
+from clientes
+where nombre = 'ana' or nombre = 'diego';		-- or (Ó) -> unión de condiciones
+
+-- NOT
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana';
+-- where nombre <> 'ana';
+where not nombre = 'ana';				-- not (NO) -> negación de la condición
+
+-- NOT con OR
+select id, nombre, apellido, edad
+from clientes
+where not (nombre = 'ana' or nombre = 'diego');
+
+-- OR con AND
+select id, nombre, apellido, edad
+from clientes
+where (nombre = 'ana' and edad > 22 and apellido = 'lopez') or nombre = 'diego';
+
+-- NOT con OR con AND
+select id, nombre, apellido, edad
+from clientes
+where not (nombre = 'ana' and edad > 22 and apellido = 'lopez') or nombre = 'diego';
+
+/* ------------------------------------------------------------------------------------- */
+/*  SELECT:WHERE:IN -> permite simplificar la operación con or múltiple en una consulta  */
+/* ------------------------------------------------------------------------------------- */
+use mibasemartes;
+
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana' or nombre = 'diego' or nombre = 'pedro';
+where nombre in ('ana','diego','pedro');
+
+select id, nombre, apellido, edad
+from clientes
+where nombre in ('ana');		-- es igual a -> where nombre = 'ana'
+
+select *
+from productos;
+
+select codigo, nombre, categoria, marca, precio
+from productos
+-- where marca in('noblex','lg','hitachi');
+where not marca in('noblex','lg','hitachi');
+
+/* --------------------------------------------- */
+/*              WHERE con BETWEEN                */
+/* --------------------------------------------- */
+select nombre, marca, precio
+from productos
+order by precio desc;
+
+select nombre, marca, precio
+from productos
+-- where precio >= 30000 and precio <= 50000
+where precio <= 50000 and precio >= 30000		-- los límites del intervalo no tienen que estar en orden
+order by precio desc;
+
+select nombre, marca, precio
+from productos
+where precio between 30000 and 50000	-- similar a -> where precio >= 30000 and precio <= 50000
+-- where precio between 50000 and 30000			-- no funciona, porque loslimites del intervalo tienen que estar en orden (primero el menor)
+order by precio desc;
+
+/* --------------------------------------------- */
+/*                WHERE con LIKE                 */
+/* --------------------------------------------- */
+select * from clientes;
+
+insert into clientes values (null, 'Adriana', 'Lopez', 28);
+insert into clientes values (null, 'Ana Cecilia', 'Paz', 26);
+insert into clientes values (null, 'Gabriel', 'Pieres', 31);
+insert into clientes values (null, 'Federico', 'Josep', 36);
+insert into clientes values (null, 'Marcelo', 'Pas', 28);
+
+select id, nombre, apellido, edad
+from clientes
+-- where nombre like 'a%';			# nombres que comiencen con el caracter 'a'
+-- where nombre like 'ana%';		# nombres que comiencen con los caracteres 'ana'
+-- where apellido like 'p%';		# apellidos que comiencen con el caracter 'p'
+-- where apellido like '%p%';		# apellidos que contengan el caracter 'p'
+-- where apellido like '%z';		# apellidos que terminen con el caracter 'z'
+-- where apellido like '%rez';		# apellidos que terminen con los caracteres 'rez'
+-- where apellido like '%re_';		# apellidos que terminen con los caracteres 're' más un caracter cualquiera
+-- where apellido like '%o_ez';		# apellidos que terminen con el caracter 'o' más un caracter cualquiera más los caracteres 'ez'
+-- where apellido like '%p_z';		# apellidos que terminen con el caracter 'p' más un caracter cualquiera más el caracter 'z'
+where apellido like '%p__';		# apellidos que terminen con el caracter 'p' más dos caracteres cualquiera
+
+/* -------------------------------------------------------------------------------------------------------*/
+/*  Consulta de una tabla perteneciente a otra base de datos, desde la base actual (sin utilizar el use)  */
+/* -------------------------------------------------------------------------------------------------------*/
+create database mibasemartes2;
+
+use mibasemartes2;
+
+create table clientes(
+	id int unsigned not null auto_increment,
+	nombre varchar(50) not null,
+    apellido varchar(50) not null,
+    edad int unsigned not null,
+    primary key(id)
+);
+
+desc clientes;
+
+select * from clientes;
+
+insert into clientes values ( null, 'Mariela', 'Blanco', 34 ),
+							( null, 'Analia', 'Sierra', 29 ),
+							( null, 'German', 'Alberca', 27 ),
+							( null, 'Carlos', 'Fernandez', 36 );
+
+
+-- estas dos consultas son DEPENDIENTES de la base actualmente seleccionada con 'use'
+use mibasemartes;
+select * from clientes;
+
+use mibasemartes2;
+select * from clientes;
+
+-- estas dos consultas son INDEPENDIENTES de la base actualmente seleccionada con 'use'
+select * from mibasemartes.clientes;
+select * from mibasemartes2.clientes;
+
+/* ---------------------------------------------------- */
+/*   Valor NULL (null) : búsqueda y campos literales    */
+/* ---------------------------------------------------- */
+desc clientes;
+
+select * from clientes;
+
+alter table clientes modify edad int unsigned null;
+
+insert into clientes values (null, 'Marcela', 'Gomez', null);
+insert into clientes values (9, 'Pepe', 'Landi', null);
+
+-- null en búsquedas
+select id, nombre, apellido, edad from clientes where edad = null;	# no es la forma de buscar un campo con contenido null
+select id, nombre, apellido, edad from clientes where edad is null;	# es la forma correcta de buscar un campo con contenido null
+
+-- null en campos literales
+select id, nombre, apellido, edad, edad + 2 as 'EDAD EN DOS AÑOS' from clientes;
+select id, nombre, apellido, edad, ifnull(edad + 2,'No se especificó la edad') as 'EDAD EN DOS AÑOS' from clientes;
+
+
+/* ------------------------------------------------------- */
+/*                    UPDATE y DELETE                      */
+/* ------------------------------------------------------- */
+-- https://codigosql.com/blog/sentencias-ddl-y-dml/
+
+use mibasemartes;
+
+select * from clientes;
+
+select id, nombre, apellido, edad from clientes where edad is null;
+
+update clientes set edad = 33 where id = 20;
+-- update clientes set edad = 29 where id = 9;
+
+set SQL_SAFE_UPDATES = 0;	# deshabilito el modo seguro (para permitir actualización masivas)
+update clientes set edad = 29 where nombre = 'pepe';
+set SQL_SAFE_UPDATES = 1;	# lo habilito nuevamente
+
+-- UPDATE seguro con rollback
+begin;
+set SQL_SAFE_UPDATES = 0;	# deshabilito el modo seguro (para permitir actualización masivas)
+update clientes set edad = 31 where nombre = 'pepe';
+set SQL_SAFE_UPDATES = 1;	# lo habilito nuevamente
+
+select * from clientes;
+rollback;
+
+-- UPDATE definitivo
+set SQL_SAFE_UPDATES = 0;	# deshabilito el modo seguro (para permitir actualización masivas)
+update clientes set edad = 31 where nombre = 'pepe';
+set SQL_SAFE_UPDATES = 1;	# lo habilito nuevamente
+
+select * from clientes;
+
+/* ----------------------------------------------------------- */
+/*             DELETE vs. TRUNCATE  vs.  DROP                  */
+/* ----------------------------------------------------------- */
+desc productos;
+select * from productos;
+
+rename table productos to articulos;
+desc articulos;
+select * from articulos;
+
+create table productos(
+	id int unsigned not null auto_increment,
+    nombre varchar(50) not null,
+    marca varchar(50) not null,
+    categoria varchar(50) not null,
+    descripcion varchar(50) not null,
+    codigo varchar(50) not null,
+    precio float unsigned not null,
+    primary key(id)
+);
+
+desc productos;
+
+alter table productos modify codigo int unsigned not null;
+alter table productos modify descripcion varchar(250) not null;
+alter table productos change codigo codigos int(9) unsigned not null;
+alter table productos change codigos codigo int(9) unsigned not null;
+alter table productos add stock int unsigned not null;
+
+select * from productos;
+
+insert into productos values
+# id	nombre						marca			categoria			descripcion						codigo		precio		stock
+( null,	'SmartPhone Samsung A5',	'Samsung',		'telefonia',		'Telefono inteligente 3G',		1,			12000,		44 ),
+( null, 'TV Samsung 29P',			'Samsung',		'televisores',		'Televisor LCD 29 Pulgadas',	2,			27000,		32 ),
+( null,	'SmartPhone Motorola E6',	'Motorola',		'telefonia',		'Telefono inteligente 3G',		7,			17000,		25 ),
+( null, 'TV Philips 33P',			'Philips',		'televisores',		'Televisor LCD 33 Pulgadas',	9,			42000,		43 ),
+( null,	'SmartPhone Huawei P30',	'Huawei',		'telefonia',		'Telefono inteligente 4G',		12,			31000,		100 );
+
+select * from productos;
+
+select * from productos where categoria = 'telefonia';
+
+update productos set categoria = 'celulares' where id = 1;
+update productos set categoria = 'celulares' where id = 3;
+update productos set categoria = 'celulares' where id = 5;
+
+set SQL_SAFE_UPDATES = 0;
+update productos set categoria = 'celulares' where categoria = 'telefonia';
+set SQL_SAFE_UPDATES = 1;
+
+
+desc productos;
+select * from productos;
+
+/* ------ DROP ------- */
+drop table productos;
+
+/* ------ TRUNCATE ------- */
+truncate productos;
+
+/* ------ DELETE ------- */
+set SQL_SAFE_UPDATES = 0;
+delete from productos;
+set SQL_SAFE_UPDATES = 1;
+
+
+/* -------------------------------------------------------- */
+/*            funciones count() y group_concat()            */
+/* -------------------------------------------------------- */
+select * from productos;
+
+select count(id) as 'Cantidad total de productos' from productos;
+select count(*) as 'Cantidad total de productos' from productos;
+
+select count(id) as 'Cantidad de productos de la marca Samsung', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'samsung';
+
+select count(id) as 'Cantidad de productos de la marca Motorola', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'Motorola';
+
+select count(id) as 'Cantidad de productos de la marca Philips', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'philips';
+
+select count(id) as 'Cantidad de productos de la marca Huawei', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'huawei';
+
+select count(id) as 'Cantidad de productos de la marca Samsung y Philips', group_concat(nombre) as NOMBRES
+from productos
+-- where marca = 'samsung' or marca = 'Philips';
+where marca in ('samsung','Philips');
+
+select 
+	count(id) as 'Cantidad total de productos', 
+    group_concat(nombre) as NOMBRES 
+from productos;
+
+
+/* -------------------------------------------- */
+/*                  GROUP BY                    */ 
+/* -------------------------------------------- */
+select marca as MARCAS, count(*) as 'Cantidad de productos por marca', group_concat(nombre) as NOMBRES
+from productos
+group by marca;
+
+select categoria as 'CATEGORÍAS', count(*) as 'Cantidad de productos por categoría', group_concat(nombre) as NOMBRES
+from productos
+group by categoria;
+
+select descripcion as 'DESCRIPCIÓN', count(*) as 'Cantidad de productos por descripción', group_concat(nombre) as NOMBRES
+from productos
+group by descripcion;
+
+
+insert into productos values
+# id	nombre						marca			categoria			descripcion						codigo		precio		stock
+( null,	'SmartPhone Samsung A6',	'Samsung',		'celulares',		'Telefono inteligente 4G',		11,			16000,		21 ),
+( null, 'TV Samsung 33P',			'Samsung',		'televisores',		'Televisor LCD 33 Pulgadas',	22,			28000,		103 ),
+( null,	'SmartPhone Motorola E7',	'Motorola',		'celulares',		'Telefono inteligente 4G',		37,			19000,		52 ),
+( null, 'TV Philips 42P',			'Philips',		'televisores',		'Televisor LCD 42 Pulgadas',	49,			49000,		20 ),
+( null,	'SmartPhone Huawei SmartP',	'Huawei',		'celulares',		'Telefono inteligente 3G',		52,			36500,		63 );
+
+insert into productos values
+# id	nombre						marca			categoria			descripcion						codigo		precio		stock
+( null,	'SmartPhone Samsung A55',	'Samsung',		'celulares',		'Telefono inteligente 3G',		111,		21000,		17 );
+
+select
+	marca as MARCAS,
+    categoria as 'CATEGORÍAS',
+    count(*) as 'Cantidad de productos por M/C',
+    group_concat(nombre) as NOMBRES
+from productos
+group by marca, categoria;
+
+select
+	nombre as NOMBRES,
+	marca as MARCAS,
+    categoria as 'CATEGORÍAS',
+    count(*) as 'Cantidad de productos por N/M/C'
+from productos
+group by nombre, marca, categoria;
+
+select  * from productos;
+
+delete from productos where id = 11;
+
+
+/* ------------------------------------------------------------------- */
+/*          función min(), max(), avg(), sum(), round()                */
+/* ------------------------------------------------------------------- */
+use mibasemartes;
+
+select * from productos
+order by precio desc;
+
+select * from productos
+order by stock desc;
+
+/* ----- max() ------ */
+select max(precio) as 'Precio más alto'
+from productos;
+
+select max(stock) as 'Stock más alto'
+from productos;
+
+/* ----- min() ------ */
+select min(precio) as 'Precio más bajo'
+from productos;
+
+select min(stock) as 'Stock más bajo'
+from productos;
+
+/* ----- sum() ------ */
+select sum(precio) as 'Precio total'
+from productos;
+
+select sum(stock) as 'Stock total'
+from productos;
+
+/* ----- avg() ------ */
+select round(avg(precio),2) as 'Precio promedio'
+from productos;
+
+select round(avg(stock),0) as 'Stock promedio'
+from productos;
+
+
+/* -------- ejemplo integrador --------- */
+select 
+	marca as MARCAS,
+    categoria as 'CATEGORÍAS',
+    count(id) as 'Cantidad de productos por M/C',
+    min(precio) as 'Precio mínimo por M/C',
+    max(precio) as 'Precio máximo por M/C',
+    sum(precio) as 'Precio total por M/C',
+    round(avg(precio),2) as 'Precio promedio por M/C',
+    group_concat(nombre) as NOMBRES
+from productos
+-- where marca = 'samsung'
+group by marca, categoria
+order by marca desc, categoria desc
+-- limit 1
+-- offset 1
+;
+
+select * from productos where marca = 'samsung' and categoria = 'celulares';
+
+
+/* --------------------------------------------------- */
+/*            https://onecompiler.com/mysql            */
+/* --------------------------------------------------- */
+
+select '' as '--- show databases ---';
+show databases;
+select '' as '----------------------';
+
+select '' as '--- show tables ---';
+show tables;
+select '' as '-------------------';
+
+-- create
+CREATE TABLE EMPLOYEE (
+  empId INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  apellido text not null,
+  dept TEXT NOT NULL,
+  fecha date,
+  sueldo float
+);
+
+
+select '' as '--- show tables ---';
+show tables;
+select '' as '-------------------';
+
+
+-- insert
+INSERT INTO EMPLOYEE VALUES (0001, 'Clark','Mei','Sales','2022-09-05',120000.00);
+INSERT INTO EMPLOYEE VALUES (0002, 'Dave','Blanco','Account','2022-10-06',130000.00);
+INSERT INTO EMPLOYEE VALUES (0003, 'Ava','Alberca','Sales','2019-10-22',220000.00);
+INSERT INTO EMPLOYEE VALUES (0004, 'Tom','Gomez','Account','2020-11-27',290000.00);
+INSERT INTO EMPLOYEE VALUES (0005, 'Tom','Picos','Account','2022-09-27',290000.00);
+INSERT INTO EMPLOYEE VALUES (0006, 'Tom','Perez','Sales','2020-12-28', null);
+
+-- fetch 
+SELECT * FROM EMPLOYEE WHERE dept = 'Sales';
+
+
+/* -------------- OPERACIONES CON FECHAS ------------------- */
+select '' as '';
+select '' as '1) OPERACIONES CON FECHAS';
+
+
+select * from employee;
+select '' as '';
+
+select * from employee
+-- where fecha >= '2022-09-01' and fecha <= '2022-10-31'
+where fecha between '2022-09-01' and '2022-10-31'
+order by fecha desc;
+
+
+/* ----------- FUNCIONES: left, right y substring ------------ */
+select '' as '';
+select '' as '2) FUNCIONES: left, right y substring';
+
+
+select
+  name as NOMBRES,
+  left(name,2),
+  right(name,2) ,
+  substring(name,2,2)
+from employee;
+
+select '' as '';
+
+select *
+from employee
+where name like 'a%';
+
+select *
+from employee
+where left(name,1) = 'a';
+
+select *
+from employee
+where left(name,1) between 'a' and 'd'
+order by name;
+
+
+/* ----------- FUNCIONES: concat, year, month y day ------------ */
+select '' as '';
+select '' as '3) FUNCIONES: concat, year, month y day';
+
+select  concat(name, ' ', apellido) as NyA, dept, fecha, sueldo
+from employee
+where year(fecha) = 2022 and month(fecha) = 9 and day(fecha) = 27;
+
+
+/* ----------- distinct y count ------------ */
+select '' as '';
+select '' as '4) distinct y count';
+
+
+select name as 'NOMBRES DIFERENTES (group by)'
+from employee
+group by name
+order by name;
+select '' as '';
+
+select distinct name as 'NOMBRES DIFERENTES (distinct)'
+from employee
+order by name;
+select '' as '';
+
+
+select count(*) as 'CANTIDAD DE EMPLEADOS (*)'
+from employee;
+select '' as '';
+
+select count(empId) as 'CANTIDAD DE EMPLEADOS (empId)'
+from employee;
+select '' as '';
+
+select count(fecha) as 'CANTIDAD DE EMPLEADOS (fecha)'
+from employee;
+select '' as '';
+
+select count(name) as 'CANTIDAD DE EMPLEADOS (name)'
+from employee;
+select '' as '';
+
+select count(sueldo) as 'CANTIDAD DE EMPLEADOS (sueldo)'
+from employee;
+select '' as '';
+
+select count(distinct name) as 'CANTIDAD DE EMPLEADOS CON NOMBRES DISTINTOS (distinct name)'
+from employee;
+select '' as '';
+
+
+/* ----------- UPDATE: aumentar todos los sueldos un 20% ------------ */
+select '' as '';
+select '' as '5) UPDATE';
+
+
+select empId, name, sueldo
+from employee;
+
+update employee
+set sueldo = 300000.00
+where empId = 6;
+
+select '' as '';
+
+select empId, name, sueldo
+from employee;
+
+
+update employee
+set sueldo = sueldo * 1.2    -- para todos
+where empId = 4             -- sólo para Tom de empId = 4
+;
+
+select '' as '';
+
+select empId, name, sueldo
+from employee;
+
+/* ------------------------------------------- */
+/*      Clonación de una tabla existente       */
+/* ------------------------------------------- */
+select * from productos;
+desc productos;
+
+# 1era. Forma
+create table productos_clon like productos;	-- cloné la estructura
+desc productos_clon;
+select * from productos_clon;
+insert into productos_clon select * from productos;	-- cloné todo el contenido
+
+# 2da. Forma
+create table productos_clon2 select * from productos;	-- cloné la estructura y el contenido a la vez
+desc productos_clon2;
+select * from productos_clon2;
+
+create table mibasemartes2.productos select * from productos;
+select * from mibasemartes2.productos;
+
+drop table mibasemartes2.productos;
+drop table mibasemartes.productos_clon2;
+
+/* ------------------------------------------- */
+/*       Clonación de una base de datos        */
+/* ------------------------------------------- */
+
+
+show databases;
+
+create database mibasemartes;
+#drop database mibasemartes;
+
+use mibasemartes;
+use test;
+
+create table clientes(
+	id int unsigned not null auto_increment,
+	nombre varchar(50) not null,
+    apellido varchar(50) not null,
+    edad int(3) unsigned not null,
+    primary key(id)
+);
+
+desc clientes;
+-- drop table clientes;
+
+show tables;
+
+select * from clientes;
+
+#esto es un comentario de línea (1)
+-- esto es un comentario de línea (2)
+
+/*
+ESTO
+ES
+UN
+COMENTARIO
+DE BLOQUE
+*/
+
+/* esto es un comentario de bloque usado en una línea */
+
+select * from clientes;
+SELECT * From CLIENTEs;
+
+/* 1. FORMA NORMAL DE INSERTAR UN REGISTRO EN UNA TABLA */
+-- insert into clientes (nombre, apellido, edad) values ('Juan','Perez',23);
+insert into clientes (nombre, apellido, edad) 
+values ('Juan','Perez',23);
+
+/* 2. FORMA MYSQL DE INSERTAR UN REGISTRO EN UNA TABLA */
+insert into clientes
+set nombre = 'Ana',
+	apellido = 'Lopez',
+    edad = 21;
+
+/* 3. FORMA SIMPLIFICADA DE INSERTAR UNO Ó VARIOS REGISTROS EN UNA TABLA */
+insert into clientes values (null,'Pedro','Gomez',26);
+
+insert into clientes values (null,'Lucia','Mei',23),
+							(null,'Gaby','Lopez',25),
+							(null,'Diego','Gutierrez',21),
+							(null,'Cecilia','Blanco',40);
+
+insert into clientes values (null,'Pablo','Juarez',29);
+insert into clientes values (4,'Maria','Perez',24);		-- da error porque el id 4 está ocupado
+insert into clientes values (11,'Maria','Perez',24);
+insert into clientes values (null,'Mariela','Lopez',22);
+
+select * from clientes;
+
+/* ----------------------------------------- */
+/*     Clave primaria sin auto_increment     */
+/* ----------------------------------------- */
+create table prueba(
+	id int unsigned not null,
+    primary key(id)
+);
+
+desc prueba;
+
+show tables;
+
+select * from prueba;
+
+insert into prueba (id) values(1);
+insert into prueba (id) values(2);
+insert into prueba (id) values(null);
+insert into prueba (id) values(5);
+insert into prueba (id) values(4);
+
+
+/* ------------------------------------------ */
+/*  Enum, default y clave primaria combinada  */
+/* ------------------------------------------ */
+create table facturas(
+	tipo enum('A','B','C') not null default 'A',
+    numero int unsigned not null,
+    primary key(tipo, numero)
+);
+
+desc facturas;
+
+select * from facturas;
+
+insert into facturas (tipo,numero) values ('A',1);
+insert into facturas (tipo,numero) values ('B',1);
+insert into facturas (tipo,numero) values ('A',2);
+insert into facturas (tipo,numero) values ('C',1);
+
+insert into facturas (numero) values (3);
+insert into facturas (numero) values (1);	-- da error porque la clave primaria combinada A-1 ya está utilizada
+
+insert into facturas (tipo,numero) values ('D',1);	# da warning porque la factura D no corresponde a un tipo válido
+insert into facturas (tipo,numero) values ('A','Hola');	# da warning porque el número de factura debe ser entero
+insert into facturas (numero,tipo) values (2,'C');
+
+
+/* ----------------------------------------------------------- */
+/*  Primary key (clave primaria) vs. Unique key (clave única)  */
+/* ----------------------------------------------------------- */
+create table personas(
+	id int unsigned not null auto_increment,
+    nombre varchar(50) not null,
+    dni varchar(12) not null,
+    unique key(dni),
+    primary key(id)
+);
+
+drop table personas;
+desc personas;
+
+select * from personas;
+
+insert into personas (nombre, dni) values ('Carlos','20.365.478');
+insert into personas (nombre, dni) values ('Ana','20.365.479');
+insert into personas (nombre, dni) values ('Pablo','35.123.654');
+insert into personas (id,nombre, dni) values (2,'Pedro','21.432.111');
+
+/* ------------------------------------------------------ */
+/*                    Consulta Select                     */
+/* ------------------------------------------------------ */
+show tables;
+
+desc clientes;
+
+select * from clientes;
+
+select nombre, edad from clientes;
+select edad, nombre from clientes;
+select nombre from clientes;
+select id, nombre from clientes;
+select nombre, apellido, edad from clientes;
+select nombre, apellido, edad, id from clientes;
+select nombre, apellido, edad, nombre from clientes;
+
+-- ----------------------------------------------------------------------
+use mibasemartes;
+
+/* ------------------------------------------------ */
+/*          Consulta select (sin from)              */
+/* ------------------------------------------------ */
+select 5+1;			-- campo ó columna literal
+select (5+1)*3;		-- campo ó columna literal
+select (5+1)*3 as Resultado;		-- campo ó columna literal con alias
+select (5+1)*3 as Resultado, 3.1415926 * 2 as Pix2;		-- campo ó columna literal con alias
+
+/* -------------------------------------------- */
+/*            Modificador LIMIT                 */ 
+/* -------------------------------------------- */
+select id, nombre, apellido, edad 
+from clientes
+limit 3;
+
+/* -------------------------------------------- */
+/*        Modificador LIMIT + OFFSET            */ 
+/* -------------------------------------------- */
+select id, nombre, apellido, edad 
+from clientes
+# limit y offset se utilizan en conjunto para paginar (paginación)
+# limit: cantidad de registros que queremos visualizar por página
+# offset: Nro. de página (desde 0) * limit (múltiplo de limit)
+limit 3
+offset 9;
+
+/* -------------------------------------------- */
+/*         alias y literales con from           */
+/* -------------------------------------------- */
+create table productos(
+	id int unsigned not null primary key auto_increment,
+    nombre varchar(50) not null,
+    marca varchar(50) not null,
+    categoria varchar(50) not null,
+    codigo varchar(50) not null,
+    precio double not null -- ,
+    -- primary key(id)
+);
+
+desc productos;
+select * from productos;
+
+insert into productos values
+# id		nombre			marca			categoria			codigo				precio
+( null,		'TV-29P',		'LG',			'Hogar',			'H-TV29-1',			19000 ),
+( null,		'TV-33P',		'Noblex',		'Hogar',			'H-TV33-1',			28000 ),
+( null,		'TV-40P',		'Panasonic',	'Hogar',			'H-TV40-1',			31700 ),
+( null,		'TV-42P',		'LG',			'Hogar',			'H-TV42-1',			34100 ),
+( null,		'TV-50P',		'Philips',		'Hogar',			'H-TV50-1',			42000 ),
+( null,		'TV-80P',		'Noblex',		'Hogar',			'H-TV80-1',			56000 ),
+( null,		'TV-80P',		'Hitachi',		'Hogar',			'H-TV80-2',			60000 );
+
+select 
+	id, 
+    codigo, 
+    categoria, 
+    p.nombre, 
+    precio as COSTO, 
+    precio * 0.21 as IVA,
+    precio + precio * 0.21 as TOTAL
+from mibasemartes.productos as p;
+
+/* -------------------------------------- */
+/*               order by                 */
+/* -------------------------------------- */
+select id, nombre, apellido, edad
+from clientes
+-- order by nombre;
+-- order by nombre desc;
+-- order by nombre asc;
+-- order by edad;
+-- order by edad desc;
+-- order by edad desc, apellido;
+-- order by id desc;
+order by nombre desc, apellido, edad desc;
+
+insert into clientes values (null, 'Ana', 'Gutierrez', 25);
+insert into clientes values (null, 'Ana', 'Lopez', 23);
+
+
+/* ------------------------------------------------------ */
+/*        SELECT:WHERE -> predicado de la consulta        */
+/* ------------------------------------------------------ */
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana';		# filtro por igual (case insensitive)
+where nombre <> 'ana'			# filtro por distinto (case insensitive)
+order by edad desc
+limit 5;
+
+# --------------------------------------------------------------------------------------------------------
+# WHERE con operadores aritméticos y relacionales ( = , < , > , <= , >=, <> ) sirven para campos numéricos
+
+select id, nombre, apellido, edad
+from clientes
+-- where edad = 29				# filtro por igual (sirve también para campos de texto)
+-- where edad > 29				# filtro por mayor
+-- where edad >= 29				# filtro por mayor ó igual
+-- where edad < 29				# filtro por menor
+-- where edad <= 29				# filtro por menor ó igual 
+where edad <> 29				# filtro por distinto (sirve también para campos de texto)
+order by edad;
+
+# --------------------------------------------------------------------------------------------------------
+# WHERE con operadores lógicos ó booleanos (and / or / not)
+
+-- AND
+select id, nombre, apellido, edad
+from clientes
+where nombre = 'ana' and edad > 22;		-- and (Y) -> intersección de condiciones
+
+-- OR
+select id, nombre, apellido, edad
+from clientes
+where nombre = 'ana' or nombre = 'diego';		-- or (Ó) -> unión de condiciones
+
+-- NOT
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana';
+-- where nombre <> 'ana';
+where not nombre = 'ana';				-- not (NO) -> negación de la condición
+
+-- NOT con OR
+select id, nombre, apellido, edad
+from clientes
+where not (nombre = 'ana' or nombre = 'diego');
+
+-- OR con AND
+select id, nombre, apellido, edad
+from clientes
+where (nombre = 'ana' and edad > 22 and apellido = 'lopez') or nombre = 'diego';
+
+-- NOT con OR con AND
+select id, nombre, apellido, edad
+from clientes
+where not (nombre = 'ana' and edad > 22 and apellido = 'lopez') or nombre = 'diego';
+
+/* ------------------------------------------------------------------------------------- */
+/*  SELECT:WHERE:IN -> permite simplificar la operación con or múltiple en una consulta  */
+/* ------------------------------------------------------------------------------------- */
+use mibasemartes;
+
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana' or nombre = 'diego' or nombre = 'pedro';
+where nombre in ('ana','diego','pedro');
+
+select id, nombre, apellido, edad
+from clientes
+where nombre in ('ana');		-- es igual a -> where nombre = 'ana'
+
+select *
+from productos;
+
+select codigo, nombre, categoria, marca, precio
+from productos
+-- where marca in('noblex','lg','hitachi');
+where not marca in('noblex','lg','hitachi');
+
+/* --------------------------------------------- */
+/*              WHERE con BETWEEN                */
+/* --------------------------------------------- */
+select nombre, marca, precio
+from productos
+order by precio desc;
+
+select nombre, marca, precio
+from productos
+-- where precio >= 30000 and precio <= 50000
+where precio <= 50000 and precio >= 30000		-- los límites del intervalo no tienen que estar en orden
+order by precio desc;
+
+select nombre, marca, precio
+from productos
+where precio between 30000 and 50000	-- similar a -> where precio >= 30000 and precio <= 50000
+-- where precio between 50000 and 30000			-- no funciona, porque loslimites del intervalo tienen que estar en orden (primero el menor)
+order by precio desc;
+
+/* --------------------------------------------- */
+/*                WHERE con LIKE                 */
+/* --------------------------------------------- */
+select * from clientes;
+
+insert into clientes values (null, 'Adriana', 'Lopez', 28);
+insert into clientes values (null, 'Ana Cecilia', 'Paz', 26);
+insert into clientes values (null, 'Gabriel', 'Pieres', 31);
+insert into clientes values (null, 'Federico', 'Josep', 36);
+insert into clientes values (null, 'Marcelo', 'Pas', 28);
+
+select id, nombre, apellido, edad
+from clientes
+-- where nombre like 'a%';			# nombres que comiencen con el caracter 'a'
+-- where nombre like 'ana%';		# nombres que comiencen con los caracteres 'ana'
+-- where apellido like 'p%';		# apellidos que comiencen con el caracter 'p'
+-- where apellido like '%p%';		# apellidos que contengan el caracter 'p'
+-- where apellido like '%z';		# apellidos que terminen con el caracter 'z'
+-- where apellido like '%rez';		# apellidos que terminen con los caracteres 'rez'
+-- where apellido like '%re_';		# apellidos que terminen con los caracteres 're' más un caracter cualquiera
+-- where apellido like '%o_ez';		# apellidos que terminen con el caracter 'o' más un caracter cualquiera más los caracteres 'ez'
+-- where apellido like '%p_z';		# apellidos que terminen con el caracter 'p' más un caracter cualquiera más el caracter 'z'
+where apellido like '%p__';		# apellidos que terminen con el caracter 'p' más dos caracteres cualquiera
+
+/* -------------------------------------------------------------------------------------------------------*/
+/*  Consulta de una tabla perteneciente a otra base de datos, desde la base actual (sin utilizar el use)  */
+/* -------------------------------------------------------------------------------------------------------*/
+create database mibasemartes2;
+
+use mibasemartes2;
+
+create table clientes(
+	id int unsigned not null auto_increment,
+	nombre varchar(50) not null,
+    apellido varchar(50) not null,
+    edad int unsigned not null,
+    primary key(id)
+);
+
+desc clientes;
+
+select * from clientes;
+
+insert into clientes values ( null, 'Mariela', 'Blanco', 34 ),
+							( null, 'Analia', 'Sierra', 29 ),
+							( null, 'German', 'Alberca', 27 ),
+							( null, 'Carlos', 'Fernandez', 36 );
+
+
+-- estas dos consultas son DEPENDIENTES de la base actualmente seleccionada con 'use'
+use mibasemartes;
+select * from clientes;
+
+use mibasemartes2;
+select * from clientes;
+
+-- estas dos consultas son INDEPENDIENTES de la base actualmente seleccionada con 'use'
+select * from mibasemartes.clientes;
+select * from mibasemartes2.clientes;
+
+/* ---------------------------------------------------- */
+/*   Valor NULL (null) : búsqueda y campos literales    */
+/* ---------------------------------------------------- */
+desc clientes;
+
+select * from clientes;
+
+alter table clientes modify edad int unsigned null;
+
+insert into clientes values (null, 'Marcela', 'Gomez', null);
+insert into clientes values (9, 'Pepe', 'Landi', null);
+
+-- null en búsquedas
+select id, nombre, apellido, edad from clientes where edad = null;	# no es la forma de buscar un campo con contenido null
+select id, nombre, apellido, edad from clientes where edad is null;	# es la forma correcta de buscar un campo con contenido null
+
+-- null en campos literales
+select id, nombre, apellido, edad, edad + 2 as 'EDAD EN DOS AÑOS' from clientes;
+select id, nombre, apellido, edad, ifnull(edad + 2,'No se especificó la edad') as 'EDAD EN DOS AÑOS' from clientes;
+
+
+/* ------------------------------------------------------- */
+/*                    UPDATE y DELETE                      */
+/* ------------------------------------------------------- */
+-- https://codigosql.com/blog/sentencias-ddl-y-dml/
+
+use mibasemartes;
+
+select * from clientes;
+
+select id, nombre, apellido, edad from clientes where edad is null;
+
+update clientes set edad = 33 where id = 20;
+-- update clientes set edad = 29 where id = 9;
+
+set SQL_SAFE_UPDATES = 0;	# deshabilito el modo seguro (para permitir actualización masivas)
+update clientes set edad = 29 where nombre = 'pepe';
+set SQL_SAFE_UPDATES = 1;	# lo habilito nuevamente
+
+-- UPDATE seguro con rollback
+begin;
+set SQL_SAFE_UPDATES = 0;	# deshabilito el modo seguro (para permitir actualización masivas)
+update clientes set edad = 31 where nombre = 'pepe';
+set SQL_SAFE_UPDATES = 1;	# lo habilito nuevamente
+
+select * from clientes;
+rollback;
+
+-- UPDATE definitivo
+set SQL_SAFE_UPDATES = 0;	# deshabilito el modo seguro (para permitir actualización masivas)
+update clientes set edad = 31 where nombre = 'pepe';
+set SQL_SAFE_UPDATES = 1;	# lo habilito nuevamente
+
+select * from clientes;
+
+/* ----------------------------------------------------------- */
+/*             DELETE vs. TRUNCATE  vs.  DROP                  */
+/* ----------------------------------------------------------- */
+desc productos;
+select * from productos;
+
+rename table productos to articulos;
+desc articulos;
+select * from articulos;
+
+create table productos(
+	id int unsigned not null auto_increment,
+    nombre varchar(50) not null,
+    marca varchar(50) not null,
+    categoria varchar(50) not null,
+    descripcion varchar(50) not null,
+    codigo varchar(50) not null,
+    precio float unsigned not null,
+    primary key(id)
+);
+
+desc productos;
+
+alter table productos modify codigo int unsigned not null;
+alter table productos modify descripcion varchar(250) not null;
+alter table productos change codigo codigos int(9) unsigned not null;
+alter table productos change codigos codigo int(9) unsigned not null;
+alter table productos add stock int unsigned not null;
+
+select * from productos;
+
+insert into productos values
+# id	nombre						marca			categoria			descripcion						codigo		precio		stock
+( null,	'SmartPhone Samsung A5',	'Samsung',		'telefonia',		'Telefono inteligente 3G',		1,			12000,		44 ),
+( null, 'TV Samsung 29P',			'Samsung',		'televisores',		'Televisor LCD 29 Pulgadas',	2,			27000,		32 ),
+( null,	'SmartPhone Motorola E6',	'Motorola',		'telefonia',		'Telefono inteligente 3G',		7,			17000,		25 ),
+( null, 'TV Philips 33P',			'Philips',		'televisores',		'Televisor LCD 33 Pulgadas',	9,			42000,		43 ),
+( null,	'SmartPhone Huawei P30',	'Huawei',		'telefonia',		'Telefono inteligente 4G',		12,			31000,		100 );
+
+select * from productos;
+
+select * from productos where categoria = 'telefonia';
+
+update productos set categoria = 'celulares' where id = 1;
+update productos set categoria = 'celulares' where id = 3;
+update productos set categoria = 'celulares' where id = 5;
+
+set SQL_SAFE_UPDATES = 0;
+update productos set categoria = 'celulares' where categoria = 'telefonia';
+set SQL_SAFE_UPDATES = 1;
+
+
+desc productos;
+select * from productos;
+
+/* ------ DROP ------- */
+drop table productos;
+
+/* ------ TRUNCATE ------- */
+truncate productos;
+
+/* ------ DELETE ------- */
+set SQL_SAFE_UPDATES = 0;
+delete from productos;
+set SQL_SAFE_UPDATES = 1;
+
+
+/* -------------------------------------------------------- */
+/*            funciones count() y group_concat()            */
+/* -------------------------------------------------------- */
+select * from productos;
+
+select count(id) as 'Cantidad total de productos' from productos;
+select count(*) as 'Cantidad total de productos' from productos;
+
+select count(id) as 'Cantidad de productos de la marca Samsung', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'samsung';
+
+select count(id) as 'Cantidad de productos de la marca Motorola', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'Motorola';
+
+select count(id) as 'Cantidad de productos de la marca Philips', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'philips';
+
+select count(id) as 'Cantidad de productos de la marca Huawei', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'huawei';
+
+select count(id) as 'Cantidad de productos de la marca Samsung y Philips', group_concat(nombre) as NOMBRES
+from productos
+-- where marca = 'samsung' or marca = 'Philips';
+where marca in ('samsung','Philips');
+
+select 
+	count(id) as 'Cantidad total de productos', 
+    group_concat(nombre) as NOMBRES 
+from productos;
+
+
+/* -------------------------------------------- */
+/*                  GROUP BY                    */ 
+/* -------------------------------------------- */
+select marca as MARCAS, count(*) as 'Cantidad de productos por marca', group_concat(nombre) as NOMBRES
+from productos
+group by marca;
+
+select categoria as 'CATEGORÍAS', count(*) as 'Cantidad de productos por categoría', group_concat(nombre) as NOMBRES
+from productos
+group by categoria;
+
+select descripcion as 'DESCRIPCIÓN', count(*) as 'Cantidad de productos por descripción', group_concat(nombre) as NOMBRES
+from productos
+group by descripcion;
+
+
+insert into productos values
+# id	nombre						marca			categoria			descripcion						codigo		precio		stock
+( null,	'SmartPhone Samsung A6',	'Samsung',		'celulares',		'Telefono inteligente 4G',		11,			16000,		21 ),
+( null, 'TV Samsung 33P',			'Samsung',		'televisores',		'Televisor LCD 33 Pulgadas',	22,			28000,		103 ),
+( null,	'SmartPhone Motorola E7',	'Motorola',		'celulares',		'Telefono inteligente 4G',		37,			19000,		52 ),
+( null, 'TV Philips 42P',			'Philips',		'televisores',		'Televisor LCD 42 Pulgadas',	49,			49000,		20 ),
+( null,	'SmartPhone Huawei SmartP',	'Huawei',		'celulares',		'Telefono inteligente 3G',		52,			36500,		63 );
+
+insert into productos values
+# id	nombre						marca			categoria			descripcion						codigo		precio		stock
+( null,	'SmartPhone Samsung A55',	'Samsung',		'celulares',		'Telefono inteligente 3G',		111,		21000,		17 );
+
+select
+	marca as MARCAS,
+    categoria as 'CATEGORÍAS',
+    count(*) as 'Cantidad de productos por M/C',
+    group_concat(nombre) as NOMBRES
+from productos
+group by marca, categoria;
+
+select
+	nombre as NOMBRES,
+	marca as MARCAS,
+    categoria as 'CATEGORÍAS',
+    count(*) as 'Cantidad de productos por N/M/C'
+from productos
+group by nombre, marca, categoria;
+
+select  * from productos;
+
+delete from productos where id = 11;
+
+
+/* ------------------------------------------------------------------- */
+/*          función min(), max(), avg(), sum(), round()                */
+/* ------------------------------------------------------------------- */
+use mibasemartes;
+
+select * from productos
+order by precio desc;
+
+select * from productos
+order by stock desc;
+
+/* ----- max() ------ */
+select max(precio) as 'Precio más alto'
+from productos;
+
+select max(stock) as 'Stock más alto'
+from productos;
+
+/* ----- min() ------ */
+select min(precio) as 'Precio más bajo'
+from productos;
+
+select min(stock) as 'Stock más bajo'
+from productos;
+
+/* ----- sum() ------ */
+select sum(precio) as 'Precio total'
+from productos;
+
+select sum(stock) as 'Stock total'
+from productos;
+
+/* ----- avg() ------ */
+select round(avg(precio),2) as 'Precio promedio'
+from productos;
+
+select round(avg(stock),0) as 'Stock promedio'
+from productos;
+
+
+/* -------- ejemplo integrador --------- */
+select 
+	marca as MARCAS,
+    categoria as 'CATEGORÍAS',
+    count(id) as 'Cantidad de productos por M/C',
+    min(precio) as 'Precio mínimo por M/C',
+    max(precio) as 'Precio máximo por M/C',
+    sum(precio) as 'Precio total por M/C',
+    round(avg(precio),2) as 'Precio promedio por M/C',
+    group_concat(nombre) as NOMBRES
+from productos
+-- where marca = 'samsung'
+group by marca, categoria
+order by marca desc, categoria desc
+-- limit 1
+-- offset 1
+;
+
+select * from productos where marca = 'samsung' and categoria = 'celulares';
+
+
+/* --------------------------------------------------- */
+/*            https://onecompiler.com/mysql            */
+/* --------------------------------------------------- */
+
+select '' as '--- show databases ---';
+show databases;
+select '' as '----------------------';
+
+select '' as '--- show tables ---';
+show tables;
+select '' as '-------------------';
+
+-- create
+CREATE TABLE EMPLOYEE (
+  empId INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  apellido text not null,
+  dept TEXT NOT NULL,
+  fecha date,
+  sueldo float
+);
+
+
+select '' as '--- show tables ---';
+show tables;
+select '' as '-------------------';
+
+
+-- insert
+INSERT INTO EMPLOYEE VALUES (0001, 'Clark','Mei','Sales','2022-09-05',120000.00);
+INSERT INTO EMPLOYEE VALUES (0002, 'Dave','Blanco','Account','2022-10-06',130000.00);
+INSERT INTO EMPLOYEE VALUES (0003, 'Ava','Alberca','Sales','2019-10-22',220000.00);
+INSERT INTO EMPLOYEE VALUES (0004, 'Tom','Gomez','Account','2020-11-27',290000.00);
+INSERT INTO EMPLOYEE VALUES (0005, 'Tom','Picos','Account','2022-09-27',290000.00);
+INSERT INTO EMPLOYEE VALUES (0006, 'Tom','Perez','Sales','2020-12-28', null);
+
+-- fetch 
+SELECT * FROM EMPLOYEE WHERE dept = 'Sales';
+
+
+/* -------------- OPERACIONES CON FECHAS ------------------- */
+select '' as '';
+select '' as '1) OPERACIONES CON FECHAS';
+
+
+select * from employee;
+select '' as '';
+
+select * from employee
+-- where fecha >= '2022-09-01' and fecha <= '2022-10-31'
+where fecha between '2022-09-01' and '2022-10-31'
+order by fecha desc;
+
+
+/* ----------- FUNCIONES: left, right y substring ------------ */
+select '' as '';
+select '' as '2) FUNCIONES: left, right y substring';
+
+
+select
+  name as NOMBRES,
+  left(name,2),
+  right(name,2) ,
+  substring(name,2,2)
+from employee;
+
+select '' as '';
+
+select *
+from employee
+where name like 'a%';
+
+select *
+from employee
+where left(name,1) = 'a';
+
+select *
+from employee
+where left(name,1) between 'a' and 'd'
+order by name;
+
+
+/* ----------- FUNCIONES: concat, year, month y day ------------ */
+select '' as '';
+select '' as '3) FUNCIONES: concat, year, month y day';
+
+select  concat(name, ' ', apellido) as NyA, dept, fecha, sueldo
+from employee
+where year(fecha) = 2022 and month(fecha) = 9 and day(fecha) = 27;
+
+
+/* ----------- distinct y count ------------ */
+select '' as '';
+select '' as '4) distinct y count';
+
+
+select name as 'NOMBRES DIFERENTES (group by)'
+from employee
+group by name
+order by name;
+select '' as '';
+
+select distinct name as 'NOMBRES DIFERENTES (distinct)'
+from employee
+order by name;
+select '' as '';
+
+
+select count(*) as 'CANTIDAD DE EMPLEADOS (*)'
+from employee;
+select '' as '';
+
+select count(empId) as 'CANTIDAD DE EMPLEADOS (empId)'
+from employee;
+select '' as '';
+
+select count(fecha) as 'CANTIDAD DE EMPLEADOS (fecha)'
+from employee;
+select '' as '';
+
+select count(name) as 'CANTIDAD DE EMPLEADOS (name)'
+from employee;
+select '' as '';
+
+select count(sueldo) as 'CANTIDAD DE EMPLEADOS (sueldo)'
+from employee;
+select '' as '';
+
+select count(distinct name) as 'CANTIDAD DE EMPLEADOS CON NOMBRES DISTINTOS (distinct name)'
+from employee;
+select '' as '';
+
+
+/* ----------- UPDATE: aumentar todos los sueldos un 20% ------------ */
+select '' as '';
+select '' as '5) UPDATE';
+
+
+select empId, name, sueldo
+from employee;
+
+update employee
+set sueldo = 300000.00
+where empId = 6;
+
+select '' as '';
+
+select empId, name, sueldo
+from employee;
+
+
+update employee
+set sueldo = sueldo * 1.2    -- para todos
+where empId = 4             -- sólo para Tom de empId = 4
+;
+
+select '' as '';
+
+select empId, name, sueldo
+from employee;
+
+/* ------------------------------------------- */
+/*      Clonación de una tabla existente       */
+/* ------------------------------------------- */
+select * from productos;
+desc productos;
+
+# 1era. Forma
+create table productos_clon like productos;	-- cloné la estructura
+desc productos_clon;
+select * from productos_clon;
+insert into productos_clon select * from productos;	-- cloné todo el contenido
+
+# 2da. Forma
+create table productos_clon2 select * from productos;	-- cloné la estructura y el contenido a la vez
+desc productos_clon2;
+select * from productos_clon2;
+
+create table mibasemartes2.productos select * from productos;
+select * from mibasemartes2.productos;
+
+drop table mibasemartes2.productos;
+drop table mibasemartes.productos_clon2;
+
+/* ------------------------------------------- */
+/*   Clonación de una base de datos existente  */
+/* ------------------------------------------- */
+# 1er. paso: abrir una consola ejecutando en comando cmd en windows (Windows+R)
+# 2do. paso: desde la consola abierta ir a la ruta: C:\xampp\mysql\bin> con cd
+# 3er. paso: ejecutar mysqldump.exe -u root -p mibasemartes > mibasemartes.bak
+# 4to. paso: en mysqlworkbench crear una base de datos que va recibir la información de la base 
+#            que queremos restaurar desde el archivo bak creado.
+create database mibasemartes_clon;
+# 5to. paso: desde la consola del sistema operativo ejecutar: mysql.exe -u root -p mibasemartes_clon < mibasemartes.bak
+
+desc mibasemartes_clon.productos;
+select * from mibasemartes_clon.productos;
+
+desc mibasemartes_clon.clientes;
+select * from mibasemartes_clon.clientes;
+
+use mibasemartes_clon;
+show tables;
+
+use mibasemartes;
+
+/* ----------------------------------------*/
+/*                HAVING                   */
+/* ----------------------------------------*/
+select codigo, descripcion, nombre, precio, precio * 0.21 as IVA
+from productos
+-- where precio > 20000
+-- having precio > 20000
+-- where IVA > 5000;				-- no funciona: porque where no soporta alias de campos literales
+-- where (precio * 0.21) > 5000		-- funciona: porque where soporta operaciones sobre campos existentes
+having IVA > 5000					-- having extiende el funcionamiento del where para permitir su uso en alias de campos literales
+
+-- order by precio desc;
+order by IVA desc;					-- order by soporta campos existentes y alias de campos literales
+
+
+/* -------------------------------------------------------- */
+/*  DETECCIÓN Y BORRADO DE REGISTROS DUPLICADOS CON HAVING  */
+/* -------------------------------------------------------- */
+select * from productos;
+SELECT * FROM PRODUCTOS;
+
+insert into productos values
+# id	nombre						marca			categoria			descripcion						codigo		precio		stock
+( null,	'SmartPhone Samsung A55',	'Samsung',		'celulares',		'Telefono inteligente 3G',		111,		21000,		17 );
+
+select nombre, descripcion, count(id) as TOTAL_PRODUCTOS_ND, group_concat(id) as IDs
+from productos
+group by nombre, descripcion
+having TOTAL_PRODUCTOS_ND > 1;
+
+/* ---------------------------------------------- */
+/*     BORRADO MANUAL DEL REGISTRO DUPLICADO      */
+delete from productos where id = 12;
+
+/* -------------------------------------------------- */
+/*     BORRADO AUTOMÁTICO DEL REGISTRO DUPLICADO      */
+
+select id
+from productos
+group by nombre, descripcion
+having count(id) > 1;
+
+-- No es la forma correcta de realizar el borrado automático (estamos seleccionando la misma información que simultaneamente borramos)
+delete from productos where id = (
+	select id
+	from productos
+	group by nombre, descripcion
+	having count(id) > 1
+);
+
+-- Solución: crear una tabla temporal para realizar la consulta previa del registro a borrar
+drop table borrar_prods;
+create temporary table borrar_prods
+	select id
+	from productos
+	group by nombre, descripcion
+	having count(id) > 1;
+
+desc borrar_prods;
+select * from borrar_prods;
+
+delete from productos where id = (
+	select id
+	from borrar_prods
+);
+
+/* -------------------------------------------- */
+/*                SUBCONSULTAS                  */
+/* -------------------------------------------- */
+select nombre, precio from productos order by precio desc;
+
+-- -----------------------------------------------------------------
+-- Ejemplo 1: determinar el nombre y el precio del producto más caro
+-- -----------------------------------------------------------------
+-- usando subconsultas
+select nombre as 'Producto de precio más alto', precio
+from productos
+where precio = (
+	select max(precio)
+	from productos
+);
+
+-- usando order by y limit (con un sólo select)
+select nombre as 'Producto de precio más alto', precio
+from productos
+order by precio desc
+limit 1;
+
+-- -------------------------------------------------------------------
+-- Ejemplo 2: determinar el nombre y el precio del producto más barato
+-- -------------------------------------------------------------------
+-- usando subconsultas
+select nombre as 'Producto de precio más bajo', precio
+from productos
+where precio = (
+	select min(precio)
+	from productos
+);
+
+-- usando order by y limit (con un sólo select)
+select nombre as 'Producto de precio más alto', precio
+from productos
+order by precio -- asc
+limit 1;
+
+/* --------------------------------------------------------------------------------------------------------- */
+/*  Creación de usuarios del motor de base de datos para acceder en forma restringida a la visisibilidad     */
+/*  y el uso de sus recursos (base de datos, tablas, etc) y de sus operaciones (select, insert, create, etc) */
+/* --------------------------------------------------------------------------------------------------------- */
+
+
+
+show databases;
+
+create database mibasemartes;
+#drop database mibasemartes;
+
+use mibasemartes;
+use test;
+
+create table clientes(
+	id int unsigned not null auto_increment,
+	nombre varchar(50) not null,
+    apellido varchar(50) not null,
+    edad int(3) unsigned not null,
+    primary key(id)
+);
+
+desc clientes;
+-- drop table clientes;
+
+show tables;
+
+select * from clientes;
+
+#esto es un comentario de línea (1)
+-- esto es un comentario de línea (2)
+
+/*
+ESTO
+ES
+UN
+COMENTARIO
+DE BLOQUE
+*/
+
+/* esto es un comentario de bloque usado en una línea */
+
+select * from clientes;
+SELECT * From CLIENTEs;
+
+/* 1. FORMA NORMAL DE INSERTAR UN REGISTRO EN UNA TABLA */
+-- insert into clientes (nombre, apellido, edad) values ('Juan','Perez',23);
+insert into clientes (nombre, apellido, edad) 
+values ('Juan','Perez',23);
+
+/* 2. FORMA MYSQL DE INSERTAR UN REGISTRO EN UNA TABLA */
+insert into clientes
+set nombre = 'Ana',
+	apellido = 'Lopez',
+    edad = 21;
+
+/* 3. FORMA SIMPLIFICADA DE INSERTAR UNO Ó VARIOS REGISTROS EN UNA TABLA */
+insert into clientes values (null,'Pedro','Gomez',26);
+
+insert into clientes values (null,'Lucia','Mei',23),
+							(null,'Gaby','Lopez',25),
+							(null,'Diego','Gutierrez',21),
+							(null,'Cecilia','Blanco',40);
+
+insert into clientes values (null,'Pablo','Juarez',29);
+insert into clientes values (4,'Maria','Perez',24);		-- da error porque el id 4 está ocupado
+insert into clientes values (11,'Maria','Perez',24);
+insert into clientes values (null,'Mariela','Lopez',22);
+
+select * from clientes;
+
+/* ----------------------------------------- */
+/*     Clave primaria sin auto_increment     */
+/* ----------------------------------------- */
+create table prueba(
+	id int unsigned not null,
+    primary key(id)
+);
+
+desc prueba;
+
+show tables;
+
+select * from prueba;
+
+insert into prueba (id) values(1);
+insert into prueba (id) values(2);
+insert into prueba (id) values(null);
+insert into prueba (id) values(5);
+insert into prueba (id) values(4);
+
+
+/* ------------------------------------------ */
+/*  Enum, default y clave primaria combinada  */
+/* ------------------------------------------ */
+create table facturas(
+	tipo enum('A','B','C') not null default 'A',
+    numero int unsigned not null,
+    primary key(tipo, numero)
+);
+
+desc facturas;
+
+select * from facturas;
+
+insert into facturas (tipo,numero) values ('A',1);
+insert into facturas (tipo,numero) values ('B',1);
+insert into facturas (tipo,numero) values ('A',2);
+insert into facturas (tipo,numero) values ('C',1);
+
+insert into facturas (numero) values (3);
+insert into facturas (numero) values (1);	-- da error porque la clave primaria combinada A-1 ya está utilizada
+
+insert into facturas (tipo,numero) values ('D',1);	# da warning porque la factura D no corresponde a un tipo válido
+insert into facturas (tipo,numero) values ('A','Hola');	# da warning porque el número de factura debe ser entero
+insert into facturas (numero,tipo) values (2,'C');
+
+
+/* ----------------------------------------------------------- */
+/*  Primary key (clave primaria) vs. Unique key (clave única)  */
+/* ----------------------------------------------------------- */
+create table personas(
+	id int unsigned not null auto_increment,
+    nombre varchar(50) not null,
+    dni varchar(12) not null,
+    unique key(dni),
+    primary key(id)
+);
+
+drop table personas;
+desc personas;
+
+select * from personas;
+
+insert into personas (nombre, dni) values ('Carlos','20.365.478');
+insert into personas (nombre, dni) values ('Ana','20.365.479');
+insert into personas (nombre, dni) values ('Pablo','35.123.654');
+insert into personas (id,nombre, dni) values (2,'Pedro','21.432.111');
+
+/* ------------------------------------------------------ */
+/*                    Consulta Select                     */
+/* ------------------------------------------------------ */
+show tables;
+
+desc clientes;
+
+select * from clientes;
+
+select nombre, edad from clientes;
+select edad, nombre from clientes;
+select nombre from clientes;
+select id, nombre from clientes;
+select nombre, apellido, edad from clientes;
+select nombre, apellido, edad, id from clientes;
+select nombre, apellido, edad, nombre from clientes;
+
+-- ----------------------------------------------------------------------
+use mibasemartes;
+
+/* ------------------------------------------------ */
+/*          Consulta select (sin from)              */
+/* ------------------------------------------------ */
+select 5+1;			-- campo ó columna literal
+select (5+1)*3;		-- campo ó columna literal
+select (5+1)*3 as Resultado;		-- campo ó columna literal con alias
+select (5+1)*3 as Resultado, 3.1415926 * 2 as Pix2;		-- campo ó columna literal con alias
+
+/* -------------------------------------------- */
+/*            Modificador LIMIT                 */ 
+/* -------------------------------------------- */
+select id, nombre, apellido, edad 
+from clientes
+limit 3;
+
+/* -------------------------------------------- */
+/*        Modificador LIMIT + OFFSET            */ 
+/* -------------------------------------------- */
+select id, nombre, apellido, edad 
+from clientes
+# limit y offset se utilizan en conjunto para paginar (paginación)
+# limit: cantidad de registros que queremos visualizar por página
+# offset: Nro. de página (desde 0) * limit (múltiplo de limit)
+limit 3
+offset 9;
+
+/* -------------------------------------------- */
+/*         alias y literales con from           */
+/* -------------------------------------------- */
+create table productos(
+	id int unsigned not null primary key auto_increment,
+    nombre varchar(50) not null,
+    marca varchar(50) not null,
+    categoria varchar(50) not null,
+    codigo varchar(50) not null,
+    precio double not null -- ,
+    -- primary key(id)
+);
+
+desc productos;
+select * from productos;
+
+insert into productos values
+# id		nombre			marca			categoria			codigo				precio
+( null,		'TV-29P',		'LG',			'Hogar',			'H-TV29-1',			19000 ),
+( null,		'TV-33P',		'Noblex',		'Hogar',			'H-TV33-1',			28000 ),
+( null,		'TV-40P',		'Panasonic',	'Hogar',			'H-TV40-1',			31700 ),
+( null,		'TV-42P',		'LG',			'Hogar',			'H-TV42-1',			34100 ),
+( null,		'TV-50P',		'Philips',		'Hogar',			'H-TV50-1',			42000 ),
+( null,		'TV-80P',		'Noblex',		'Hogar',			'H-TV80-1',			56000 ),
+( null,		'TV-80P',		'Hitachi',		'Hogar',			'H-TV80-2',			60000 );
+
+select 
+	id, 
+    codigo, 
+    categoria, 
+    p.nombre, 
+    precio as COSTO, 
+    precio * 0.21 as IVA,
+    precio + precio * 0.21 as TOTAL
+from mibasemartes.productos as p;
+
+/* -------------------------------------- */
+/*               order by                 */
+/* -------------------------------------- */
+select id, nombre, apellido, edad
+from clientes
+-- order by nombre;
+-- order by nombre desc;
+-- order by nombre asc;
+-- order by edad;
+-- order by edad desc;
+-- order by edad desc, apellido;
+-- order by id desc;
+order by nombre desc, apellido, edad desc;
+
+insert into clientes values (null, 'Ana', 'Gutierrez', 25);
+insert into clientes values (null, 'Ana', 'Lopez', 23);
+
+
+/* ------------------------------------------------------ */
+/*        SELECT:WHERE -> predicado de la consulta        */
+/* ------------------------------------------------------ */
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana';		# filtro por igual (case insensitive)
+where nombre <> 'ana'			# filtro por distinto (case insensitive)
+order by edad desc
+limit 5;
+
+# --------------------------------------------------------------------------------------------------------
+# WHERE con operadores aritméticos y relacionales ( = , < , > , <= , >=, <> ) sirven para campos numéricos
+
+select id, nombre, apellido, edad
+from clientes
+-- where edad = 29				# filtro por igual (sirve también para campos de texto)
+-- where edad > 29				# filtro por mayor
+-- where edad >= 29				# filtro por mayor ó igual
+-- where edad < 29				# filtro por menor
+-- where edad <= 29				# filtro por menor ó igual 
+where edad <> 29				# filtro por distinto (sirve también para campos de texto)
+order by edad;
+
+# --------------------------------------------------------------------------------------------------------
+# WHERE con operadores lógicos ó booleanos (and / or / not)
+
+-- AND
+select id, nombre, apellido, edad
+from clientes
+where nombre = 'ana' and edad > 22;		-- and (Y) -> intersección de condiciones
+
+-- OR
+select id, nombre, apellido, edad
+from clientes
+where nombre = 'ana' or nombre = 'diego';		-- or (Ó) -> unión de condiciones
+
+-- NOT
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana';
+-- where nombre <> 'ana';
+where not nombre = 'ana';				-- not (NO) -> negación de la condición
+
+-- NOT con OR
+select id, nombre, apellido, edad
+from clientes
+where not (nombre = 'ana' or nombre = 'diego');
+
+-- OR con AND
+select id, nombre, apellido, edad
+from clientes
+where (nombre = 'ana' and edad > 22 and apellido = 'lopez') or nombre = 'diego';
+
+-- NOT con OR con AND
+select id, nombre, apellido, edad
+from clientes
+where not (nombre = 'ana' and edad > 22 and apellido = 'lopez') or nombre = 'diego';
+
+/* ------------------------------------------------------------------------------------- */
+/*  SELECT:WHERE:IN -> permite simplificar la operación con or múltiple en una consulta  */
+/* ------------------------------------------------------------------------------------- */
+use mibasemartes;
+
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana' or nombre = 'diego' or nombre = 'pedro';
+where nombre in ('ana','diego','pedro');
+
+select id, nombre, apellido, edad
+from clientes
+where nombre in ('ana');		-- es igual a -> where nombre = 'ana'
+
+select *
+from productos;
+
+select codigo, nombre, categoria, marca, precio
+from productos
+-- where marca in('noblex','lg','hitachi');
+where not marca in('noblex','lg','hitachi');
+
+/* --------------------------------------------- */
+/*              WHERE con BETWEEN                */
+/* --------------------------------------------- */
+select nombre, marca, precio
+from productos
+order by precio desc;
+
+select nombre, marca, precio
+from productos
+-- where precio >= 30000 and precio <= 50000
+where precio <= 50000 and precio >= 30000		-- los límites del intervalo no tienen que estar en orden
+order by precio desc;
+
+select nombre, marca, precio
+from productos
+where precio between 30000 and 50000	-- similar a -> where precio >= 30000 and precio <= 50000
+-- where precio between 50000 and 30000			-- no funciona, porque loslimites del intervalo tienen que estar en orden (primero el menor)
+order by precio desc;
+
+/* --------------------------------------------- */
+/*                WHERE con LIKE                 */
+/* --------------------------------------------- */
+select * from clientes;
+
+insert into clientes values (null, 'Adriana', 'Lopez', 28);
+insert into clientes values (null, 'Ana Cecilia', 'Paz', 26);
+insert into clientes values (null, 'Gabriel', 'Pieres', 31);
+insert into clientes values (null, 'Federico', 'Josep', 36);
+insert into clientes values (null, 'Marcelo', 'Pas', 28);
+
+select id, nombre, apellido, edad
+from clientes
+-- where nombre like 'a%';			# nombres que comiencen con el caracter 'a'
+-- where nombre like 'ana%';		# nombres que comiencen con los caracteres 'ana'
+-- where apellido like 'p%';		# apellidos que comiencen con el caracter 'p'
+-- where apellido like '%p%';		# apellidos que contengan el caracter 'p'
+-- where apellido like '%z';		# apellidos que terminen con el caracter 'z'
+-- where apellido like '%rez';		# apellidos que terminen con los caracteres 'rez'
+-- where apellido like '%re_';		# apellidos que terminen con los caracteres 're' más un caracter cualquiera
+-- where apellido like '%o_ez';		# apellidos que terminen con el caracter 'o' más un caracter cualquiera más los caracteres 'ez'
+-- where apellido like '%p_z';		# apellidos que terminen con el caracter 'p' más un caracter cualquiera más el caracter 'z'
+where apellido like '%p__';		# apellidos que terminen con el caracter 'p' más dos caracteres cualquiera
+
+/* -------------------------------------------------------------------------------------------------------*/
+/*  Consulta de una tabla perteneciente a otra base de datos, desde la base actual (sin utilizar el use)  */
+/* -------------------------------------------------------------------------------------------------------*/
+create database mibasemartes2;
+
+use mibasemartes2;
+
+create table clientes(
+	id int unsigned not null auto_increment,
+	nombre varchar(50) not null,
+    apellido varchar(50) not null,
+    edad int unsigned not null,
+    primary key(id)
+);
+
+desc clientes;
+
+select * from clientes;
+
+insert into clientes values ( null, 'Mariela', 'Blanco', 34 ),
+							( null, 'Analia', 'Sierra', 29 ),
+							( null, 'German', 'Alberca', 27 ),
+							( null, 'Carlos', 'Fernandez', 36 );
+
+
+-- estas dos consultas son DEPENDIENTES de la base actualmente seleccionada con 'use'
+use mibasemartes;
+select * from clientes;
+
+use mibasemartes2;
+select * from clientes;
+
+-- estas dos consultas son INDEPENDIENTES de la base actualmente seleccionada con 'use'
+select * from mibasemartes.clientes;
+select * from mibasemartes2.clientes;
+
+/* ---------------------------------------------------- */
+/*   Valor NULL (null) : búsqueda y campos literales    */
+/* ---------------------------------------------------- */
+desc clientes;
+
+select * from clientes;
+
+alter table clientes modify edad int unsigned null;
+
+insert into clientes values (null, 'Marcela', 'Gomez', null);
+insert into clientes values (9, 'Pepe', 'Landi', null);
+
+-- null en búsquedas
+select id, nombre, apellido, edad from clientes where edad = null;	# no es la forma de buscar un campo con contenido null
+select id, nombre, apellido, edad from clientes where edad is null;	# es la forma correcta de buscar un campo con contenido null
+
+-- null en campos literales
+select id, nombre, apellido, edad, edad + 2 as 'EDAD EN DOS AÑOS' from clientes;
+select id, nombre, apellido, edad, ifnull(edad + 2,'No se especificó la edad') as 'EDAD EN DOS AÑOS' from clientes;
+
+
+/* ------------------------------------------------------- */
+/*                    UPDATE y DELETE                      */
+/* ------------------------------------------------------- */
+-- https://codigosql.com/blog/sentencias-ddl-y-dml/
+
+use mibasemartes;
+
+select * from clientes;
+
+select id, nombre, apellido, edad from clientes where edad is null;
+
+update clientes set edad = 33 where id = 20;
+-- update clientes set edad = 29 where id = 9;
+
+set SQL_SAFE_UPDATES = 0;	# deshabilito el modo seguro (para permitir actualización masivas)
+update clientes set edad = 29 where nombre = 'pepe';
+set SQL_SAFE_UPDATES = 1;	# lo habilito nuevamente
+
+-- UPDATE seguro con rollback
+begin;
+set SQL_SAFE_UPDATES = 0;	# deshabilito el modo seguro (para permitir actualización masivas)
+update clientes set edad = 31 where nombre = 'pepe';
+set SQL_SAFE_UPDATES = 1;	# lo habilito nuevamente
+
+select * from clientes;
+rollback;
+
+-- UPDATE definitivo
+set SQL_SAFE_UPDATES = 0;	# deshabilito el modo seguro (para permitir actualización masivas)
+update clientes set edad = 31 where nombre = 'pepe';
+set SQL_SAFE_UPDATES = 1;	# lo habilito nuevamente
+
+select * from clientes;
+
+/* ----------------------------------------------------------- */
+/*             DELETE vs. TRUNCATE  vs.  DROP                  */
+/* ----------------------------------------------------------- */
+desc productos;
+select * from productos;
+
+rename table productos to articulos;
+desc articulos;
+select * from articulos;
+
+create table productos(
+	id int unsigned not null auto_increment,
+    nombre varchar(50) not null,
+    marca varchar(50) not null,
+    categoria varchar(50) not null,
+    descripcion varchar(50) not null,
+    codigo varchar(50) not null,
+    precio float unsigned not null,
+    primary key(id)
+);
+
+desc productos;
+
+alter table productos modify codigo int unsigned not null;
+alter table productos modify descripcion varchar(250) not null;
+alter table productos change codigo codigos int(9) unsigned not null;
+alter table productos change codigos codigo int(9) unsigned not null;
+alter table productos add stock int unsigned not null;
+
+select * from productos;
+
+insert into productos values
+# id	nombre						marca			categoria			descripcion						codigo		precio		stock
+( null,	'SmartPhone Samsung A5',	'Samsung',		'telefonia',		'Telefono inteligente 3G',		1,			12000,		44 ),
+( null, 'TV Samsung 29P',			'Samsung',		'televisores',		'Televisor LCD 29 Pulgadas',	2,			27000,		32 ),
+( null,	'SmartPhone Motorola E6',	'Motorola',		'telefonia',		'Telefono inteligente 3G',		7,			17000,		25 ),
+( null, 'TV Philips 33P',			'Philips',		'televisores',		'Televisor LCD 33 Pulgadas',	9,			42000,		43 ),
+( null,	'SmartPhone Huawei P30',	'Huawei',		'telefonia',		'Telefono inteligente 4G',		12,			31000,		100 );
+
+select * from productos;
+
+select * from productos where categoria = 'telefonia';
+
+update productos set categoria = 'celulares' where id = 1;
+update productos set categoria = 'celulares' where id = 3;
+update productos set categoria = 'celulares' where id = 5;
+
+set SQL_SAFE_UPDATES = 0;
+update productos set categoria = 'celulares' where categoria = 'telefonia';
+set SQL_SAFE_UPDATES = 1;
+
+
+desc productos;
+select * from productos;
+
+/* ------ DROP ------- */
+drop table productos;
+
+/* ------ TRUNCATE ------- */
+truncate productos;
+
+/* ------ DELETE ------- */
+set SQL_SAFE_UPDATES = 0;
+delete from productos;
+set SQL_SAFE_UPDATES = 1;
+
+
+/* -------------------------------------------------------- */
+/*            funciones count() y group_concat()            */
+/* -------------------------------------------------------- */
+select * from productos;
+
+select count(id) as 'Cantidad total de productos' from productos;
+select count(*) as 'Cantidad total de productos' from productos;
+
+select count(id) as 'Cantidad de productos de la marca Samsung', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'samsung';
+
+select count(id) as 'Cantidad de productos de la marca Motorola', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'Motorola';
+
+select count(id) as 'Cantidad de productos de la marca Philips', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'philips';
+
+select count(id) as 'Cantidad de productos de la marca Huawei', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'huawei';
+
+select count(id) as 'Cantidad de productos de la marca Samsung y Philips', group_concat(nombre) as NOMBRES
+from productos
+-- where marca = 'samsung' or marca = 'Philips';
+where marca in ('samsung','Philips');
+
+select 
+	count(id) as 'Cantidad total de productos', 
+    group_concat(nombre) as NOMBRES 
+from productos;
+
+
+/* -------------------------------------------- */
+/*                  GROUP BY                    */ 
+/* -------------------------------------------- */
+select marca as MARCAS, count(*) as 'Cantidad de productos por marca', group_concat(nombre) as NOMBRES
+from productos
+group by marca;
+
+select categoria as 'CATEGORÍAS', count(*) as 'Cantidad de productos por categoría', group_concat(nombre) as NOMBRES
+from productos
+group by categoria;
+
+select descripcion as 'DESCRIPCIÓN', count(*) as 'Cantidad de productos por descripción', group_concat(nombre) as NOMBRES
+from productos
+group by descripcion;
+
+
+insert into productos values
+# id	nombre						marca			categoria			descripcion						codigo		precio		stock
+( null,	'SmartPhone Samsung A6',	'Samsung',		'celulares',		'Telefono inteligente 4G',		11,			16000,		21 ),
+( null, 'TV Samsung 33P',			'Samsung',		'televisores',		'Televisor LCD 33 Pulgadas',	22,			28000,		103 ),
+( null,	'SmartPhone Motorola E7',	'Motorola',		'celulares',		'Telefono inteligente 4G',		37,			19000,		52 ),
+( null, 'TV Philips 42P',			'Philips',		'televisores',		'Televisor LCD 42 Pulgadas',	49,			49000,		20 ),
+( null,	'SmartPhone Huawei SmartP',	'Huawei',		'celulares',		'Telefono inteligente 3G',		52,			36500,		63 );
+
+insert into productos values
+# id	nombre						marca			categoria			descripcion						codigo		precio		stock
+( null,	'SmartPhone Samsung A55',	'Samsung',		'celulares',		'Telefono inteligente 3G',		111,		21000,		17 );
+
+select
+	marca as MARCAS,
+    categoria as 'CATEGORÍAS',
+    count(*) as 'Cantidad de productos por M/C',
+    group_concat(nombre) as NOMBRES
+from productos
+group by marca, categoria;
+
+select
+	nombre as NOMBRES,
+	marca as MARCAS,
+    categoria as 'CATEGORÍAS',
+    count(*) as 'Cantidad de productos por N/M/C'
+from productos
+group by nombre, marca, categoria;
+
+select  * from productos;
+
+delete from productos where id = 11;
+
+
+/* ------------------------------------------------------------------- */
+/*          función min(), max(), avg(), sum(), round()                */
+/* ------------------------------------------------------------------- */
+use mibasemartes;
+
+select * from productos
+order by precio desc;
+
+select * from productos
+order by stock desc;
+
+/* ----- max() ------ */
+select max(precio) as 'Precio más alto'
+from productos;
+
+select max(stock) as 'Stock más alto'
+from productos;
+
+/* ----- min() ------ */
+select min(precio) as 'Precio más bajo'
+from productos;
+
+select min(stock) as 'Stock más bajo'
+from productos;
+
+/* ----- sum() ------ */
+select sum(precio) as 'Precio total'
+from productos;
+
+select sum(stock) as 'Stock total'
+from productos;
+
+/* ----- avg() ------ */
+select round(avg(precio),2) as 'Precio promedio'
+from productos;
+
+select round(avg(stock),0) as 'Stock promedio'
+from productos;
+
+
+/* -------- ejemplo integrador --------- */
+select 
+	marca as MARCAS,
+    categoria as 'CATEGORÍAS',
+    count(id) as 'Cantidad de productos por M/C',
+    min(precio) as 'Precio mínimo por M/C',
+    max(precio) as 'Precio máximo por M/C',
+    sum(precio) as 'Precio total por M/C',
+    round(avg(precio),2) as 'Precio promedio por M/C',
+    group_concat(nombre) as NOMBRES
+from productos
+-- where marca = 'samsung'
+group by marca, categoria
+order by marca desc, categoria desc
+-- limit 1
+-- offset 1
+;
+
+select * from productos where marca = 'samsung' and categoria = 'celulares';
+
+
+/* --------------------------------------------------- */
+/*            https://onecompiler.com/mysql            */
+/* --------------------------------------------------- */
+
+select '' as '--- show databases ---';
+show databases;
+select '' as '----------------------';
+
+select '' as '--- show tables ---';
+show tables;
+select '' as '-------------------';
+
+-- create
+CREATE TABLE EMPLOYEE (
+  empId INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  apellido text not null,
+  dept TEXT NOT NULL,
+  fecha date,
+  sueldo float
+);
+
+
+select '' as '--- show tables ---';
+show tables;
+select '' as '-------------------';
+
+
+-- insert
+INSERT INTO EMPLOYEE VALUES (0001, 'Clark','Mei','Sales','2022-09-05',120000.00);
+INSERT INTO EMPLOYEE VALUES (0002, 'Dave','Blanco','Account','2022-10-06',130000.00);
+INSERT INTO EMPLOYEE VALUES (0003, 'Ava','Alberca','Sales','2019-10-22',220000.00);
+INSERT INTO EMPLOYEE VALUES (0004, 'Tom','Gomez','Account','2020-11-27',290000.00);
+INSERT INTO EMPLOYEE VALUES (0005, 'Tom','Picos','Account','2022-09-27',290000.00);
+INSERT INTO EMPLOYEE VALUES (0006, 'Tom','Perez','Sales','2020-12-28', null);
+
+-- fetch 
+SELECT * FROM EMPLOYEE WHERE dept = 'Sales';
+
+
+/* -------------- OPERACIONES CON FECHAS ------------------- */
+select '' as '';
+select '' as '1) OPERACIONES CON FECHAS';
+
+
+select * from employee;
+select '' as '';
+
+select * from employee
+-- where fecha >= '2022-09-01' and fecha <= '2022-10-31'
+where fecha between '2022-09-01' and '2022-10-31'
+order by fecha desc;
+
+
+/* ----------- FUNCIONES: left, right y substring ------------ */
+select '' as '';
+select '' as '2) FUNCIONES: left, right y substring';
+
+
+select
+  name as NOMBRES,
+  left(name,2),
+  right(name,2) ,
+  substring(name,2,2)
+from employee;
+
+select '' as '';
+
+select *
+from employee
+where name like 'a%';
+
+select *
+from employee
+where left(name,1) = 'a';
+
+select *
+from employee
+where left(name,1) between 'a' and 'd'
+order by name;
+
+
+/* ----------- FUNCIONES: concat, year, month y day ------------ */
+select '' as '';
+select '' as '3) FUNCIONES: concat, year, month y day';
+
+select  concat(name, ' ', apellido) as NyA, dept, fecha, sueldo
+from employee
+where year(fecha) = 2022 and month(fecha) = 9 and day(fecha) = 27;
+
+
+/* ----------- distinct y count ------------ */
+select '' as '';
+select '' as '4) distinct y count';
+
+
+select name as 'NOMBRES DIFERENTES (group by)'
+from employee
+group by name
+order by name;
+select '' as '';
+
+select distinct name as 'NOMBRES DIFERENTES (distinct)'
+from employee
+order by name;
+select '' as '';
+
+
+select count(*) as 'CANTIDAD DE EMPLEADOS (*)'
+from employee;
+select '' as '';
+
+select count(empId) as 'CANTIDAD DE EMPLEADOS (empId)'
+from employee;
+select '' as '';
+
+select count(fecha) as 'CANTIDAD DE EMPLEADOS (fecha)'
+from employee;
+select '' as '';
+
+select count(name) as 'CANTIDAD DE EMPLEADOS (name)'
+from employee;
+select '' as '';
+
+select count(sueldo) as 'CANTIDAD DE EMPLEADOS (sueldo)'
+from employee;
+select '' as '';
+
+select count(distinct name) as 'CANTIDAD DE EMPLEADOS CON NOMBRES DISTINTOS (distinct name)'
+from employee;
+select '' as '';
+
+
+/* ----------- UPDATE: aumentar todos los sueldos un 20% ------------ */
+select '' as '';
+select '' as '5) UPDATE';
+
+
+select empId, name, sueldo
+from employee;
+
+update employee
+set sueldo = 300000.00
+where empId = 6;
+
+select '' as '';
+
+select empId, name, sueldo
+from employee;
+
+
+update employee
+set sueldo = sueldo * 1.2    -- para todos
+where empId = 4             -- sólo para Tom de empId = 4
+;
+
+select '' as '';
+
+select empId, name, sueldo
+from employee;
+
+/* ------------------------------------------- */
+/*      Clonación de una tabla existente       */
+/* ------------------------------------------- */
+select * from productos;
+desc productos;
+
+# 1era. Forma
+create table productos_clon like productos;	-- cloné la estructura
+desc productos_clon;
+select * from productos_clon;
+insert into productos_clon select * from productos;	-- cloné todo el contenido
+
+# 2da. Forma
+create table productos_clon2 select * from productos;	-- cloné la estructura y el contenido a la vez
+desc productos_clon2;
+select * from productos_clon2;
+
+create table mibasemartes2.productos select * from productos;
+select * from mibasemartes2.productos;
+
+drop table mibasemartes2.productos;
+drop table mibasemartes.productos_clon2;
+
+/* ------------------------------------------- */
+/*   Clonación de una base de datos existente  */
+/* ------------------------------------------- */
+# 1er. paso: abrir una consola ejecutando en comando cmd en windows (Windows+R)
+# 2do. paso: desde la consola abierta ir a la ruta: C:\xampp\mysql\bin> con cd
+# 3er. paso: ejecutar mysqldump.exe -u root -p mibasemartes > mibasemartes.bak
+# 4to. paso: en mysqlworkbench crear una base de datos que va recibir la información de la base 
+#            que queremos restaurar desde el archivo bak creado.
+create database mibasemartes_clon;
+# 5to. paso: desde la consola del sistema operativo ejecutar: mysql.exe -u root -p mibasemartes_clon < mibasemartes.bak
+
+desc mibasemartes_clon.productos;
+select * from mibasemartes_clon.productos;
+
+desc mibasemartes_clon.clientes;
+select * from mibasemartes_clon.clientes;
+
+use mibasemartes_clon;
+show tables;
+
+use mibasemartes;
+
+/* ----------------------------------------*/
+/*                HAVING                   */
+/* ----------------------------------------*/
+select codigo, descripcion, nombre, precio, precio * 0.21 as IVA
+from productos
+-- where precio > 20000
+-- having precio > 20000
+-- where IVA > 5000;				-- no funciona: porque where no soporta alias de campos literales
+-- where (precio * 0.21) > 5000		-- funciona: porque where soporta operaciones sobre campos existentes
+having IVA > 5000					-- having extiende el funcionamiento del where para permitir su uso en alias de campos literales
+
+-- order by precio desc;
+order by IVA desc;					-- order by soporta campos existentes y alias de campos literales
+
+
+/* -------------------------------------------------------- */
+/*  DETECCIÓN Y BORRADO DE REGISTROS DUPLICADOS CON HAVING  */
+/* -------------------------------------------------------- */
+select * from productos;
+SELECT * FROM PRODUCTOS;
+
+insert into productos values
+# id	nombre						marca			categoria			descripcion						codigo		precio		stock
+( null,	'SmartPhone Samsung A55',	'Samsung',		'celulares',		'Telefono inteligente 3G',		111,		21000,		17 );
+
+select nombre, descripcion, count(id) as TOTAL_PRODUCTOS_ND, group_concat(id) as IDs
+from productos
+group by nombre, descripcion
+having TOTAL_PRODUCTOS_ND > 1;
+
+/* ---------------------------------------------- */
+/*     BORRADO MANUAL DEL REGISTRO DUPLICADO      */
+delete from productos where id = 12;
+
+/* -------------------------------------------------- */
+/*     BORRADO AUTOMÁTICO DEL REGISTRO DUPLICADO      */
+
+select id
+from productos
+group by nombre, descripcion
+having count(id) > 1;
+
+-- No es la forma correcta de realizar el borrado automático (estamos seleccionando la misma información que simultaneamente borramos)
+delete from productos where id = (
+	select id
+	from productos
+	group by nombre, descripcion
+	having count(id) > 1
+);
+
+-- Solución: crear una tabla temporal para realizar la consulta previa del registro a borrar
+drop table borrar_prods;
+create temporary table borrar_prods
+	select id
+	from productos
+	group by nombre, descripcion
+	having count(id) > 1;
+
+desc borrar_prods;
+select * from borrar_prods;
+
+delete from productos where id = (
+	select id
+	from borrar_prods
+);
+
+/* -------------------------------------------- */
+/*                SUBCONSULTAS                  */
+/* -------------------------------------------- */
+select nombre, precio from productos order by precio desc;
+
+-- -----------------------------------------------------------------
+-- Ejemplo 1: determinar el nombre y el precio del producto más caro
+-- -----------------------------------------------------------------
+-- usando subconsultas
+select nombre as 'Producto de precio más alto', precio
+from productos
+where precio = (
+	select max(precio)
+	from productos
+);
+
+-- usando order by y limit (con un sólo select)
+select nombre as 'Producto de precio más alto', precio
+from productos
+order by precio desc
+limit 1;
+
+-- -------------------------------------------------------------------
+-- Ejemplo 2: determinar el nombre y el precio del producto más barato
+-- -------------------------------------------------------------------
+-- usando subconsultas
+select nombre as 'Producto de precio más bajo', precio
+from productos
+where precio = (
+	select min(precio)
+	from productos
+);
+
+-- usando order by y limit (con un sólo select)
+select nombre as 'Producto de precio más alto', precio
+from productos
+order by precio -- asc
+limit 1;
+
+/* --------------------------------------------------------------------------------------------------------- */
+/*  Creación de usuarios del motor de base de datos para acceder en forma restringida a la visisibilidad     */
+/*  y el uso de sus recursos (base de datos, tablas, etc) y de sus operaciones (select, insert, create, etc) */
+/* --------------------------------------------------------------------------------------------------------- */
+use mibasemartes;
+
+-- creación de un usuario
+create user 'Augusto'@localhost identified by '234';
+-- cambio de contraseña al usuario
+alter user 'Augusto'@localhost identified by '345';
+-- eliminación del usuario
+drop user 'Augusto'@localhost;
+
+-- revisar los permisos del usuarios creado
+show grants for 'Augusto'@localhost;
+
+-- conceder al usuario creado los permisos necesarios para acceder a los recursos y sus operaciones
+-- ////////////////////////////////////////////////////////////////////
+--  En caso de que de un error debido a una configuración erronea en
+--  alguna base de datos, ejecutar en línea de comandos:
+--  abrimos una consola cmd (windows+R) e ir a C:\xampp\mysql\bin>
+--  ejecutar: >mysqlcheck -u root -p --all-databases --auto-repair 
+-- ////////////////////////////////////////////////////////////////////
+grant all privileges on mibasemartes.* to 'Augusto'@localhost;
+grant all privileges on mibasemartes.clientes to 'Augusto'@localhost;
+grant select, update on mibasemartes.clientes to 'Augusto'@localhost;
+
+-- revocar o quitar los permisos para el usuario
+revoke all privileges, grant option from 'Augusto'@localhost;
+
+-- confirmar los cambios de permisos al motor de base de datos
+flush privileges;
+
+/* --------------------------------- */
+/*     BASES Y TABLAS DEL SISTEMA    */
+/* --------------------------------- */
+show databases;
+
+-- mostrar los usuarios disponibles
+use mysql;
+show tables;
+
+select * from user;
+select * from mysql.user;
+select user, password, host from mysql.user order by user;
+
+-- mostrar las tablas existentes (pertenecientes a una base de datos)
+use mibasemartes;
+show tables;
+show tables like 'articulos';
+
+show databases;
+
+use information_schema;
+show tables;
+
+select * from tables;
+
+select table_name as TABLAS from tables where table_schema = 'mibasemartes';
+select table_name as TABLAS from information_schema.tables where table_schema = 'mibasemartes';
+
+-- determinar si una tabla existe o no en la base de datos indicada
+select 
+	count(*) as EXISTE
+from information_schema.tables
+where table_schema = 'mibasemartes' and table_name = 'clientes';
+
+
+/* -------------------------------------------------- */
+/*    Uso de condicionales en los campos literales    */
+/* -------------------------------------------------- */
+use mibasemartes;
+
+select * from productos;
+
+select id, nombre, marca, categoria, stock, if(stock=0,'NO HAY STOCK','ok') as 'Estado de stock'
+from productos;
+
+select id, nombre, marca, categoria, stock, if(stock<30,'NO HAY STOCK MÍNIMO','ok') as 'Estado de stock mínimo'
+from productos;
+
+select 
+	nombre as NOMBRES, 
+    stock as STOCK, 
+    if(stock<30,'NO HAY STOCK MÍNIMO','ok') as 'Estado de stock mínimo',
+    if(stock=0,'NO HAY STOCK','ok') as 'Estado de stock general'
+from productos;
+
+-- condicionales literales anidados
+select 
+	nombre as NOMBRES, 
+    stock as STOCK, 
+    if(
+		stock<30,			-- condición 1
+			if(				-- verdadero condición 1
+				stock=0,	-- condición 2
+				'NO HAY STOCK',			-- verdadero condición 2
+				'NO HAY STOCK MÍNIMO'	-- falso condición 2
+			),
+			'ok'			-- falso condición 1
+	) 
+	as 'Estado de stock'
+    
+from productos;
+
+set SQL_SAFE_UPDATES = 0;
+update productos set categoria = 'celulares' where categoria = 'telefonia';
+set SQL_SAFE_UPDATES = 1;
+
+update productos set stock = 0 where id = 24;
+
+-- determinar si una tabla existe o no en la base de datos indicada
+select 
+	if(count(*) = 0,'No','Si') as EXISTE
+from information_schema.tables
+where table_schema = 'mibasemartes' and table_name = 'clientes';
+
+/* ------------------------------------------------------ */
+/*       RELACIONES: Claves foráneas ó foreign key        */
+/* ------------------------------------------------------ */
+desc productos;
+select * from productos;
+
+rename table productos to items;
+
+desc items;
+select * from items;
+
+create table empresas(
+	id int unsigned not null,
+    nombre varchar(30),
+    ciudad varchar(30),
+    email varchar(40),
+    telefono varchar(40),
+    primary key(id)
+);
+
+drop table empresas;
+desc empresas;
+
+insert into empresas values
+# id (*)	nombre				ciudad			email						telefono
+( 18,		'Sancor',			'Bs As',		'sancor@gmail.com',			'+12345'),
+( 20,		'Molinos',			'Santa Fe',		'molinos@gmail.com',		'+23456'),
+( 22,		'La Serenisima',	'Corboda',		'laserenisima@gmail.com',	'+34567');
+
+select * from empresas;
+
+create table productos(
+	id int unsigned not null auto_increment,
+    nombre varchar(40),
+    precio float,
+    stock int unsigned,
+    empresa_id int unsigned not null, 
+    primary key (id),
+    foreign key(empresa_id) references empresas(id)
+);
+
+drop table productos;
+desc productos;
+
+insert into productos values
+# id		nombre		precio		stock		empresa_id (*)
+( null,		'DDL',		12.34,		55,			18 ),
+( null,		'Harina',	13.45,		67,			20 ),
+( null,		'Leche',	14.70,		32,			22 ),
+( null,		'Manteca',	12.23,		12,			18 );
+
+select * from productos;
+
+insert into productos values
+# id		nombre		precio		stock		empresa_id (*)
+( null,		'Crema',	19.43,		99,			22 );
+
+
+/* --------------------------------------------- */
+/*       CONSULTA COMBINADA ó RELACIONAL         */
+/* --------------------------------------------- */
+select
+	p.nombre as NOMBRES,
+    e.nombre as 'COMPAÑIA'
+from productos as p
+inner join empresas as e
+on p.empresa_id = e.id;
+
+
+
+show databases;
+
+create database mibasemartes;
+#drop database mibasemartes;
+
+use mibasemartes;
+use test;
+
+create table clientes(
+	id int unsigned not null auto_increment,
+	nombre varchar(50) not null,
+    apellido varchar(50) not null,
+    edad int(3) unsigned not null,
+    primary key(id)
+);
+
+desc clientes;
+-- drop table clientes;
+
+show tables;
+
+select * from clientes;
+
+#esto es un comentario de línea (1)
+-- esto es un comentario de línea (2)
+
+/*
+ESTO
+ES
+UN
+COMENTARIO
+DE BLOQUE
+*/
+
+/* esto es un comentario de bloque usado en una línea */
+
+select * from clientes;
+SELECT * From CLIENTEs;
+
+/* 1. FORMA NORMAL DE INSERTAR UN REGISTRO EN UNA TABLA */
+-- insert into clientes (nombre, apellido, edad) values ('Juan','Perez',23);
+insert into clientes (nombre, apellido, edad) 
+values ('Juan','Perez',23);
+
+/* 2. FORMA MYSQL DE INSERTAR UN REGISTRO EN UNA TABLA */
+insert into clientes
+set nombre = 'Ana',
+	apellido = 'Lopez',
+    edad = 21;
+
+/* 3. FORMA SIMPLIFICADA DE INSERTAR UNO Ó VARIOS REGISTROS EN UNA TABLA */
+insert into clientes values (null,'Pedro','Gomez',26);
+
+insert into clientes values (null,'Lucia','Mei',23),
+							(null,'Gaby','Lopez',25),
+							(null,'Diego','Gutierrez',21),
+							(null,'Cecilia','Blanco',40);
+
+insert into clientes values (null,'Pablo','Juarez',29);
+insert into clientes values (4,'Maria','Perez',24);		-- da error porque el id 4 está ocupado
+insert into clientes values (11,'Maria','Perez',24);
+insert into clientes values (null,'Mariela','Lopez',22);
+
+select * from clientes;
+
+/* ----------------------------------------- */
+/*     Clave primaria sin auto_increment     */
+/* ----------------------------------------- */
+create table prueba(
+	id int unsigned not null,
+    primary key(id)
+);
+
+desc prueba;
+
+show tables;
+
+select * from prueba;
+
+insert into prueba (id) values(1);
+insert into prueba (id) values(2);
+insert into prueba (id) values(null);
+insert into prueba (id) values(5);
+insert into prueba (id) values(4);
+
+
+/* ------------------------------------------ */
+/*  Enum, default y clave primaria combinada  */
+/* ------------------------------------------ */
+create table facturas(
+	tipo enum('A','B','C') not null default 'A',
+    numero int unsigned not null,
+    primary key(tipo, numero)
+);
+
+desc facturas;
+
+select * from facturas;
+
+insert into facturas (tipo,numero) values ('A',1);
+insert into facturas (tipo,numero) values ('B',1);
+insert into facturas (tipo,numero) values ('A',2);
+insert into facturas (tipo,numero) values ('C',1);
+
+insert into facturas (numero) values (3);
+insert into facturas (numero) values (1);	-- da error porque la clave primaria combinada A-1 ya está utilizada
+
+insert into facturas (tipo,numero) values ('D',1);	# da warning porque la factura D no corresponde a un tipo válido
+insert into facturas (tipo,numero) values ('A','Hola');	# da warning porque el número de factura debe ser entero
+insert into facturas (numero,tipo) values (2,'C');
+
+
+/* ----------------------------------------------------------- */
+/*  Primary key (clave primaria) vs. Unique key (clave única)  */
+/* ----------------------------------------------------------- */
+create table personas(
+	id int unsigned not null auto_increment,
+    nombre varchar(50) not null,
+    dni varchar(12) not null,
+    unique key(dni),
+    primary key(id)
+);
+
+drop table personas;
+desc personas;
+
+select * from personas;
+
+insert into personas (nombre, dni) values ('Carlos','20.365.478');
+insert into personas (nombre, dni) values ('Ana','20.365.479');
+insert into personas (nombre, dni) values ('Pablo','35.123.654');
+insert into personas (id,nombre, dni) values (2,'Pedro','21.432.111');
+
+/* ------------------------------------------------------ */
+/*                    Consulta Select                     */
+/* ------------------------------------------------------ */
+show tables;
+
+desc clientes;
+
+select * from clientes;
+
+select nombre, edad from clientes;
+select edad, nombre from clientes;
+select nombre from clientes;
+select id, nombre from clientes;
+select nombre, apellido, edad from clientes;
+select nombre, apellido, edad, id from clientes;
+select nombre, apellido, edad, nombre from clientes;
+
+-- ----------------------------------------------------------------------
+use mibasemartes;
+
+/* ------------------------------------------------ */
+/*          Consulta select (sin from)              */
+/* ------------------------------------------------ */
+select 5+1;			-- campo ó columna literal
+select (5+1)*3;		-- campo ó columna literal
+select (5+1)*3 as Resultado;		-- campo ó columna literal con alias
+select (5+1)*3 as Resultado, 3.1415926 * 2 as Pix2;		-- campo ó columna literal con alias
+
+/* -------------------------------------------- */
+/*            Modificador LIMIT                 */ 
+/* -------------------------------------------- */
+select id, nombre, apellido, edad 
+from clientes
+limit 3;
+
+/* -------------------------------------------- */
+/*        Modificador LIMIT + OFFSET            */ 
+/* -------------------------------------------- */
+select id, nombre, apellido, edad 
+from clientes
+# limit y offset se utilizan en conjunto para paginar (paginación)
+# limit: cantidad de registros que queremos visualizar por página
+# offset: Nro. de página (desde 0) * limit (múltiplo de limit)
+limit 3
+offset 9;
+
+/* -------------------------------------------- */
+/*         alias y literales con from           */
+/* -------------------------------------------- */
+create table productos(
+	id int unsigned not null primary key auto_increment,
+    nombre varchar(50) not null,
+    marca varchar(50) not null,
+    categoria varchar(50) not null,
+    codigo varchar(50) not null,
+    precio double not null -- ,
+    -- primary key(id)
+);
+
+desc productos;
+select * from productos;
+
+insert into productos values
+# id		nombre			marca			categoria			codigo				precio
+( null,		'TV-29P',		'LG',			'Hogar',			'H-TV29-1',			19000 ),
+( null,		'TV-33P',		'Noblex',		'Hogar',			'H-TV33-1',			28000 ),
+( null,		'TV-40P',		'Panasonic',	'Hogar',			'H-TV40-1',			31700 ),
+( null,		'TV-42P',		'LG',			'Hogar',			'H-TV42-1',			34100 ),
+( null,		'TV-50P',		'Philips',		'Hogar',			'H-TV50-1',			42000 ),
+( null,		'TV-80P',		'Noblex',		'Hogar',			'H-TV80-1',			56000 ),
+( null,		'TV-80P',		'Hitachi',		'Hogar',			'H-TV80-2',			60000 );
+
+select 
+	id, 
+    codigo, 
+    categoria, 
+    p.nombre, 
+    precio as COSTO, 
+    precio * 0.21 as IVA,
+    precio + precio * 0.21 as TOTAL
+from mibasemartes.productos as p;
+
+/* -------------------------------------- */
+/*               order by                 */
+/* -------------------------------------- */
+select id, nombre, apellido, edad
+from clientes
+-- order by nombre;
+-- order by nombre desc;
+-- order by nombre asc;
+-- order by edad;
+-- order by edad desc;
+-- order by edad desc, apellido;
+-- order by id desc;
+order by nombre desc, apellido, edad desc;
+
+insert into clientes values (null, 'Ana', 'Gutierrez', 25);
+insert into clientes values (null, 'Ana', 'Lopez', 23);
+
+
+/* ------------------------------------------------------ */
+/*        SELECT:WHERE -> predicado de la consulta        */
+/* ------------------------------------------------------ */
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana';		# filtro por igual (case insensitive)
+where nombre <> 'ana'			# filtro por distinto (case insensitive)
+order by edad desc
+limit 5;
+
+# --------------------------------------------------------------------------------------------------------
+# WHERE con operadores aritméticos y relacionales ( = , < , > , <= , >=, <> ) sirven para campos numéricos
+
+select id, nombre, apellido, edad
+from clientes
+-- where edad = 29				# filtro por igual (sirve también para campos de texto)
+-- where edad > 29				# filtro por mayor
+-- where edad >= 29				# filtro por mayor ó igual
+-- where edad < 29				# filtro por menor
+-- where edad <= 29				# filtro por menor ó igual 
+where edad <> 29				# filtro por distinto (sirve también para campos de texto)
+order by edad;
+
+# --------------------------------------------------------------------------------------------------------
+# WHERE con operadores lógicos ó booleanos (and / or / not)
+
+-- AND
+select id, nombre, apellido, edad
+from clientes
+where nombre = 'ana' and edad > 22;		-- and (Y) -> intersección de condiciones
+
+-- OR
+select id, nombre, apellido, edad
+from clientes
+where nombre = 'ana' or nombre = 'diego';		-- or (Ó) -> unión de condiciones
+
+-- NOT
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana';
+-- where nombre <> 'ana';
+where not nombre = 'ana';				-- not (NO) -> negación de la condición
+
+-- NOT con OR
+select id, nombre, apellido, edad
+from clientes
+where not (nombre = 'ana' or nombre = 'diego');
+
+-- OR con AND
+select id, nombre, apellido, edad
+from clientes
+where (nombre = 'ana' and edad > 22 and apellido = 'lopez') or nombre = 'diego';
+
+-- NOT con OR con AND
+select id, nombre, apellido, edad
+from clientes
+where not (nombre = 'ana' and edad > 22 and apellido = 'lopez') or nombre = 'diego';
+
+/* ------------------------------------------------------------------------------------- */
+/*  SELECT:WHERE:IN -> permite simplificar la operación con or múltiple en una consulta  */
+/* ------------------------------------------------------------------------------------- */
+use mibasemartes;
+
+select id, nombre, apellido, edad
+from clientes
+-- where nombre = 'ana' or nombre = 'diego' or nombre = 'pedro';
+where nombre in ('ana','diego','pedro');
+
+select id, nombre, apellido, edad
+from clientes
+where nombre in ('ana');		-- es igual a -> where nombre = 'ana'
+
+select *
+from productos;
+
+select codigo, nombre, categoria, marca, precio
+from productos
+-- where marca in('noblex','lg','hitachi');
+where not marca in('noblex','lg','hitachi');
+
+/* --------------------------------------------- */
+/*              WHERE con BETWEEN                */
+/* --------------------------------------------- */
+select nombre, marca, precio
+from productos
+order by precio desc;
+
+select nombre, marca, precio
+from productos
+-- where precio >= 30000 and precio <= 50000
+where precio <= 50000 and precio >= 30000		-- los límites del intervalo no tienen que estar en orden
+order by precio desc;
+
+select nombre, marca, precio
+from productos
+where precio between 30000 and 50000	-- similar a -> where precio >= 30000 and precio <= 50000
+-- where precio between 50000 and 30000			-- no funciona, porque loslimites del intervalo tienen que estar en orden (primero el menor)
+order by precio desc;
+
+/* --------------------------------------------- */
+/*                WHERE con LIKE                 */
+/* --------------------------------------------- */
+select * from clientes;
+
+insert into clientes values (null, 'Adriana', 'Lopez', 28);
+insert into clientes values (null, 'Ana Cecilia', 'Paz', 26);
+insert into clientes values (null, 'Gabriel', 'Pieres', 31);
+insert into clientes values (null, 'Federico', 'Josep', 36);
+insert into clientes values (null, 'Marcelo', 'Pas', 28);
+
+select id, nombre, apellido, edad
+from clientes
+-- where nombre like 'a%';			# nombres que comiencen con el caracter 'a'
+-- where nombre like 'ana%';		# nombres que comiencen con los caracteres 'ana'
+-- where apellido like 'p%';		# apellidos que comiencen con el caracter 'p'
+-- where apellido like '%p%';		# apellidos que contengan el caracter 'p'
+-- where apellido like '%z';		# apellidos que terminen con el caracter 'z'
+-- where apellido like '%rez';		# apellidos que terminen con los caracteres 'rez'
+-- where apellido like '%re_';		# apellidos que terminen con los caracteres 're' más un caracter cualquiera
+-- where apellido like '%o_ez';		# apellidos que terminen con el caracter 'o' más un caracter cualquiera más los caracteres 'ez'
+-- where apellido like '%p_z';		# apellidos que terminen con el caracter 'p' más un caracter cualquiera más el caracter 'z'
+where apellido like '%p__';		# apellidos que terminen con el caracter 'p' más dos caracteres cualquiera
+
+/* -------------------------------------------------------------------------------------------------------*/
+/*  Consulta de una tabla perteneciente a otra base de datos, desde la base actual (sin utilizar el use)  */
+/* -------------------------------------------------------------------------------------------------------*/
+create database mibasemartes2;
+
+use mibasemartes2;
+
+create table clientes(
+	id int unsigned not null auto_increment,
+	nombre varchar(50) not null,
+    apellido varchar(50) not null,
+    edad int unsigned not null,
+    primary key(id)
+);
+
+desc clientes;
+
+select * from clientes;
+
+insert into clientes values ( null, 'Mariela', 'Blanco', 34 ),
+							( null, 'Analia', 'Sierra', 29 ),
+							( null, 'German', 'Alberca', 27 ),
+							( null, 'Carlos', 'Fernandez', 36 );
+
+
+-- estas dos consultas son DEPENDIENTES de la base actualmente seleccionada con 'use'
+use mibasemartes;
+select * from clientes;
+
+use mibasemartes2;
+select * from clientes;
+
+-- estas dos consultas son INDEPENDIENTES de la base actualmente seleccionada con 'use'
+select * from mibasemartes.clientes;
+select * from mibasemartes2.clientes;
+
+/* ---------------------------------------------------- */
+/*   Valor NULL (null) : búsqueda y campos literales    */
+/* ---------------------------------------------------- */
+desc clientes;
+
+select * from clientes;
+
+alter table clientes modify edad int unsigned null;
+
+insert into clientes values (null, 'Marcela', 'Gomez', null);
+insert into clientes values (9, 'Pepe', 'Landi', null);
+
+-- null en búsquedas
+select id, nombre, apellido, edad from clientes where edad = null;	# no es la forma de buscar un campo con contenido null
+select id, nombre, apellido, edad from clientes where edad is null;	# es la forma correcta de buscar un campo con contenido null
+
+-- null en campos literales
+select id, nombre, apellido, edad, edad + 2 as 'EDAD EN DOS AÑOS' from clientes;
+select id, nombre, apellido, edad, ifnull(edad + 2,'No se especificó la edad') as 'EDAD EN DOS AÑOS' from clientes;
+
+
+/* ------------------------------------------------------- */
+/*                    UPDATE y DELETE                      */
+/* ------------------------------------------------------- */
+-- https://codigosql.com/blog/sentencias-ddl-y-dml/
+
+use mibasemartes;
+
+select * from clientes;
+
+select id, nombre, apellido, edad from clientes where edad is null;
+
+update clientes set edad = 33 where id = 20;
+-- update clientes set edad = 29 where id = 9;
+
+set SQL_SAFE_UPDATES = 0;	# deshabilito el modo seguro (para permitir actualización masivas)
+update clientes set edad = 29 where nombre = 'pepe';
+set SQL_SAFE_UPDATES = 1;	# lo habilito nuevamente
+
+-- UPDATE seguro con rollback
+begin;
+set SQL_SAFE_UPDATES = 0;	# deshabilito el modo seguro (para permitir actualización masivas)
+update clientes set edad = 31 where nombre = 'pepe';
+set SQL_SAFE_UPDATES = 1;	# lo habilito nuevamente
+
+select * from clientes;
+rollback;
+
+-- UPDATE definitivo
+set SQL_SAFE_UPDATES = 0;	# deshabilito el modo seguro (para permitir actualización masivas)
+update clientes set edad = 31 where nombre = 'pepe';
+set SQL_SAFE_UPDATES = 1;	# lo habilito nuevamente
+
+select * from clientes;
+
+/* ----------------------------------------------------------- */
+/*             DELETE vs. TRUNCATE  vs.  DROP                  */
+/* ----------------------------------------------------------- */
+desc productos;
+select * from productos;
+
+rename table productos to articulos;
+desc articulos;
+select * from articulos;
+
+create table productos(
+	id int unsigned not null auto_increment,
+    nombre varchar(50) not null,
+    marca varchar(50) not null,
+    categoria varchar(50) not null,
+    descripcion varchar(50) not null,
+    codigo varchar(50) not null,
+    precio float unsigned not null,
+    primary key(id)
+);
+
+desc productos;
+
+alter table productos modify codigo int unsigned not null;
+alter table productos modify descripcion varchar(250) not null;
+alter table productos change codigo codigos int(9) unsigned not null;
+alter table productos change codigos codigo int(9) unsigned not null;
+alter table productos add stock int unsigned not null;
+
+select * from productos;
+
+insert into productos values
+# id	nombre						marca			categoria			descripcion						codigo		precio		stock
+( null,	'SmartPhone Samsung A5',	'Samsung',		'telefonia',		'Telefono inteligente 3G',		1,			12000,		44 ),
+( null, 'TV Samsung 29P',			'Samsung',		'televisores',		'Televisor LCD 29 Pulgadas',	2,			27000,		32 ),
+( null,	'SmartPhone Motorola E6',	'Motorola',		'telefonia',		'Telefono inteligente 3G',		7,			17000,		25 ),
+( null, 'TV Philips 33P',			'Philips',		'televisores',		'Televisor LCD 33 Pulgadas',	9,			42000,		43 ),
+( null,	'SmartPhone Huawei P30',	'Huawei',		'telefonia',		'Telefono inteligente 4G',		12,			31000,		100 );
+
+select * from productos;
+
+select * from productos where categoria = 'telefonia';
+
+update productos set categoria = 'celulares' where id = 1;
+update productos set categoria = 'celulares' where id = 3;
+update productos set categoria = 'celulares' where id = 5;
+
+set SQL_SAFE_UPDATES = 0;
+update productos set categoria = 'celulares' where categoria = 'telefonia';
+set SQL_SAFE_UPDATES = 1;
+
+
+desc productos;
+select * from productos;
+
+/* ------ DROP ------- */
+drop table productos;
+
+/* ------ TRUNCATE ------- */
+truncate productos;
+
+/* ------ DELETE ------- */
+set SQL_SAFE_UPDATES = 0;
+delete from productos;
+set SQL_SAFE_UPDATES = 1;
+
+
+/* -------------------------------------------------------- */
+/*            funciones count() y group_concat()            */
+/* -------------------------------------------------------- */
+select * from productos;
+
+select count(id) as 'Cantidad total de productos' from productos;
+select count(*) as 'Cantidad total de productos' from productos;
+
+select count(id) as 'Cantidad de productos de la marca Samsung', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'samsung';
+
+select count(id) as 'Cantidad de productos de la marca Motorola', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'Motorola';
+
+select count(id) as 'Cantidad de productos de la marca Philips', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'philips';
+
+select count(id) as 'Cantidad de productos de la marca Huawei', group_concat(nombre) as NOMBRES
+from productos
+where marca = 'huawei';
+
+select count(id) as 'Cantidad de productos de la marca Samsung y Philips', group_concat(nombre) as NOMBRES
+from productos
+-- where marca = 'samsung' or marca = 'Philips';
+where marca in ('samsung','Philips');
+
+select 
+	count(id) as 'Cantidad total de productos', 
+    group_concat(nombre) as NOMBRES 
+from productos;
+
+
+/* -------------------------------------------- */
+/*                  GROUP BY                    */ 
+/* -------------------------------------------- */
+select marca as MARCAS, count(*) as 'Cantidad de productos por marca', group_concat(nombre) as NOMBRES
+from productos
+group by marca;
+
+select categoria as 'CATEGORÍAS', count(*) as 'Cantidad de productos por categoría', group_concat(nombre) as NOMBRES
+from productos
+group by categoria;
+
+select descripcion as 'DESCRIPCIÓN', count(*) as 'Cantidad de productos por descripción', group_concat(nombre) as NOMBRES
+from productos
+group by descripcion;
+
+
+insert into productos values
+# id	nombre						marca			categoria			descripcion						codigo		precio		stock
+( null,	'SmartPhone Samsung A6',	'Samsung',		'celulares',		'Telefono inteligente 4G',		11,			16000,		21 ),
+( null, 'TV Samsung 33P',			'Samsung',		'televisores',		'Televisor LCD 33 Pulgadas',	22,			28000,		103 ),
+( null,	'SmartPhone Motorola E7',	'Motorola',		'celulares',		'Telefono inteligente 4G',		37,			19000,		52 ),
+( null, 'TV Philips 42P',			'Philips',		'televisores',		'Televisor LCD 42 Pulgadas',	49,			49000,		20 ),
+( null,	'SmartPhone Huawei SmartP',	'Huawei',		'celulares',		'Telefono inteligente 3G',		52,			36500,		63 );
+
+insert into productos values
+# id	nombre						marca			categoria			descripcion						codigo		precio		stock
+( null,	'SmartPhone Samsung A55',	'Samsung',		'celulares',		'Telefono inteligente 3G',		111,		21000,		17 );
+
+select
+	marca as MARCAS,
+    categoria as 'CATEGORÍAS',
+    count(*) as 'Cantidad de productos por M/C',
+    group_concat(nombre) as NOMBRES
+from productos
+group by marca, categoria;
+
+select
+	nombre as NOMBRES,
+	marca as MARCAS,
+    categoria as 'CATEGORÍAS',
+    count(*) as 'Cantidad de productos por N/M/C'
+from productos
+group by nombre, marca, categoria;
+
+select  * from productos;
+
+delete from productos where id = 11;
+
+
+/* ------------------------------------------------------------------- */
+/*          función min(), max(), avg(), sum(), round()                */
+/* ------------------------------------------------------------------- */
+use mibasemartes;
+
+select * from productos
+order by precio desc;
+
+select * from productos
+order by stock desc;
+
+/* ----- max() ------ */
+select max(precio) as 'Precio más alto'
+from productos;
+
+select max(stock) as 'Stock más alto'
+from productos;
+
+/* ----- min() ------ */
+select min(precio) as 'Precio más bajo'
+from productos;
+
+select min(stock) as 'Stock más bajo'
+from productos;
+
+/* ----- sum() ------ */
+select sum(precio) as 'Precio total'
+from productos;
+
+select sum(stock) as 'Stock total'
+from productos;
+
+/* ----- avg() ------ */
+select round(avg(precio),2) as 'Precio promedio'
+from productos;
+
+select round(avg(stock),0) as 'Stock promedio'
+from productos;
+
+
+/* -------- ejemplo integrador --------- */
+select 
+	marca as MARCAS,
+    categoria as 'CATEGORÍAS',
+    count(id) as 'Cantidad de productos por M/C',
+    min(precio) as 'Precio mínimo por M/C',
+    max(precio) as 'Precio máximo por M/C',
+    sum(precio) as 'Precio total por M/C',
+    round(avg(precio),2) as 'Precio promedio por M/C',
+    group_concat(nombre) as NOMBRES
+from productos
+-- where marca = 'samsung'
+group by marca, categoria
+order by marca desc, categoria desc
+-- limit 1
+-- offset 1
+;
+
+select * from productos where marca = 'samsung' and categoria = 'celulares';
+
+
+/* --------------------------------------------------- */
+/*            https://onecompiler.com/mysql            */
+/* --------------------------------------------------- */
+
+select '' as '--- show databases ---';
+show databases;
+select '' as '----------------------';
+
+select '' as '--- show tables ---';
+show tables;
+select '' as '-------------------';
+
+-- create
+CREATE TABLE EMPLOYEE (
+  empId INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  apellido text not null,
+  dept TEXT NOT NULL,
+  fecha date,
+  sueldo float
+);
+
+
+select '' as '--- show tables ---';
+show tables;
+select '' as '-------------------';
+
+
+-- insert
+INSERT INTO EMPLOYEE VALUES (0001, 'Clark','Mei','Sales','2022-09-05',120000.00);
+INSERT INTO EMPLOYEE VALUES (0002, 'Dave','Blanco','Account','2022-10-06',130000.00);
+INSERT INTO EMPLOYEE VALUES (0003, 'Ava','Alberca','Sales','2019-10-22',220000.00);
+INSERT INTO EMPLOYEE VALUES (0004, 'Tom','Gomez','Account','2020-11-27',290000.00);
+INSERT INTO EMPLOYEE VALUES (0005, 'Tom','Picos','Account','2022-09-27',290000.00);
+INSERT INTO EMPLOYEE VALUES (0006, 'Tom','Perez','Sales','2020-12-28', null);
+
+-- fetch 
+SELECT * FROM EMPLOYEE WHERE dept = 'Sales';
+
+
+/* -------------- OPERACIONES CON FECHAS ------------------- */
+select '' as '';
+select '' as '1) OPERACIONES CON FECHAS';
+
+
+select * from employee;
+select '' as '';
+
+select * from employee
+-- where fecha >= '2022-09-01' and fecha <= '2022-10-31'
+where fecha between '2022-09-01' and '2022-10-31'
+order by fecha desc;
+
+
+/* ----------- FUNCIONES: left, right y substring ------------ */
+select '' as '';
+select '' as '2) FUNCIONES: left, right y substring';
+
+
+select
+  name as NOMBRES,
+  left(name,2),
+  right(name,2) ,
+  substring(name,2,2)
+from employee;
+
+select '' as '';
+
+select *
+from employee
+where name like 'a%';
+
+select *
+from employee
+where left(name,1) = 'a';
+
+select *
+from employee
+where left(name,1) between 'a' and 'd'
+order by name;
+
+
+/* ----------- FUNCIONES: concat, year, month y day ------------ */
+select '' as '';
+select '' as '3) FUNCIONES: concat, year, month y day';
+
+select  concat(name, ' ', apellido) as NyA, dept, fecha, sueldo
+from employee
+where year(fecha) = 2022 and month(fecha) = 9 and day(fecha) = 27;
+
+
+/* ----------- distinct y count ------------ */
+select '' as '';
+select '' as '4) distinct y count';
+
+
+select name as 'NOMBRES DIFERENTES (group by)'
+from employee
+group by name
+order by name;
+select '' as '';
+
+select distinct name as 'NOMBRES DIFERENTES (distinct)'
+from employee
+order by name;
+select '' as '';
+
+
+select count(*) as 'CANTIDAD DE EMPLEADOS (*)'
+from employee;
+select '' as '';
+
+select count(empId) as 'CANTIDAD DE EMPLEADOS (empId)'
+from employee;
+select '' as '';
+
+select count(fecha) as 'CANTIDAD DE EMPLEADOS (fecha)'
+from employee;
+select '' as '';
+
+select count(name) as 'CANTIDAD DE EMPLEADOS (name)'
+from employee;
+select '' as '';
+
+select count(sueldo) as 'CANTIDAD DE EMPLEADOS (sueldo)'
+from employee;
+select '' as '';
+
+select count(distinct name) as 'CANTIDAD DE EMPLEADOS CON NOMBRES DISTINTOS (distinct name)'
+from employee;
+select '' as '';
+
+
+/* ----------- UPDATE: aumentar todos los sueldos un 20% ------------ */
+select '' as '';
+select '' as '5) UPDATE';
+
+
+select empId, name, sueldo
+from employee;
+
+update employee
+set sueldo = 300000.00
+where empId = 6;
+
+select '' as '';
+
+select empId, name, sueldo
+from employee;
+
+
+update employee
+set sueldo = sueldo * 1.2    -- para todos
+where empId = 4             -- sólo para Tom de empId = 4
+;
+
+select '' as '';
+
+select empId, name, sueldo
+from employee;
+
+/* ------------------------------------------- */
+/*      Clonación de una tabla existente       */
+/* ------------------------------------------- */
+select * from productos;
+desc productos;
+
+# 1era. Forma
+create table productos_clon like productos;	-- cloné la estructura
+desc productos_clon;
+select * from productos_clon;
+insert into productos_clon select * from productos;	-- cloné todo el contenido
+
+# 2da. Forma
+create table productos_clon2 select * from productos;	-- cloné la estructura y el contenido a la vez
+desc productos_clon2;
+select * from productos_clon2;
+
+create table mibasemartes2.productos select * from productos;
+select * from mibasemartes2.productos;
+
+drop table mibasemartes2.productos;
+drop table mibasemartes.productos_clon2;
+
+/* ------------------------------------------- */
+/*   Clonación de una base de datos existente  */
+/* ------------------------------------------- */
+# 1er. paso: abrir una consola ejecutando en comando cmd en windows (Windows+R)
+# 2do. paso: desde la consola abierta ir a la ruta: C:\xampp\mysql\bin> con cd
+# 3er. paso: ejecutar mysqldump.exe -u root -p mibasemartes > mibasemartes.bak
+# 4to. paso: en mysqlworkbench crear una base de datos que va recibir la información de la base 
+#            que queremos restaurar desde el archivo bak creado.
+create database mibasemartes_clon;
+# 5to. paso: desde la consola del sistema operativo ejecutar: mysql.exe -u root -p mibasemartes_clon < mibasemartes.bak
+
+desc mibasemartes_clon.productos;
+select * from mibasemartes_clon.productos;
+
+desc mibasemartes_clon.clientes;
+select * from mibasemartes_clon.clientes;
+
+use mibasemartes_clon;
+show tables;
+
+use mibasemartes;
+
+/* ----------------------------------------*/
+/*                HAVING                   */
+/* ----------------------------------------*/
+select codigo, descripcion, nombre, precio, precio * 0.21 as IVA
+from productos
+-- where precio > 20000
+-- having precio > 20000
+-- where IVA > 5000;				-- no funciona: porque where no soporta alias de campos literales
+-- where (precio * 0.21) > 5000		-- funciona: porque where soporta operaciones sobre campos existentes
+having IVA > 5000					-- having extiende el funcionamiento del where para permitir su uso en alias de campos literales
+
+-- order by precio desc;
+order by IVA desc;					-- order by soporta campos existentes y alias de campos literales
+
+
+/* -------------------------------------------------------- */
+/*  DETECCIÓN Y BORRADO DE REGISTROS DUPLICADOS CON HAVING  */
+/* -------------------------------------------------------- */
+select * from productos;
+SELECT * FROM PRODUCTOS;
+
+insert into productos values
+# id	nombre						marca			categoria			descripcion						codigo		precio		stock
+( null,	'SmartPhone Samsung A55',	'Samsung',		'celulares',		'Telefono inteligente 3G',		111,		21000,		17 );
+
+select nombre, descripcion, count(id) as TOTAL_PRODUCTOS_ND, group_concat(id) as IDs
+from productos
+group by nombre, descripcion
+having TOTAL_PRODUCTOS_ND > 1;
+
+/* ---------------------------------------------- */
+/*     BORRADO MANUAL DEL REGISTRO DUPLICADO      */
+delete from productos where id = 12;
+
+/* -------------------------------------------------- */
+/*     BORRADO AUTOMÁTICO DEL REGISTRO DUPLICADO      */
+
+select id
+from productos
+group by nombre, descripcion
+having count(id) > 1;
+
+-- No es la forma correcta de realizar el borrado automático (estamos seleccionando la misma información que simultaneamente borramos)
+delete from productos where id = (
+	select id
+	from productos
+	group by nombre, descripcion
+	having count(id) > 1
+);
+
+-- Solución: crear una tabla temporal para realizar la consulta previa del registro a borrar
+drop table borrar_prods;
+create temporary table borrar_prods
+	select id
+	from productos
+	group by nombre, descripcion
+	having count(id) > 1;
+
+desc borrar_prods;
+select * from borrar_prods;
+
+delete from productos where id = (
+	select id
+	from borrar_prods
+);
+
+/* -------------------------------------------- */
+/*                SUBCONSULTAS                  */
+/* -------------------------------------------- */
+select nombre, precio from productos order by precio desc;
+
+-- -----------------------------------------------------------------
+-- Ejemplo 1: determinar el nombre y el precio del producto más caro
+-- -----------------------------------------------------------------
+-- usando subconsultas
+select nombre as 'Producto de precio más alto', precio
+from productos
+where precio = (
+	select max(precio)
+	from productos
+);
+
+-- usando order by y limit (con un sólo select)
+select nombre as 'Producto de precio más alto', precio
+from productos
+order by precio desc
+limit 1;
+
+-- -------------------------------------------------------------------
+-- Ejemplo 2: determinar el nombre y el precio del producto más barato
+-- -------------------------------------------------------------------
+-- usando subconsultas
+select nombre as 'Producto de precio más bajo', precio
+from productos
+where precio = (
+	select min(precio)
+	from productos
+);
+
+-- usando order by y limit (con un sólo select)
+select nombre as 'Producto de precio más alto', precio
+from productos
+order by precio -- asc
+limit 1;
+
+/* --------------------------------------------------------------------------------------------------------- */
+/*  Creación de usuarios del motor de base de datos para acceder en forma restringida a la visisibilidad     */
+/*  y el uso de sus recursos (base de datos, tablas, etc) y de sus operaciones (select, insert, create, etc) */
+/* --------------------------------------------------------------------------------------------------------- */
+use mibasemartes;
+
+-- creación de un usuario
+create user 'Augusto'@localhost identified by '234';
+-- cambio de contraseña al usuario
+alter user 'Augusto'@localhost identified by '345';
+-- eliminación del usuario
+drop user 'Augusto'@localhost;
+
+-- revisar los permisos del usuarios creado
+show grants for 'Augusto'@localhost;
+
+-- conceder al usuario creado los permisos necesarios para acceder a los recursos y sus operaciones
+-- ////////////////////////////////////////////////////////////////////
+--  En caso de que de un error debido a una configuración erronea en
+--  alguna base de datos, ejecutar en línea de comandos:
+--  abrimos una consola cmd (windows+R) e ir a C:\xampp\mysql\bin>
+--  ejecutar: >mysqlcheck -u root -p --all-databases --auto-repair 
+-- ////////////////////////////////////////////////////////////////////
+grant all privileges on mibasemartes.* to 'Augusto'@localhost;
+grant all privileges on mibasemartes.clientes to 'Augusto'@localhost;
+grant select, update on mibasemartes.clientes to 'Augusto'@localhost;
+
+-- revocar o quitar los permisos para el usuario
+revoke all privileges, grant option from 'Augusto'@localhost;
+
+-- confirmar los cambios de permisos al motor de base de datos
+flush privileges;
+
+/* --------------------------------- */
+/*     BASES Y TABLAS DEL SISTEMA    */
+/* --------------------------------- */
+show databases;
+
+-- mostrar los usuarios disponibles
+use mysql;
+show tables;
+
+select * from user;
+select * from mysql.user;
+select user, password, host from mysql.user order by user;
+
+-- mostrar las tablas existentes (pertenecientes a una base de datos)
+use mibasemartes;
+show tables;
+show tables like 'articulos';
+
+show databases;
+
+use information_schema;
+show tables;
+
+select * from tables;
+
+select table_name as TABLAS from tables where table_schema = 'mibasemartes';
+select table_name as TABLAS from information_schema.tables where table_schema = 'mibasemartes';
+
+-- determinar si una tabla existe o no en la base de datos indicada
+select 
+	count(*) as EXISTE
+from information_schema.tables
+where table_schema = 'mibasemartes' and table_name = 'clientes';
+
+
+/* -------------------------------------------------- */
+/*    Uso de condicionales en los campos literales    */
+/* -------------------------------------------------- */
+use mibasemartes;
+
+select * from productos;
+
+select id, nombre, marca, categoria, stock, if(stock=0,'NO HAY STOCK','ok') as 'Estado de stock'
+from productos;
+
+select id, nombre, marca, categoria, stock, if(stock<30,'NO HAY STOCK MÍNIMO','ok') as 'Estado de stock mínimo'
+from productos;
+
+select 
+	nombre as NOMBRES, 
+    stock as STOCK, 
+    if(stock<30,'NO HAY STOCK MÍNIMO','ok') as 'Estado de stock mínimo',
+    if(stock=0,'NO HAY STOCK','ok') as 'Estado de stock general'
+from productos;
+
+-- condicionales literales anidados
+select 
+	nombre as NOMBRES, 
+    stock as STOCK, 
+    if(
+		stock<30,			-- condición 1
+			if(				-- verdadero condición 1
+				stock=0,	-- condición 2
+				'NO HAY STOCK',			-- verdadero condición 2
+				'NO HAY STOCK MÍNIMO'	-- falso condición 2
+			),
+			'ok'			-- falso condición 1
+	) 
+	as 'Estado de stock'
+    
+from productos;
+
+set SQL_SAFE_UPDATES = 0;
+update productos set categoria = 'celulares' where categoria = 'telefonia';
+set SQL_SAFE_UPDATES = 1;
+
+update productos set stock = 0 where id = 24;
+
+-- determinar si una tabla existe o no en la base de datos indicada
+select 
+	if(count(*) = 0,'No','Si') as EXISTE
+from information_schema.tables
+where table_schema = 'mibasemartes' and table_name = 'clientes';
+
+/* ------------------------------------------------------ */
+/*       RELACIONES: Claves foráneas ó foreign key        */
+/* ------------------------------------------------------ */
+desc productos;
+select * from productos;
+
+rename table productos to items;
+
+desc items;
+select * from items;
+
+create table empresas(
+	id int unsigned not null,
+    nombre varchar(30),
+    ciudad varchar(30),
+    email varchar(40),
+    telefono varchar(40),
+    primary key(id)
+);
+
+drop table empresas;
+desc empresas;
+
+insert into empresas values
+# id (*)	nombre				ciudad			email						telefono
+( 18,		'Sancor',			'Bs As',		'sancor@gmail.com',			'+12345'),
+( 20,		'Molinos',			'Santa Fe',		'molinos@gmail.com',		'+23456'),
+( 22,		'La Serenisima',	'Corboda',		'laserenisima@gmail.com',	'+34567');
+
+select * from empresas;
+
+create table productos(
+	id int unsigned not null auto_increment,
+    nombre varchar(40),
+    precio float,
+    stock int unsigned,
+    empresa_id int unsigned not null, 
+    primary key (id),
+    foreign key(empresa_id) references empresas(id)
+);
+
+drop table productos;
+desc productos;
+
+insert into productos values
+# id		nombre		precio		stock		empresa_id (*)
+( null,		'DDL',		12.34,		55,			18 ),
+( null,		'Harina',	13.45,		67,			20 ),
+( null,		'Leche',	14.70,		32,			22 ),
+( null,		'Manteca',	12.23,		12,			18 );
+
+select * from productos;
+
+insert into productos values
+# id		nombre		precio		stock		empresa_id (*)
+( null,		'Crema',	19.43,		99,			22 );
+
+
+/* --------------------------------------------- */
+/*       CONSULTA COMBINADA ó RELACIONAL         */
+/* --------------------------------------------- */
+use mibasemartes;
+
+select
+	-- p.id as 'PRODUCTO ID',
+    p.nombre as NOMBRES,
+    p.precio as PRECIO,
+    p.stock as STOCK,
+    p.categoria as 'CATEGORÍA',
+    -- p.empresa_id as 'CLAVE FORÁNEA',
+	-- e.id as 'EMPRESA ID',
+    e.nombre as 'COMPAÑIA',
+    e.ciudad as CIUDAD,
+    e.email as CORREO,
+    e.telefono as CONTACTO
+from productos as p
+inner join empresas as e
+on p.empresa_id = e.id
+where e.nombre in ('molinos','la serenisima') and p.precio < 19
+order by e.nombre, p.nombre desc;
+
+update empresas set telefono = '+11227' where id = 22;
+
+/* ------------------------------------------------------------- */
+/*  Otro ejemplo de consulta relacional sobre plataforma online  */
+/* ------------------------------------------------------------- */
+-- https://www.programiz.com/sql/online-compiler/
+
+-- insert into customers values (6, 'Juan','Perez',23,'AR');
+-- insert into orders values (6, 'DDR5', 1000, 6);
+-- insert into shippings values (6, 'Pending', 6);
+-- update shippings set status = 'Delivered' where shipping_id = 6;
+
+select
+	o.order_id as '# ORDEN',
+    o.item as PRODUCTO,
+    o.amount as CANTIDAD,
+    c.first_name as NOMBRE,
+    c.last_name as APELLIDO,
+    c.age as EDAD,
+    c.country as 'PAÍS',
+    s.status as 'ESTADO ENVÍO'
+from orders as o
+inner join customers as c
+on o.customer_id = c.customer_id
+inner join shippings as s
+on s.customer = c.customer_id;
+
+-- --------------------- alter -----------------------
+desc productos;
+select * from productos;
+
+/* Agregar un campo ó columna a una tabla existente */
+alter table productos add categorias varchar(30) not null;
+
+/* Cambiar el nombre ó tipo de dato/restricción del campo o columna en una tabla existente */
+alter table productos change categorias categoria varchar(40) not null;
+alter table productos change categoria categoria varchar(50) not null;
+alter table productos modify categoria varchar(60) null;
+
+desc productos;
+select * from productos;
+
+update productos set categoria = 'Harinas' where id = 2;
+
+update productos set categoria = 'Lacteos' where id = 1;
+update productos set categoria = 'Lacteos' where id = 3;
+update productos set categoria = 'Lacteos' where id = 4;
+update productos set categoria = 'Lacteos' where id = 5;
+
+set SQL_SAFE_UPDATES = 0;
+update productos set categoria = 'Lacteos' where id <> 2;
+set SQL_SAFE_UPDATES = 1;
+
+/* --------------------------------------------------------------------------------------------------------- */
+/*          Acceso al motor de base de datos desde un cliente consola (CLI) utilizando mysql.exe             */
+/* --------------------------------------------------------------------------------------------------------- */
+-- 1er. paso: abrir una consola del sistema operativo ( ejecutando cmd con windows+R -> símbolo del sistema )
+-- 2do. paso: ir a la carpeta de utilidades binarias de MySQL: cd C:\xampp\mysql\bin>
+-- 3er. paso: ejecutamos en ese lugar: mysql.exe -u root
+/* --------------------------------------------------------------------------------------------------------- */
+/*
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 10
+Server version: 10.4.25-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mibase             |
+| mibase2            |
+| mibaselm           |
+| mibaselm2          |
+| mibaselm_copia     |
+| mibasemartes       |
+| mibasemartes2      |
+| mibasemartes_clon  |
+| mibasemj           |
+| mibasemj2          |
+| mibasemj_clon      |
+| mibasemv           |
+| mibasemv2          |
+| mibasemv_clon      |
+| mibasesabado       |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+20 rows in set (0.002 sec)
+
+MariaDB [(none)]> use mibasemartes;
+Database changed
+MariaDB [mibasemartes]> show tables;
++------------------------+
+| Tables_in_mibasemartes |
++------------------------+
+| articulos              |
+| clientes               |
+| empresas               |
+| facturas               |
+| items                  |
+| personas               |
+| productos              |
+| productos_clon         |
+| productos_clon2        |
+| prueba                 |
++------------------------+
+10 rows in set (0.000 sec)
+
+MariaDB [mibasemartes]> select * from productos;
++----+---------+--------+-------+------------+-----------+
+| id | nombre  | precio | stock | empresa_id | categoria |
++----+---------+--------+-------+------------+-----------+
+|  1 | DDL     |  12.34 |    55 |         18 | Lacteos   |
+|  2 | Harina  |  13.45 |    67 |         20 | Harinas   |
+|  3 | Leche   |   14.7 |    32 |         22 | Lacteos   |
+|  4 | Manteca |  12.23 |    12 |         18 | Lacteos   |
+|  5 | Crema   |  19.43 |    99 |         22 | Lacteos   |
++----+---------+--------+-------+------------+-----------+
+5 rows in set (0.000 sec)
+
+MariaDB [mibasemartes]> select * from productos where precio < 19;
++----+---------+--------+-------+------------+-----------+
+| id | nombre  | precio | stock | empresa_id | categoria |
++----+---------+--------+-------+------------+-----------+
+|  1 | DDL     |  12.34 |    55 |         18 | Lacteos   |
+|  2 | Harina  |  13.45 |    67 |         20 | Harinas   |
+|  3 | Leche   |   14.7 |    32 |         22 | Lacteos   |
+|  4 | Manteca |  12.23 |    12 |         18 | Lacteos   |
++----+---------+--------+-------+------------+-----------+
+4 rows in set (0.001 sec)
+
+MariaDB [mibasemartes]> select nombre, precio from productos where precio < 19;
++---------+--------+
+| nombre  | precio |
++---------+--------+
+| DDL     |  12.34 |
+| Harina  |  13.45 |
+| Leche   |   14.7 |
+| Manteca |  12.23 |
++---------+--------+
+4 rows in set (0.001 sec)
+
+MariaDB [mibasemartes]> select nombre, precio from productos where precio < 19 order by precio desc;
++---------+--------+
+| nombre  | precio |
++---------+--------+
+| Leche   |   14.7 |
+| Harina  |  13.45 |
+| DDL     |  12.34 |
+| Manteca |  12.23 |
++---------+--------+
+4 rows in set (0.001 sec)
+
+MariaDB [mibasemartes]> select p.nombre as NOMBRES, p.precio as PRECIO, p.stock as STOCK, p.categoria as 'CATEGORÍA', e.nombre as 'COMPAÑIA', e.ciudad as CIUDAD, e.email as CORREO, e.telefono as CONTACTO from productos as p inner join empresas as e on p.empresa_id = e.id where e.nombre in ('molinos','la serenisima') and p.precio < 19 order by e.nombre, p.nombre desc;
++---------+--------+-------+-----------+---------------+----------+------------------------+----------+
+| NOMBRES | PRECIO | STOCK | CATEGORÍA | COMPAÑIA      | CIUDAD   | CORREO                 | CONTACTO |
++---------+--------+-------+-----------+---------------+----------+------------------------+----------+
+| Leche   |   14.7 |    32 | Lacteos   | La Serenisima | Corboda  | laserenisima@gmail.com | +11227   |
+| Harina  |  13.45 |    67 | Harinas   | Molinos       | Santa Fe | molinos@gmail.com      | +23456   |
++---------+--------+-------+-----------+---------------+----------+------------------------+----------+
+2 rows in set (0.000 sec)
+
+MariaDB [mibasemartes]>
+*/
+
+select * from productos;
+
+insert into productos values
+# id		nombre		precio		stock		empresa_id (*)		categoria		fecha
+( null,		'Queso',	21.43,		44,			18, 				'Lacteos',		null );
+
+insert into productos values
+# id		nombre		precio		stock		empresa_id (*)		categoria		fecha
+( null,		'Fideos',	23.43,		77,			20, 				'Harinas',		'2023-10-18 11:00:00');
+
+
+/* -------------------------------------------- */
+/*                    VISTAS                    */  
+/* -------------------------------------------- */
+select
+    p.nombre as PRODUCTO,
+    e.nombre as PROVEEDOR
+from productos as p
+inner join empresas as e
+on p.empresa_id = e.id;
+
+select * from productos;
+select * from empresas;
+
+create view vista_productos as 
+	select
+		p.nombre as PRODUCTO,
+		e.nombre as PROVEEDOR
+	from productos as p
+	inner join empresas as e
+	on p.empresa_id = e.id;
+
+desc vista_productos;
+
+select * from vista_productos;
+select * from vista_productos where PROVEEDOR = 'sancor';
+select * from vista_productos where PROVEEDOR in ('sancor', 'molinos') order by PRODUCTO desc;
+
+select PROVEEDOR, PRODUCTO, precio from vista_productos;
+
+/* -------------------------------------------------------- */
+/*  Crear un usuario que acceda sólo a esta vista generada  */
+/* -------------------------------------------------------- */
+create user 'Antonio'@localhost identified by '789';
+grant select on mibasemartes.vista_productos to 'Antonio'@localhost;
+flush privileges;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
